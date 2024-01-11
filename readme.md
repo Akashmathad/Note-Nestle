@@ -18,47 +18,6 @@ NoteNestle is a MERN (MongoDB, Express.js, React, Node.js) stack-based college n
 - **React**: Frontend library for building user interfaces and interactive components.
 - **Node.js**: JavaScript runtime for server-side development.
 
-## Installation
-
-1. **Clone the repository:**
-
-   ```bash
-   git clone https://github.com/yourusername/NoteNestle.git
-   ```
-
-2. **Navigate to the project directory:**
-
-   ```bash
-   cd NoteNestle
-   ```
-
-3. **Install dependencies:**
-
-   ```bash
-   cd server && npm install
-   cd ../client && npm install
-   ```
-
-4. **Set up the MongoDB database and update configuration files accordingly.**
-
-5. **Start the server:**
-
-   ```bash
-   cd ../server && npm start
-   ```
-
-6. **Start the client:**
-
-   ```bash
-   cd ../client && npm start
-   ```
-
-7. **Open your browser and visit `http://localhost:3000` to access NoteNestle.**
-
-## Contributing
-
-We welcome contributions from the community. If you'd like to contribute to NoteNestle, please follow our [contribution guidelines](CONTRIBUTING.md).
-
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
