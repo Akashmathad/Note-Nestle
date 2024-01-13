@@ -28,7 +28,7 @@ app.use(xss());
 
 app.use(compression());
 
-app.use('/api/v1/note-nestle/subject', subjectRouter);
+app.use('/api/v1/note-nestle/subjects', subjectRouter);
 
 app.get('/', (req, res) => res.send('Hello World!'));
 

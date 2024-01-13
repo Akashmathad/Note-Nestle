@@ -20,7 +20,7 @@ const unitSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  pdfs: [pdfSchema],
+  files: [pdfSchema],
 });
 
 const subjectSchema = new mongoose.Schema({
