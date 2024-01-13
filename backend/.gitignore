@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 prettier.config.cjs
+config.env
 
 # Editor directories and files
 .vscode/*
