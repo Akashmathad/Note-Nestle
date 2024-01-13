@@ -5,6 +5,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const compression = require('compression');
 const cors = require('cors');
+const AppError = require('./utils/appError');
 
 const subjectRouter = require('./routes/subjectRoutes');
 
