@@ -6,6 +6,8 @@ const xss = require('xss-clean');
 const compression = require('compression');
 const cors = require('cors');
 
+const subjectRouter = require('./routes/subjectRoutes');
+
 const app = express();
 
 app.use(cors());
@@ -25,7 +27,7 @@ app.use(xss());
 
 app.use(compression());
 
-const port = 3000;
+app.use('/api/v1/note-nestle/subject', subjectRouter);
 
 app.get('/', (req, res) => res.send('Hello World!'));
 
