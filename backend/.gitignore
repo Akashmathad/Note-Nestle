@@ -15,6 +15,7 @@ prettier.config.cjs
 config.env
 *.ppt
 *.pdf
+*.pptx
 
 # Editor directories and files
 .vscode/*

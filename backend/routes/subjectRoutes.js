@@ -15,4 +15,16 @@ router
 
 router.route('/file/:subjectId/:unitId/:fileId').get(subjectController.getFile);
 
+router
+  .route('/deleteFiles/:subjectId/:unitId')
+  .delete(subjectController.deleteFiles);
+
+router
+  .route('/deleteUnit/:subjectId/:unitId')
+  .delete(subjectController.deleteUnit);
+
+router
+  .route('/deleteSubject/:subjectId')
+  .delete(subjectController.deleteSubject);
+
 module.exports = router;
