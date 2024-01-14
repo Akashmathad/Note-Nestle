@@ -8,9 +8,17 @@ const fs = require('fs');
 const mime = require('mime-types');
 
 exports.getSubjects = catchAsync(async (req, res, next) => {
+  const features = new APIFeatures(Subject.find(), req.query)
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
+
+  const subjects = await features.query;
+
   res.status(200).json({
     status: 'success',
-    message: 'Hello world!',
+    data: subjects,
   });
 });
 
@@ -55,7 +63,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-exports.uploadFiles = upload.single('file'); // Add the multer middleware here
+exports.uploadFiles = upload.single('file');
 
 exports.handleFileUpload = catchAsync(async (req, res, next) => {
   const subjectId = req.params.subjectId;
