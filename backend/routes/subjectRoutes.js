@@ -1,9 +1,12 @@
 const express = require('express');
 const subjectController = require('./../controllers/subjectController');
+const authController = require('./../controllers/authController');
 
 const router = express.Router();
 
-router.route('/').get(subjectController.getSubjects);
+router
+  .route('/')
+  .get(authController.verifyToken, subjectController.getSubjects);
 
 router.route('/createSubject').post(subjectController.createSubject);
 

@@ -8,6 +8,7 @@ const cors = require('cors');
 const AppError = require('./utils/appError');
 
 const subjectRouter = require('./routes/subjectRoutes');
+const authRouter = require('./routes/authRoutes');
 
 const app = express();
 
@@ -30,7 +31,7 @@ app.use(compression());
 
 app.use('/api/v1/note-nestle/subjects', subjectRouter);
 
-app.get('/', (req, res) => res.send('Hello World!'));
+app.use('/api/v1/note-nestle/auth', authRouter);
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
