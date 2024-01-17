@@ -11,4 +11,10 @@ router
   .post(authController.uploadExcel, authController.uploadStudents);
 router.route('/login').post(authController.studentLogin);
 
+router.route('/deleteStudent').post(authController.deleteStudent);
+
+router
+  .route('/deleteStudents')
+  .post(authController.uploadExcel, authController.deleteStudents);
+
 module.exports = router;

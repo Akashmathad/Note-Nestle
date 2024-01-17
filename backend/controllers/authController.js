@@ -116,3 +116,39 @@ exports.uploadStudents = catchAsync(async (req, res, next) => {
     message: 'Student records created successfully',
   });
 });
+
+exports.deleteStudent = catchAsync(async (req, res, next) => {
+  const collegeId = req.body.collegeId;
+  await Student.findOneAndDelete({ collegeId });
+  res.status(204).json({
+    status: 'success',
+    data: null,
+  });
+});
+
+exports.deleteStudents = catchAsync(async (req, res, next) => {
+  const teacherAccess =
+    req.body.teacherAccess !== undefined ? req.body.teacherAccess : false;
+
+  if (!req.file) {
+    return res
+      .status(400)
+      .json({ status: 'fail', message: 'No file uploaded' });
+  }
+
+  // Parse the Excel file from buffer
+  const workbook = xlsx.read(req.file.buffer, { type: 'buffer' });
+  const sheetName = workbook.SheetNames[0];
+  const excelData = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName]);
+
+  // Create student records
+  for (const record of excelData) {
+    const { collegeId } = record;
+    await Student.findOneAndDelete({ collegeId });
+  }
+
+  res.status(204).json({
+    status: 'success',
+    message: 'Student records deleted successfully',
+  });
+});
