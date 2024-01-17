@@ -30,4 +30,9 @@ router
   .route('/deleteSubject/:subjectId')
   .delete(subjectController.deleteSubject);
 
+router.route('/addSubjectToArray').post(subjectController.addSubjectToArray);
+router
+  .route('/deleteSubjectToArray')
+  .post(subjectController.deleteSubjectToArray);
+
 module.exports = router;

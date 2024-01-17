@@ -6,6 +6,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const mime = require('mime-types');
+const Student = require('../models/studentModel');
 
 exports.getSubjects = catchAsync(async (req, res, next) => {
   const features = new APIFeatures(Subject.find(), req.query)
@@ -213,4 +214,30 @@ exports.deleteSubject = catchAsync(async (req, res, next) => {
   await Subject.findByIdAndDelete(subjectId);
 
   res.status(204).json({ status: 'success', data: null });
+});
+
+exports.addSubjectToArray = catchAsync(async (req, res, next) => {
+  const collegeId = req.body.collegeId;
+
+  const student = await Student.findOne({ collegeId });
+
+  student.subjects.push(req.body.subject);
+
+  await student.save();
+
+  res.status(201).json({ status: 'success', data: student });
+});
+
+exports.deleteSubjectToArray = catchAsync(async (req, res, next) => {
+  const collegeId = req.body.collegeId;
+
+  const student = await Student.findOne({ collegeId });
+
+  student.subjects = student.subjects.filter(
+    (subject) => subject !== req.body.subject
+  );
+
+  await student.save();
+
+  res.status(201).json({ status: 'success', data: student });
 });
