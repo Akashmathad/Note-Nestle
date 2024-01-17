@@ -27,7 +27,7 @@ const studentSchema = new mongoose.Schema({
     default: [],
     validate: {
       validator: function (arr) {
-        // Check if there are no duplicate elements in the array
+        // Check if there are no duplicate elements within the same array
         return new Set(arr).size === arr.length;
       },
       message: 'Subjects array must have unique elements.',

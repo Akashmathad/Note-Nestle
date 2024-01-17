@@ -86,6 +86,9 @@ const upload = multer({ storage: storage });
 exports.uploadExcel = upload.single('excelFile');
 
 exports.uploadStudents = catchAsync(async (req, res, next) => {
+  const teacherAccess =
+    req.body.teacherAccess !== undefined ? req.body.teacherAccess : false;
+
   if (!req.file) {
     return res
       .status(400)
@@ -100,7 +103,12 @@ exports.uploadStudents = catchAsync(async (req, res, next) => {
   // Create student records
   for (const record of excelData) {
     const { name, collegeId, password } = record;
-    await Student.create({ name, collegeId, password });
+    await Student.create({
+      name,
+      collegeId,
+      password,
+      teacherAccess,
+    });
   }
 
   res.status(200).json({
