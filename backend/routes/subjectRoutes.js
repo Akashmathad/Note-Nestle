@@ -35,4 +35,13 @@ router
   .route('/deleteSubjectToArray')
   .post(subjectController.deleteSubjectToArray);
 
+// feedback routes
+
+router
+  .route('/feedbacks')
+  .post(subjectController.addFeedback)
+  .get(subjectController.getFeedbacks);
+
+router.route('/feedbacks/:feedbackId').delete(subjectController.deleteFeedback);
+
 module.exports = router;

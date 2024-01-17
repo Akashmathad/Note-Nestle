@@ -7,6 +7,7 @@ const path = require('path');
 const fs = require('fs');
 const mime = require('mime-types');
 const Student = require('../models/studentModel');
+const Feedback = require('../models/feedbackModel');
 
 exports.getSubjects = catchAsync(async (req, res, next) => {
   const features = new APIFeatures(Subject.find(), req.query)
@@ -240,4 +241,36 @@ exports.deleteSubjectToArray = catchAsync(async (req, res, next) => {
   await student.save();
 
   res.status(201).json({ status: 'success', data: student });
+});
+
+//feedback controllers
+
+exports.getFeedbacks = catchAsync(async (req, res, next) => {
+  const feedbacks = await Feedback.find();
+
+  res.status(200).json({
+    status: 'success',
+    length: feedbacks.length,
+    data: feedbacks,
+  });
+});
+
+exports.addFeedback = catchAsync(async (req, res, next) => {
+  const feedback = await Feedback.create(req.body);
+
+  res.status(201).json({
+    status: 'success',
+    data: feedback,
+  });
+});
+
+exports.deleteFeedback = catchAsync(async (req, res, next) => {
+  const feedbackId = req.params.feedbackId;
+
+  await Feedback.findByIdAndDelete(feedbackId);
+
+  res.status(204).json({
+    status: 'success',
+    data: null,
+  });
 });
