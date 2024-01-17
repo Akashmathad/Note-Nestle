@@ -12,18 +12,16 @@ exports.verifyToken = catchAsync(async (req, res, next) => {
   const actualToken = token.split(' ')[1];
 
   if (!actualToken) {
-    return res.status(401).json({
-      status: 'fail',
-      message: 'Please loggin in to get access',
-    });
+    return next(
+      new AppError('You are not logged in! Please refresh to log in', 401)
+    );
   }
 
   jwt.verify(actualToken, process.env.SECRET_KEY, (err, decoded) => {
     if (err) {
-      return res.status(401).json({
-        status: 'fail',
-        message: 'Please loggin in to get access',
-      });
+      return next(
+        new AppError('You are not logged in! Please refresh to log in', 401)
+      );
     }
 
     req.user = decoded;
@@ -39,10 +37,7 @@ exports.studentLogin = catchAsync(async (req, res, next) => {
   console.log(user);
 
   if (!user || user.password !== password) {
-    return res.status(401).json({
-      status: 'fail',
-      message: 'Invalid username or password',
-    });
+    return next(new AppError('Incorrect college Id or password', 401));
   }
 
   const token = jwt.sign(
@@ -90,9 +85,7 @@ exports.uploadStudents = catchAsync(async (req, res, next) => {
     req.body.teacherAccess !== undefined ? req.body.teacherAccess : false;
 
   if (!req.file) {
-    return res
-      .status(400)
-      .json({ status: 'fail', message: 'No file uploaded' });
+    return next(new AppError('file not found', 404));
   }
 
   // Parse the Excel file from buffer
@@ -131,9 +124,7 @@ exports.deleteStudents = catchAsync(async (req, res, next) => {
     req.body.teacherAccess !== undefined ? req.body.teacherAccess : false;
 
   if (!req.file) {
-    return res
-      .status(400)
-      .json({ status: 'fail', message: 'No file uploaded' });
+    return next(new AppError('file not found', 404));
   }
 
   // Parse the Excel file from buffer

@@ -39,10 +39,7 @@ exports.createUnit = catchAsync(async (req, res, next) => {
   const subject = await Subject.findById(subjectId);
 
   if (!subject) {
-    return res.status(404).json({
-      status: fail,
-      message: 'Subject not found',
-    });
+    return next(new AppError('Subject not found', 404));
   }
 
   subject.units.push(req.body);
@@ -73,17 +70,17 @@ exports.handleFileUpload = catchAsync(async (req, res, next) => {
 
   const subject = await Subject.findById(subjectId);
   if (!subject) {
-    return res.status(404).json({ message: 'Subject not found' });
+    return next(new AppError('Subject not found', 404));
   }
 
   const unit = subject.units.id(unitId);
   if (!unit) {
-    return res.status(404).json({ message: 'Unit not found' });
+    return next(new AppError('Unit not found', 404));
   }
 
   // Ensure that req.file is available before accessing its properties
   if (!req.file) {
-    return res.status(400).json({ message: 'file not provided' });
+    return next(new AppError('File not found', 404));
   }
 
   const newFile = {
@@ -105,17 +102,17 @@ exports.getFile = catchAsync(async (req, res, next) => {
 
   const subject = await Subject.findById(subjectId);
   if (!subject) {
-    return res.status(404).json({ message: 'Subject not found' });
+    return next(new AppError('Subject not found', 404));
   }
 
   const unit = subject.units.id(unitId);
   if (!unit) {
-    return res.status(404).json({ message: 'Unit not found' });
+    return next(new AppError('Unit not found', 404));
   }
 
   const file = unit.files.id(fileId);
   if (!file) {
-    return res.status(404).json({ message: 'File not found' });
+    return next(new AppError('file not found', 404));
   }
 
   const filePath = path.join(__dirname, '..', file.fileUrl);
@@ -140,14 +137,12 @@ exports.deleteFiles = catchAsync(async (req, res, next) => {
 
   const subject = await Subject.findById(subjectId);
   if (!subject) {
-    return res.status(404).json({ message: 'Subject not found' });
+    return next(new AppError('Subject not found', 404));
   }
-
   const unit = subject.units.id(unitId);
   if (!unit) {
-    return res.status(404).json({ message: 'Unit not found' });
+    return next(new AppError('Unit not found', 404));
   }
-
   for (const fileId of deleteFiles) {
     const file = unit.files.id(fileId);
     if (file) {
@@ -170,12 +165,12 @@ exports.deleteUnit = catchAsync(async (req, res, next) => {
 
   const subject = await Subject.findById(subjectId);
   if (!subject) {
-    return res.status(404).json({ message: 'Subject not found' });
+    return next(new AppError('Subject not found', 404));
   }
 
   const unit = subject.units.id(unitId);
   if (!unit) {
-    return res.status(404).json({ message: 'Unit not found' });
+    return next(new AppError('Unit not found', 404));
   }
 
   for (const file of unit.files) {
@@ -198,7 +193,7 @@ exports.deleteSubject = catchAsync(async (req, res, next) => {
 
   const subject = await Subject.findById(subjectId);
   if (!subject) {
-    return res.status(404).json({ message: 'Subject not found' });
+    return next(new AppError('Subject not found', 404));
   }
 
   for (const unit of subject.units) {
@@ -221,6 +216,10 @@ exports.addSubjectToArray = catchAsync(async (req, res, next) => {
   const collegeId = req.body.collegeId;
 
   const student = await Student.findOne({ collegeId });
+
+  if (!student) {
+    return next(new AppError('User not found', 404));
+  }
 
   student.subjects.push(req.body.subject);
 

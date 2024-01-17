@@ -9,6 +9,7 @@ const AppError = require('./utils/appError');
 
 const subjectRouter = require('./routes/subjectRoutes');
 const authRouter = require('./routes/authRoutes');
+const globalErrorHandler = require('./controllers/errorController');
 
 const app = express();
 
@@ -36,5 +37,7 @@ app.use('/api/v1/note-nestle/auth', authRouter);
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
+
+app.use(globalErrorHandler);
 
 module.exports = app;
