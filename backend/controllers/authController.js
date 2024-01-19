@@ -30,6 +30,12 @@ exports.verifyToken = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.verifyTokenExpire = catchAsync(async (req, res, next) => {
+  res.status(200).json({
+    status: 'success',
+  });
+});
+
 exports.studentLogin = catchAsync(async (req, res, next) => {
   const { collegeId, password } = req.body;
 

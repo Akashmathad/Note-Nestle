@@ -3,7 +3,9 @@ const authController = require('./../controllers/authController');
 
 const router = express.Router();
 
-router.route('/').get((req, res) => res.send('hello student'));
+router
+  .route('/')
+  .get(authController.verifyToken, authController.verifyTokenExpire);
 
 //add single student
 router.route('/addStudent').post(authController.addStudent);
