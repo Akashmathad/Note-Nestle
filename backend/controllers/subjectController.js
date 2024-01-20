@@ -20,6 +20,7 @@ exports.getSubjects = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     status: 'success',
+    length: subjects.length,
     data: subjects,
   });
 });
