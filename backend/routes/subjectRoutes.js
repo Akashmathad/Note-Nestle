@@ -38,6 +38,10 @@ router
   .route('/deleteSubject/:subjectId')
   .delete(subjectController.deleteSubject);
 
+router
+  .route('/getSubjectArray/:collegeId')
+  .get(subjectController.getSubjectArray);
+
 // add subject to teacher array
 router.route('/addSubjectToArray').post(subjectController.addSubjectToArray);
 

@@ -212,6 +212,18 @@ exports.deleteSubject = catchAsync(async (req, res, next) => {
   res.status(204).json({ status: 'success', data: null });
 });
 
+exports.getSubjectArray = catchAsync(async (req, res, next) => {
+  const collegeId = req.params.collegeId;
+
+  const student = await Student.findOne({ collegeId });
+
+  if (!student) {
+    return next(new AppError('User not found', 404));
+  }
+
+  res.status(200).json({ status: 'success', subjects: student.subjects });
+});
+
 exports.addSubjectToArray = catchAsync(async (req, res, next) => {
   const collegeId = req.body.collegeId;
 
