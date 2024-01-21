@@ -1,12 +1,12 @@
-import { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../App';
-import Subject from '../features/Teacher Panel/Subject';
-import SubjectDisplay from '../features/Teacher Panel/SubjectDisplay';
-import AddSubject from '../features/Teacher Panel/AddSubject';
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../App";
+import Subject from "../features/Teacher Panel/Subject";
+import SubjectDisplay from "../features/Teacher Panel/SubjectDisplay";
+import AddSubject from "../features/Teacher Panel/AddSubject";
 
 function Teacherpage() {
   const { user, jwt } = useContext(AuthContext);
-  const [branch, setBranch] = useState('');
+  const [branch, setBranch] = useState("");
   const [subjects, setSubjects] = useState();
   const [id, setId] = useState();
   const [openSubject, setOpenSubject] = useState(false);
@@ -21,9 +21,9 @@ function Teacherpage() {
         const req = await fetch(
           `http://localhost:3000/api/v1/note-nestle/subjects?branch=${branch}&fields=_id,name`,
           {
-            method: 'GET',
+            method: "GET",
             headers: {
-              'content-type': 'application/json',
+              "content-type": "application/json",
               authorization: `Bearer ${jwt}`,
             },
           }
@@ -38,7 +38,7 @@ function Teacherpage() {
 
   return (
     <div>
-      <h1>Welcome, {user ? user.name : ''} </h1>
+      <h1>Welcome, {user ? user.name : ""} </h1>
       <select value={branch} onChange={(e) => setBranch(e.target.value)}>
         <option value="">Select Branch</option>
         <option value="CSE">CSE</option>
