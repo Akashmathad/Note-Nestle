@@ -6,13 +6,14 @@ import UploadFile from './UploadFile';
 import DeleteFiles from './DeleteFiles';
 import DeleteUnit from './DeleteUnit';
 import DeleteSubject from './DeleteSubject';
-import AddSubject from './AddSubject';
+import AddUnit from './AddUnit';
 
 const Subject = ({ params }) => {
   const { jwt } = useContext(AuthContext);
   const [subjectDetails, setSubjectDetails] = useState<any>();
   const [addUnitId, setAddUnitId] = useState<string>();
   const [openAddFile, setOpenAddFile] = useState<boolean>(false);
+  const [openAddUnit, setOpenAddUnit] = useState<boolean>(false);
 
   const [openDeleteFile, setOpenDeleteFile] = useState<boolean>(false);
   const [openDeleteUnit, setOpenDeleteUnit] = useState<boolean>(false);
@@ -56,6 +57,7 @@ const Subject = ({ params }) => {
     <div>
       <h2>{subjectDetails && subjectDetails.name}</h2>
       <p>Branch: {subjectDetails && subjectDetails.branch}</p>
+      <button onClick={() => setOpenAddUnit(true)}>Add Unit</button>
       <button onClick={() => setOpenDeleteUnit(true)}>Delete Unit</button>
       <button onClick={() => setOpenDeleteSubject(true)}>Delete Subject</button>
       {subjectDetails &&
@@ -77,6 +79,8 @@ const Subject = ({ params }) => {
           setOpenAddFile={setOpenAddFile}
         />
       )}
+
+      {openAddUnit && <AddUnit id={id} setOpenAddUnit={setOpenAddUnit} />}
 
       {openDeleteFile && addUnitId && (
         <DeleteFiles
