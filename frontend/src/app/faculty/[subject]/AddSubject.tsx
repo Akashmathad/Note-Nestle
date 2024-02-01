@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import { SheetContent, SheetClose, SheetFooter } from '@/components/ui/sheet';
+import { Button } from '@/components/ui/button';
 
-const AddSubject = ({ setOpenAddSubject }) => {
+const AddSubject = () => {
   const [name, setName] = useState<string>();
   const [branch, setBranch] = useState<string>();
 
-  async function handleSubmit(e) {
+  async function handleSubmit(e: any) {
     e.preventDefault();
     const data = { name, branch };
     if (!name || !branch) {
@@ -22,11 +23,13 @@ const AddSubject = ({ setOpenAddSubject }) => {
       }
     );
     console.log(req.ok);
-    setOpenAddSubject(false);
+    setName('');
+    setBranch('');
   }
 
   return (
-    <div>
+    <SheetContent side="top">
+      <p>Add Subject</p>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -48,10 +51,16 @@ const AddSubject = ({ setOpenAddSubject }) => {
           <option value="AE">AE</option>
           <option value="CE">CE</option>
         </select>
-        <button onClick={() => setOpenAddSubject(false)}>Cancel</button>
-        <button onClick={handleSubmit}>Submit</button>
+        <SheetFooter>
+          <SheetClose>
+            <Button type="button" variant="outline">
+              Close
+            </Button>
+          </SheetClose>
+          <Button type="submit">Submit</Button>
+        </SheetFooter>
       </form>
-    </div>
+    </SheetContent>
   );
 };
 

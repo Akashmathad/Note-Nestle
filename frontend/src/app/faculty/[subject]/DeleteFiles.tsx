@@ -1,7 +1,17 @@
 'use client';
+import {
+  AlertDialogFooter,
+  AlertDialogHeader,
+} from '@/components/ui/alert-dialog';
+import {
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogDescription,
+  AlertDialogTitle,
+} from '@radix-ui/react-alert-dialog';
 import React, { useState } from 'react';
 
-function DeleteFiles({ id, unitId, files, setOpenDeleteFile }) {
+function DeleteFiles({ id, unitId, files, unitName }) {
   const [selectedFiles, setSelectedFiles] = useState<Array<string>>([]);
 
   const handleCheckboxChange = (fileId) => {
@@ -15,7 +25,8 @@ function DeleteFiles({ id, unitId, files, setOpenDeleteFile }) {
     });
   };
 
-  async function handleDelete() {
+  async function handleDelete(e) {
+    e.preventDefault();
     const data = { fileIds: selectedFiles };
     const req = await fetch(
       `http://localhost:3000/api/v1/note-nestle/subjects/deleteFiles/${id}/${unitId}`,
@@ -28,31 +39,46 @@ function DeleteFiles({ id, unitId, files, setOpenDeleteFile }) {
       }
     );
     console.log(req.ok);
-    setOpenDeleteFile(false);
   }
 
   return (
-    <div>
-      <h2>Select Files to Delete:</h2>
-      <form>
-        {files.map((file) => (
-          <div key={file._id}>
-            <label>
-              <input
-                type="checkbox"
-                checked={selectedFiles.includes(file._id)}
-                onChange={() => handleCheckboxChange(file._id)}
-              />
-              {file.title}
-            </label>
-          </div>
-        ))}
-      </form>
-      <button onClick={() => setOpenDeleteFile(false)}>Cancel</button>
-      <button onClick={handleDelete} disabled={selectedFiles.length === 0}>
-        Delete Selected Files
-      </button>
-    </div>
+    <>
+      <AlertDialogHeader>
+        <AlertDialogTitle>Delete Files {unitName}</AlertDialogTitle>
+        <AlertDialogDescription>
+          Please select the files u want to delete.
+        </AlertDialogDescription>
+        <form>
+          {files.map((file) => (
+            <div key={file._id}>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={selectedFiles.includes(file._id)}
+                  onChange={() => handleCheckboxChange(file._id)}
+                />
+                {file.title}
+              </label>
+            </div>
+          ))}
+
+          {/* <button>Cancel</button>
+          <button onClick={handleDelete} disabled={selectedFiles.length === 0}>
+            Delete Selected Files
+          </button> */}
+        </form>
+      </AlertDialogHeader>
+      <AlertDialogFooter>
+        <AlertDialogCancel>Cancel</AlertDialogCancel>
+        <AlertDialogAction
+          onClick={handleDelete}
+          type="submit"
+          disabled={selectedFiles.length === 0}
+        >
+          Continue
+        </AlertDialogAction>
+      </AlertDialogFooter>
+    </>
   );
 }
 

@@ -8,16 +8,22 @@ import DeleteUnit from './DeleteUnit';
 import DeleteSubject from './DeleteSubject';
 import AddUnit from './AddUnit';
 
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Button } from '@/components/ui/button';
+
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
+
 const Subject = ({ params }) => {
   const { jwt } = useContext(AuthContext);
   const [subjectDetails, setSubjectDetails] = useState<any>();
   const [addUnitId, setAddUnitId] = useState<string>();
   const [openAddFile, setOpenAddFile] = useState<boolean>(false);
-  const [openAddUnit, setOpenAddUnit] = useState<boolean>(false);
 
   const [openDeleteFile, setOpenDeleteFile] = useState<boolean>(false);
-  const [openDeleteUnit, setOpenDeleteUnit] = useState<boolean>(false);
-  const [openDeleteSubject, setOpenDeleteSubject] = useState<boolean>(false);
   const id: string = params.subject;
 
   useEffect(
@@ -57,9 +63,35 @@ const Subject = ({ params }) => {
     <div>
       <h2>{subjectDetails && subjectDetails.name}</h2>
       <p>Branch: {subjectDetails && subjectDetails.branch}</p>
-      <button onClick={() => setOpenAddUnit(true)}>Add Unit</button>
-      <button onClick={() => setOpenDeleteUnit(true)}>Delete Unit</button>
-      <button onClick={() => setOpenDeleteSubject(true)}>Delete Subject</button>
+
+      <Sheet>
+        <SheetTrigger>
+          <Button>Add Unit</Button>
+        </SheetTrigger>
+        <SheetContent>
+          <AddUnit
+            id={id}
+            subjectName={subjectDetails && subjectDetails.name}
+          />
+        </SheetContent>
+      </Sheet>
+
+      <Sheet>
+        <SheetTrigger>
+          <Button>Delete Unit</Button>
+        </SheetTrigger>
+        <DeleteUnit id={id} subjectDetails={subjectDetails} />
+      </Sheet>
+
+      <AlertDialog>
+        <AlertDialogTrigger>
+          <Button>Delete Subject</Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <DeleteSubject id={id} name={subjectDetails && subjectDetails.name} />
+        </AlertDialogContent>
+      </AlertDialog>
+
       {subjectDetails &&
         subjectDetails.units.map((unit) => (
           <Unit
@@ -80,28 +112,12 @@ const Subject = ({ params }) => {
         />
       )}
 
-      {openAddUnit && <AddUnit id={id} setOpenAddUnit={setOpenAddUnit} />}
-
       {openDeleteFile && addUnitId && (
         <DeleteFiles
           id={id}
           unitId={addUnitId}
           files={getFiles(addUnitId)}
           setOpenDeleteFile={setOpenDeleteFile}
-        />
-      )}
-      {openDeleteUnit && (
-        <DeleteUnit
-          id={id}
-          setOpenDeleteUnit={setOpenDeleteUnit}
-          subjectDetails={subjectDetails}
-        />
-      )}
-      {openDeleteSubject && (
-        <DeleteSubject
-          id={id}
-          name={subjectDetails.name}
-          setOpenDeleteSubject={setOpenDeleteSubject}
         />
       )}
     </div>

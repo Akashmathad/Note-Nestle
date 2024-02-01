@@ -3,13 +3,19 @@ import { AuthContext } from '@/context/AuthContextContainer';
 import React, { useContext, useEffect, useState } from 'react';
 import SubjectDisplay from '@/app/faculty/[subject]/SubjectDisplay';
 import AddSubject from './[subject]/AddSubject';
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
 
 const FacultyPage = () => {
   const { user, jwt } = useContext(AuthContext);
   const [branch, setBranch] = useState<string>();
   const [subjects, setSubjects] = useState<any>([{}]);
-  const [openAddSubject, setOpenAddSubject] = useState<boolean>(false);
-
   useEffect(
     function () {
       async function fetchData() {
@@ -47,7 +53,10 @@ const FacultyPage = () => {
         <option value="AE">AE</option>
         <option value="CE">CE</option>
       </select>
-      <button onClick={() => setOpenAddSubject(true)}>Add Subject</button>
+      <Sheet>
+        <SheetTrigger>Add Subject</SheetTrigger>
+        <AddSubject />
+      </Sheet>
       {subjects && subjects.length > 0 ? (
         subjects.map((subject) => (
           <SubjectDisplay
@@ -59,7 +68,6 @@ const FacultyPage = () => {
       ) : (
         <p>No Subjects available</p>
       )}
-      {openAddSubject && <AddSubject setOpenAddSubject={setOpenAddSubject} />}
     </div>
   );
 };

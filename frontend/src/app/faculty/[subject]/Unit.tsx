@@ -1,4 +1,20 @@
+import { Button } from '@/components/ui/button';
 import FileDisplay from './FileDisplay';
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
+import UploadFile from './UploadFile';
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogTrigger,
+} from '@radix-ui/react-alert-dialog';
+import DeleteFiles from './DeleteFiles';
 
 function Unit({
   id,
@@ -31,24 +47,29 @@ function Unit({
           <FileDisplay id={id} unitId={unitId} file={file} key={file._id} />
         ))}
       </div>
-      <div>
-        <button
-          onClick={() => {
-            setAddUnitId(unitId);
-            setOpenAddFile(true);
-          }}
-        >
-          Add files
-        </button>
-      </div>
-      <button
-        onClick={() => {
-          setAddUnitId(unitId);
-          setOpenDeleteFile(true);
-        }}
-      >
-        Delete files
-      </button>
+
+      <Sheet>
+        <SheetTrigger>
+          <Button>Add Files</Button>
+        </SheetTrigger>
+        <SheetContent>
+          <UploadFile id={id} unitId={unitId} unitName={unit.name} />
+        </SheetContent>
+      </Sheet>
+
+      <AlertDialog>
+        <AlertDialogTrigger>
+          <Button>Delete Files</Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <DeleteFiles
+            id={id}
+            unitId={unitId}
+            files={files}
+            unitName={unit.name}
+          />
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
