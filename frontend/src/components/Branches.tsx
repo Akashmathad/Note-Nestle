@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import React from 'react';
+import { NavigationMenuLink } from '@/components/ui/navigation-menu';
 
-const Branches = ({ setOpenBranches }) => {
+const Branches = () => {
   const branches = [
     { branch: 'CSE', name: 'Computer Science' },
     { branch: 'ECE', name: 'Electronics and Communication' },
@@ -18,13 +19,11 @@ const Branches = ({ setOpenBranches }) => {
   return (
     <div>
       {branches.map((branch) => (
-        <Link
-          href={`/${branch.branch}`}
-          key={branch.branch}
-          onClick={() => setOpenBranches(false)}
-        >
-          {branch.name}
-        </Link>
+        <div key={branch.branch}>
+          <NavigationMenuLink className="block w-[16rem] hover:bg-slate-900">
+            <Link href={`/${branch.branch}`}>{branch.name}</Link>
+          </NavigationMenuLink>
+        </div>
       ))}
     </div>
   );

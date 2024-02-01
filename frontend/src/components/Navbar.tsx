@@ -1,59 +1,37 @@
 'use client';
-import React, { useContext, useEffect, useState } from 'react';
 import Link from 'next/link';
-import { AuthContext } from '@/context/AuthContextContainer';
 import Branches from './Branches';
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuIndicator,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  NavigationMenuViewport,
+} from '@/components/ui/navigation-menu';
 
 const Navbar = () => {
-  const { jwt } = useContext(AuthContext);
-  const [openBranches, setOpenBranches] = useState<boolean>(false);
-  const [subjects, setSubjects] = useState<any>();
-
-  console.log(subjects);
-
   return (
-    <>
-      <header className="padding-x py-8 absolute z-50 w-full">
-        <nav className="flex flex-end justify-between items-center max-container">
-          <Link
-            href="/"
-            className="font-heading font-bold leading-normal text-2xl text-white "
-          >
-            NOTE NESTLE
-          </Link>
-          <ul className="flex-1 flex justify-end items-center gap-16 max-lg:hidden">
-            <button
-              className="nav-link"
-              onClick={() => setOpenBranches(!openBranches)}
-            >
-              Branches
-            </button>
+    <div>
+      <Link href="/">Note Nestle</Link>
+      <NavigationMenu>
+        <NavigationMenuList>
+          <NavigationMenuItem>
+            <NavigationMenuTrigger>Branches</NavigationMenuTrigger>
+            <NavigationMenuContent className="p-4 bg-black text-white">
+              <Branches />
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>
 
-            <li>
-              <Link href="/faculty" className="nav-link ">
-                Faculty
-              </Link>
-            </li>
-            <li>
-              <Link href="/admin" className="nav-link">
-                Admins
-              </Link>
-            </li>
-            <li>
-              <a href="#feedback" className="nav-link ">
-                Feedback
-              </a>
-            </li>
-            <li>
-              <Link href="/aboutUs" className="nav-link">
-                About Us
-              </Link>
-            </li>
-          </ul>
-        </nav>
-      </header>
-      {openBranches && <Branches setOpenBranches={setOpenBranches} />}
-    </>
+      <Link href="/faculty">Faculty</Link>
+      <Link href="/admin">Admins</Link>
+      <Link href="/#feedback">Feedback</Link>
+      <Link href="/aboutUs">About Us</Link>
+    </div>
   );
 };
 

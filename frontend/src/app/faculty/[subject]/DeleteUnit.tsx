@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
+import {
+  SheetContent,
+  SheetClose,
+  SheetFooter,
+  SheetTitle,
+  SheetDescription,
+} from '@/components/ui/sheet';
+import { Button } from '@/components/ui/button';
 
-const DeleteUnit = ({ id, subjectDetails, setOpenDeleteUnit }) => {
+const DeleteUnit = ({ id, subjectDetails }) => {
   const [unitName, setUnitName] = useState<string>();
 
   async function handleDelete(unitId: string) {
@@ -12,26 +20,42 @@ const DeleteUnit = ({ id, subjectDetails, setOpenDeleteUnit }) => {
       }
     );
     console.log(req.ok);
+    setUnitName('');
   }
 
-  function handleSubmit() {
+  function handleSubmit(e) {
+    e.preventDefault();
     console.log(unitName);
     const unitId = subjectDetails.units.filter(
       (unit) => unit.name === unitName
     )[0]._id;
     handleDelete(unitId);
-    setOpenDeleteUnit(false);
   }
 
   return (
-    <div>
-      <p>
-        Enter the name of the unit which you want to delete (case sensitive)
-      </p>
-      <input type="text" onChange={(e) => setUnitName(e.target.value)} />
-      <button onClick={() => setOpenDeleteUnit(false)}>cancel</button>
-      <button onClick={handleSubmit}>Submit</button>
-    </div>
+    <SheetContent side="bottom">
+      <form onSubmit={handleSubmit}>
+        <SheetTitle>Delete Unit</SheetTitle>
+        <SheetDescription>
+          Enter the name of the unit you want to delete from{' '}
+          {subjectDetails && subjectDetails.name}. (Case sensitive)
+        </SheetDescription>
+        <input
+          type="text"
+          value={unitName}
+          onChange={(e) => setUnitName(e.target.value)}
+          placeholder="Enter the Unit name"
+        />
+        <SheetFooter>
+          <SheetClose>
+            <Button type="button" variant="outline">
+              Close
+            </Button>
+          </SheetClose>
+          <Button type="submit">Submit</Button>
+        </SheetFooter>
+      </form>
+    </SheetContent>
   );
 };
 

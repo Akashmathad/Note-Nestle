@@ -1,7 +1,14 @@
+import { Button } from '@/components/ui/button';
+import {
+  SheetClose,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from '@/components/ui/sheet';
 import { AuthContext } from '@/context/AuthContextContainer';
 import React, { useContext, useState } from 'react';
 
-function UploadFile({ id, unitId, setOpenAddFile }) {
+function UploadFile({ id, unitId, unitName }) {
   const { user } = useContext(AuthContext);
   const [title, setTitle] = useState<string>();
   const [file, setFile] = useState<any | null>();
@@ -26,13 +33,15 @@ function UploadFile({ id, unitId, setOpenAddFile }) {
     );
     const data = await req.json();
     console.log(data);
-    setOpenAddFile(false);
+    setTitle('');
+    setFile(null);
   }
 
   console.log(file);
 
   return (
-    <div>
+    <SheetHeader>
+      <SheetTitle>Add files ({unitName})</SheetTitle>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -41,10 +50,14 @@ function UploadFile({ id, unitId, setOpenAddFile }) {
           placeholder="Title"
         />
         <input type="file" onChange={(e) => setFile(e.target.files[0])} />
-        <button onClick={() => setOpenAddFile(false)}>Cancel</button>
-        <button type="submit">Submit</button>
+        <SheetClose>
+          <Button variant="outline" type="reset">
+            Cancel
+          </Button>
+        </SheetClose>
+        <Button type="submit">Submit</Button>
       </form>
-    </div>
+    </SheetHeader>
   );
 }
 

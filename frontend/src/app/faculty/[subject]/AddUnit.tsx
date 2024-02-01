@@ -1,10 +1,21 @@
 'use client';
+import { Button } from '@/components/ui/button';
 import React, { useState } from 'react';
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
 
-const AddUnit = ({ id, setOpenAddUnit }) => {
+const AddUnit = ({ id, subjectName }) => {
   const [name, setName] = useState<string>('');
 
-  async function handleSubmit() {
+  async function handleSubmit(e) {
+    e.preventDefault();
     const data = {
       name,
     };
@@ -19,20 +30,28 @@ const AddUnit = ({ id, setOpenAddUnit }) => {
       }
     );
     console.log(req.ok);
-    setOpenAddUnit(false);
+    setName('');
   }
 
   return (
-    <div>
-      <input
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Enter the name of the Unit"
-      />
-      <button onClick={() => setOpenAddUnit(false)}>Cancel</button>
-      <button onClick={handleSubmit}>Submit</button>
-    </div>
+    <SheetHeader>
+      <SheetTitle>Add Unit ({subjectName})</SheetTitle>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Enter the name of the Unit"
+          required
+        />
+        <SheetClose>
+          <Button variant="outline" type="reset">
+            Cancel
+          </Button>
+        </SheetClose>
+        <Button type="submit">Submit</Button>
+      </form>
+    </SheetHeader>
   );
 };
 
