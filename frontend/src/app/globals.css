@@ -33,6 +33,11 @@
     --ring: 0 0% 3.9%;
 
     --radius: 0.5rem;
+
+    --primary-text: black;
+    --secondary-text: #616161;
+    --border-new: #46464c;
+    --bg: #f2f2f2;
   }
 
   .dark {
@@ -63,6 +68,11 @@
     --border: 0 0% 14.9%;
     --input: 0 0% 14.9%;
     --ring: 0 0% 83.1%;
+
+    --primary-text: white;
+    --secondary-text: #999;
+    --border-new: #46464c;
+    --bg: black;
   }
 }
 
