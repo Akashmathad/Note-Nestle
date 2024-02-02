@@ -11,6 +11,7 @@ import {
   NavigationMenuTrigger,
   NavigationMenuViewport,
 } from '@/components/ui/navigation-menu';
+import { ModeToggle } from './ui/mode-toggle';
 
 const Navbar = () => {
   return (
@@ -31,6 +32,7 @@ const Navbar = () => {
       <Link href="/admin">Admins</Link>
       <Link href="/#feedback">Feedback</Link>
       <Link href="/aboutUs">About Us</Link>
+      <ModeToggle />
     </div>
   );
 };

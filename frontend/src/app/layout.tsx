@@ -4,6 +4,7 @@ import './globals.css';
 import AuthContextContainer from '@/context/AuthContextContainer';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { ThemeProvider } from '@/components/theme-provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,9 +22,16 @@ export default function RootLayout({
     <html lang="en">
       <AuthContextContainer>
         <body className={inter.className}>
-          <Navbar />
-          {children}
-          <Footer />
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Navbar />
+            {children}
+            <Footer />
+          </ThemeProvider>
         </body>
       </AuthContextContainer>
     </html>

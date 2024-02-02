@@ -28,7 +28,7 @@ const page = () => {
         ))}
       </section>
       <section id="feedback">
-        <h2>Feedback Section</h2>
+        <h2 className="text-3xl text-om">Feedback Section</h2>
         <Feedback />
       </section>
     </main>
