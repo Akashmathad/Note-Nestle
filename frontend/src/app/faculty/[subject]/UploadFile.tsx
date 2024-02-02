@@ -1,7 +1,9 @@
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
   SheetClose,
   SheetContent,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
 } from '@/components/ui/sheet';
@@ -43,19 +45,21 @@ function UploadFile({ id, unitId, unitName }) {
     <SheetHeader>
       <SheetTitle>Add files ({unitName})</SheetTitle>
       <form onSubmit={handleSubmit}>
-        <input
+        <Input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Title"
         />
-        <input type="file" onChange={(e) => setFile(e.target.files[0])} />
-        <SheetClose>
-          <Button variant="outline" type="reset">
-            Cancel
-          </Button>
-        </SheetClose>
-        <Button type="submit">Submit</Button>
+        <Input type="file" onChange={(e) => setFile(e.target.files[0])} />
+        <SheetFooter>
+          <SheetClose>
+            <Button variant="outline" type="reset">
+              Cancel
+            </Button>
+          </SheetClose>
+          <Button type="submit">Submit</Button>
+        </SheetFooter>
       </form>
     </SheetHeader>
   );

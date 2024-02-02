@@ -11,9 +11,16 @@ import {
 import UploadFile from './UploadFile';
 import {
   AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
   AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
   AlertDialogTrigger,
-} from '@radix-ui/react-alert-dialog';
+} from '@/components/ui/alert-dialog';
+
 import DeleteFiles from './DeleteFiles';
 
 function Unit({
@@ -58,17 +65,16 @@ function Unit({
       </Sheet>
 
       <AlertDialog>
-        <AlertDialogTrigger>
+        <AlertDialogTrigger asChild>
           <Button>Delete Files</Button>
         </AlertDialogTrigger>
-        <AlertDialogContent>
-          <DeleteFiles
-            id={id}
-            unitId={unitId}
-            files={files}
-            unitName={unit.name}
-          />
-        </AlertDialogContent>
+
+        <DeleteFiles
+          id={id}
+          unitId={unitId}
+          files={files}
+          unitName={unit.name}
+        />
       </AlertDialog>
     </div>
   );

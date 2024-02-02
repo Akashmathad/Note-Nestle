@@ -1,14 +1,16 @@
 'use client';
 import {
-  AlertDialogFooter,
-  AlertDialogHeader,
-} from '@/components/ui/alert-dialog';
-import {
+  AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
+  AlertDialogContent,
   AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
   AlertDialogTitle,
-} from '@radix-ui/react-alert-dialog';
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
+
 import React, { useState } from 'react';
 
 function DeleteFiles({ id, unitId, files, unitName }) {
@@ -42,13 +44,14 @@ function DeleteFiles({ id, unitId, files, unitName }) {
   }
 
   return (
-    <>
+    <AlertDialogContent>
       <AlertDialogHeader>
-        <AlertDialogTitle>Delete Files {unitName}</AlertDialogTitle>
+        <AlertDialogTitle>Delete Files ({unitName})</AlertDialogTitle>
         <AlertDialogDescription>
-          Please select the files u want to delete.
+          Select the files you want to delete from {unitName}.
         </AlertDialogDescription>
-        <form>
+
+        <form onSubmit={handleDelete}>
           {files.map((file) => (
             <div key={file._id}>
               <label>
@@ -61,24 +64,18 @@ function DeleteFiles({ id, unitId, files, unitName }) {
               </label>
             </div>
           ))}
-
-          {/* <button>Cancel</button>
-          <button onClick={handleDelete} disabled={selectedFiles.length === 0}>
-            Delete Selected Files
-          </button> */}
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              type="submit"
+              disabled={selectedFiles.length === 0}
+            >
+              Continue
+            </AlertDialogAction>
+          </AlertDialogFooter>
         </form>
       </AlertDialogHeader>
-      <AlertDialogFooter>
-        <AlertDialogCancel>Cancel</AlertDialogCancel>
-        <AlertDialogAction
-          onClick={handleDelete}
-          type="submit"
-          disabled={selectedFiles.length === 0}
-        >
-          Continue
-        </AlertDialogAction>
-      </AlertDialogFooter>
-    </>
+    </AlertDialogContent>
   );
 }
 

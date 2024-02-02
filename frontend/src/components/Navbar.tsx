@@ -21,7 +21,7 @@ const Navbar = () => {
         <NavigationMenuList>
           <NavigationMenuItem>
             <NavigationMenuTrigger>Branches</NavigationMenuTrigger>
-            <NavigationMenuContent className="p-4 bg-black text-white">
+            <NavigationMenuContent>
               <Branches />
             </NavigationMenuContent>
           </NavigationMenuItem>

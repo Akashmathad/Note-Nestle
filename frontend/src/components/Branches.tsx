@@ -17,15 +17,16 @@ const Branches = () => {
   ];
 
   return (
-    <div>
+    <>
       {branches.map((branch) => (
-        <div key={branch.branch}>
-          <NavigationMenuLink className="block w-[16rem] hover:bg-slate-900">
-            <Link href={`/${branch.branch}`}>{branch.name}</Link>
-          </NavigationMenuLink>
-        </div>
+        <NavigationMenuLink
+          className="block w-[16rem] hover:bg-accent"
+          key={branch.branch}
+        >
+          <Link href={`/${branch.branch}`}>{branch.name}</Link>
+        </NavigationMenuLink>
       ))}
-    </div>
+    </>
   );
 };
 
