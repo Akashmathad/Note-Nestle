@@ -17,33 +17,7 @@ import { X } from 'lucide-react';
 import { useState } from 'react';
 
 const Navbar = () => {
-<<<<<<< HEAD
-  return (
-    <div className="navbar-component w-full min-h-16 border-b-[1px] flex z-[1000] padding-x bg-bgN text-title top-0">
-      <div className="navbar-container justify-between align-middle mx-2 grid grid-cols-7 gap-4 ">
-        <Link
-          className=" py-[1.5rem] text-xl font-extrabold text-title"
-          href="/"
-        >
-          NOTE NESTLE
-        </Link>
-        <nav className="flex flex-end col-span-5 ml-20">
-          <NavigationMenu className="px-[3rem] py-[1rem] mb-1 hover:text-gray-400">
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-bgN  text-base">
-                  Branches
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <Branches />
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
-=======
   const [isMenuOpen, setIsMenuOpen] = useState(false);
->>>>>>> cb7bbd03f91f380787cd0e678286e45b2422cf93
-
   // Function to toggle the menu
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -62,7 +36,7 @@ const Navbar = () => {
             !isMenuOpen ? 'top-[9%]' : 'top-[-100%]'
           } md:w-auto w-full flex justify-center items-center text-center px-[0.3rem]`}
         >
-          <ul className="flex  md:flex-row flex-col  md:items-center md:gap-[4vw] gap-8">
+          <ul className="flex  md:flex-row flex-col  md:items-center md:gap-[3vw] gap-8">
             <li>
               <NavigationMenu>
                 <NavigationMenuList>
