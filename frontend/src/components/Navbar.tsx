@@ -27,7 +27,7 @@ const Navbar = () => {
           <NavigationMenu className="px-[3rem] py-[1rem] mb-1 hover:text-gray-400">
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavigationMenuTrigger className=" bg-bgN  text-base">
+                <NavigationMenuTrigger className="bg-bgN  text-base">
                   Branches
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>

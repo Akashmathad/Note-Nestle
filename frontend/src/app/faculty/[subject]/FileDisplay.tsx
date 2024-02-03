@@ -1,3 +1,5 @@
+import { Download } from 'lucide-react';
+
 function FileDisplay({ id, unitId, file }) {
   console.log(id, unitId, file);
   async function fileDownload() {
@@ -34,9 +36,16 @@ function FileDisplay({ id, unitId, file }) {
   }
 
   return (
-    <div onClick={fileDownload}>
-      <h3>{file.title}</h3>
-      <p>{file.ownerName}</p>
+    <div className="bg-bgN py-[1.5rem] flex flex-col items-center justify-center gap-[1rem] relative rounded-[9px] border border-borderN">
+      <h3 className="text-[1.5rem]">{file.title}</h3>
+      <div>
+        <p className="text-para">{file.ownerName}</p>
+        <Download
+          size={44}
+          className="absolute bottom-2 right-2 text-[3rem] bg-secondary p-[0.4rem] rounded-[9px] cursor-pointer"
+          onClick={fileDownload}
+        />
+      </div>
     </div>
   );
 }

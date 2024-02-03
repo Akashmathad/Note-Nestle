@@ -70,7 +70,7 @@
     --ring: 0 0% 83.1%;
 
     --primary-text: white;
-    --secondary-text: #999;
+    --secondary-text: #9f9f9f;
     --border-new: #46464c;
     --bg: black;
   }
@@ -134,4 +134,14 @@
   padding: 0;
   box-sizing: border-box;
   scroll-behavior: smooth;
+}
+
+body {
+  font-size: 1rem;
+}
+
+@media (max-width: 34em) {
+  html {
+    font-size: 80%;
+  }
 }
