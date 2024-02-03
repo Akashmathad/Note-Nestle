@@ -104,22 +104,6 @@ const Subject = ({ params }) => {
             setOpenDeleteFile={setOpenDeleteFile}
           />
         ))}
-      {openAddFile && (
-        <UploadFile
-          id={id}
-          unitId={addUnitId}
-          setOpenAddFile={setOpenAddFile}
-        />
-      )}
-
-      {openDeleteFile && addUnitId && (
-        <DeleteFiles
-          id={id}
-          unitId={addUnitId}
-          files={getFiles(addUnitId)}
-          setOpenDeleteFile={setOpenDeleteFile}
-        />
-      )}
     </div>
   );
 };

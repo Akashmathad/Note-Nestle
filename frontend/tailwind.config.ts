@@ -52,6 +52,11 @@ const config = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
+
+        title: 'var(--primary-text)',
+        para: 'var(--secondary-text)',
+        borderN: 'var(--border-new)',
+        bgN: 'var(--bg)',
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -72,6 +77,9 @@ const config = {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
+    },
+    fontFamily: {
+      fontPrimary: ['var(--font-fontPrimary)'],
     },
   },
   plugins: [require('tailwindcss-animate')],

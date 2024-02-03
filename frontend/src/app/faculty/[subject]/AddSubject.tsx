@@ -1,6 +1,21 @@
 import React, { useState } from 'react';
-import { SheetContent, SheetClose, SheetFooter } from '@/components/ui/sheet';
+import {
+  SheetContent,
+  SheetClose,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+} from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { SelectGroup, SelectLabel } from '@radix-ui/react-select';
+import { Input } from '@/components/ui/input';
 
 const AddSubject = () => {
   const [name, setName] = useState<string>();
@@ -31,26 +46,29 @@ const AddSubject = () => {
     <SheetContent side="top">
       <p>Add Subject</p>
       <form onSubmit={handleSubmit}>
-        <input
+        <Input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Title"
           required
         />
-        <select
-          value={branch}
-          onChange={(e) => setBranch(e.target.value)}
-          required
-        >
-          <option value="">Select Branch</option>
-          <option value="CSE">CSE</option>
-          <option value="ECE">ECE</option>
-          <option value="EEE">EEE</option>
-          <option value="ME">ME</option>
-          <option value="AE">AE</option>
-          <option value="CE">CE</option>
-        </select>
+        <Select value={branch} onValueChange={(e) => setBranch(e)}>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Select Branch" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Branches</SelectLabel>
+              <SelectItem value="CSE">CSE</SelectItem>
+              <SelectItem value="ECE">ECE</SelectItem>
+              <SelectItem value="EEE">EEE</SelectItem>
+              <SelectItem value="ME">ME</SelectItem>
+              <SelectItem value="AE">AE</SelectItem>
+              <SelectItem value="CE">CE</SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
         <SheetFooter>
           <SheetClose>
             <Button type="button" variant="outline">

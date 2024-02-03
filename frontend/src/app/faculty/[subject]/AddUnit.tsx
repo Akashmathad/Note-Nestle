@@ -6,10 +6,12 @@ import {
   SheetClose,
   SheetContent,
   SheetDescription,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
+import { Input } from '@/components/ui/input';
 
 const AddUnit = ({ id, subjectName }) => {
   const [name, setName] = useState<string>('');
@@ -37,19 +39,21 @@ const AddUnit = ({ id, subjectName }) => {
     <SheetHeader>
       <SheetTitle>Add Unit ({subjectName})</SheetTitle>
       <form onSubmit={handleSubmit}>
-        <input
+        <Input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Enter the name of the Unit"
           required
         />
-        <SheetClose>
-          <Button variant="outline" type="reset">
-            Cancel
-          </Button>
-        </SheetClose>
-        <Button type="submit">Submit</Button>
+        <SheetFooter>
+          <SheetClose>
+            <Button variant="outline" type="reset">
+              Cancel
+            </Button>
+          </SheetClose>
+          <Button type="submit">Submit</Button>
+        </SheetFooter>
       </form>
     </SheetHeader>
   );

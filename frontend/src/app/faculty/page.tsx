@@ -3,14 +3,16 @@ import { AuthContext } from '@/context/AuthContextContainer';
 import React, { useContext, useEffect, useState } from 'react';
 import SubjectDisplay from '@/app/faculty/[subject]/SubjectDisplay';
 import AddSubject from './[subject]/AddSubject';
+import { Sheet, SheetTrigger } from '@/components/ui/sheet';
+import { Button } from '@/components/ui/button';
 import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '@/components/ui/sheet';
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { SelectGroup, SelectLabel } from '@radix-ui/react-select';
 
 const FacultyPage = () => {
   const { user, jwt } = useContext(AuthContext);
@@ -44,17 +46,34 @@ const FacultyPage = () => {
     <div>
       {' '}
       <h1>Welcome, {user ? user.name : ''} </h1>
-      <select value={branch} onChange={(e) => setBranch(e.target.value)}>
-        <option value="">Select Branch</option>
+      {/* <select value={branch} onChange={(e) => setBranch(e.target.value)}>
         <option value="CSE">CSE</option>
         <option value="ECE">ECE</option>
         <option value="EEE">EEE</option>
         <option value="ME">ME</option>
         <option value="AE">AE</option>
         <option value="CE">CE</option>
-      </select>
+      </select> */}
+      <Select onValueChange={(e) => setBranch(e)}>
+        <SelectTrigger className="w-[180px]">
+          <SelectValue placeholder="Select Branch" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            <SelectLabel>Branches</SelectLabel>
+            <SelectItem value="CSE">CSE</SelectItem>
+            <SelectItem value="ECE">ECE</SelectItem>
+            <SelectItem value="EEE">EEE</SelectItem>
+            <SelectItem value="ME">ME</SelectItem>
+            <SelectItem value="AE">AE</SelectItem>
+            <SelectItem value="CE">CE</SelectItem>
+          </SelectGroup>
+        </SelectContent>
+      </Select>
       <Sheet>
-        <SheetTrigger>Add Subject</SheetTrigger>
+        <SheetTrigger>
+          <Button>Add Subject</Button>
+        </SheetTrigger>
         <AddSubject />
       </Sheet>
       {subjects && subjects.length > 0 ? (

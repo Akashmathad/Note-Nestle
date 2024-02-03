@@ -33,6 +33,11 @@
     --ring: 0 0% 3.9%;
 
     --radius: 0.5rem;
+
+    --primary-text: black;
+    --secondary-text: #616161;
+    --border-new: #46464c;
+    --bg: #f2f2f2;
   }
 
   .dark {
@@ -63,6 +68,11 @@
     --border: 0 0% 14.9%;
     --input: 0 0% 14.9%;
     --ring: 0 0% 83.1%;
+
+    --primary-text: white;
+    --secondary-text: #999;
+    --border-new: #46464c;
+    --bg: black;
   }
 }
 
@@ -73,4 +83,55 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@layer utilities {
+  .padding {
+    @apply sm:px-16 px-8 sm:py-24 py-12;
+  }
+
+  .padding-x {
+    @apply sm:px-16 px-8;
+  }
+
+  .padding-y {
+    @apply sm:py-24 py-12;
+  }
+
+  .padding-l {
+    @apply sm:pl-16 pl-8;
+  }
+
+  .padding-r {
+    @apply sm:pr-16 pr-8;
+  }
+
+  .padding-t {
+    @apply sm:pt-24 pt-12;
+  }
+
+  .padding-b {
+    @apply sm:pb-24 pb-12;
+  }
+
+  .nav-link {
+    @apply px-[3rem] py-[1.5rem]  text-base text-title  hover:text-gray-400;
+  }
+}
+@layer components {
+  .max-container {
+    max-width: 1604px;
+    margin: 0 auto;
+  }
+
+  .input {
+    @apply sm:flex-1 max-sm:w-full text-base leading-normal text-gray-600 pl-5 max-sm:p-5 outline-none sm:border-none border max-sm:border-gray-600 max-sm:rounded-full;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
 }
