@@ -10,7 +10,7 @@ const Branches = () => {
     { branch: 'ISE', name: 'Information Science' },
     { branch: 'ME', name: 'Mechanical' },
     { branch: 'CV', name: 'Civil' },
-    { branch: 'AE', name: 'Auronatical' },
+    { branch: 'AE', name: 'Aeronautical' },
     { branch: 'PHY', name: 'Phycics' },
     { branch: 'CHE', name: 'Chemistry' },
     { branch: 'MAT', name: 'Mathematics' },
@@ -20,7 +20,7 @@ const Branches = () => {
     <>
       {branches.map((branch) => (
         <NavigationMenuLink
-          className="block w-[16rem] hover:bg-accent"
+          className="block w-[18rem] hover:bg-accent border-b-[1px] py-2"
           key={branch.branch}
         >
           <Link href={`/${branch.branch}`}>{branch.name}</Link>
