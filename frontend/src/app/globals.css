@@ -114,12 +114,8 @@
     @apply sm:pb-24 pb-12;
   }
 
-  .info-text {
-    @apply font-montserrat text-slate-gray text-lg leading-7;
-  }
-
   .nav-link {
-    @apply font-para leading-normal text-base text-white  hover:text-gray-400;
+    @apply px-[3rem] py-[1.5rem]  text-base text-title  hover:text-gray-400;
   }
 }
 @layer components {
