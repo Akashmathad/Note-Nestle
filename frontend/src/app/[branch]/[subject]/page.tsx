@@ -41,7 +41,7 @@ const Subject = ({ params }) => {
         </h2>
         <Button onClick={() => router.push(`/${params.branch}`)}>Back</Button>
       </div>
-      <div className="py-[1rem] flex flex-col gap-[1rem]">
+      <div className="py-[1rem] flex flex-col gap-[1.5rem]">
         {subjectDetails &&
           subjectDetails.units.map((unit) => (
             <Unit

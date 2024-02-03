@@ -60,50 +60,63 @@ const Subject = ({ params }) => {
   console.log(subjectDetails);
 
   return (
-    <div>
-      <h2>{subjectDetails && subjectDetails.name}</h2>
-      <p>Branch: {subjectDetails && subjectDetails.branch}</p>
+    <div className="container py-[2rem]">
+      <div className="flex flex-col lg:flex-row items-center justify-between gap-[1rem]">
+        <h2 className="lg:text-[2.5rem] text-[1.8rem] font-fontPrimary leading-[1.2]">
+          {subjectDetails && subjectDetails.name}
+        </h2>
+        <div className="flex gap-[1.5rem] items-center">
+          <p className="text-[1.2rem]">
+            <span className="font-bold">
+              {subjectDetails && subjectDetails.branch}
+            </span>
+          </p>
+          <Sheet>
+            <SheetTrigger>
+              <Button>Add Unit</Button>
+            </SheetTrigger>
+            <SheetContent>
+              <AddUnit
+                id={id}
+                subjectName={subjectDetails && subjectDetails.name}
+              />
+            </SheetContent>
+          </Sheet>
 
-      <Sheet>
-        <SheetTrigger>
-          <Button>Add Unit</Button>
-        </SheetTrigger>
-        <SheetContent>
-          <AddUnit
-            id={id}
-            subjectName={subjectDetails && subjectDetails.name}
-          />
-        </SheetContent>
-      </Sheet>
+          <Sheet>
+            <SheetTrigger>
+              <Button variant="destructive">Delete Unit</Button>
+            </SheetTrigger>
+            <DeleteUnit id={id} subjectDetails={subjectDetails} />
+          </Sheet>
 
-      <Sheet>
-        <SheetTrigger>
-          <Button>Delete Unit</Button>
-        </SheetTrigger>
-        <DeleteUnit id={id} subjectDetails={subjectDetails} />
-      </Sheet>
-
-      <AlertDialog>
-        <AlertDialogTrigger>
-          <Button>Delete Subject</Button>
-        </AlertDialogTrigger>
-        <AlertDialogContent>
-          <DeleteSubject id={id} name={subjectDetails && subjectDetails.name} />
-        </AlertDialogContent>
-      </AlertDialog>
-
-      {subjectDetails &&
-        subjectDetails.units.map((unit) => (
-          <Unit
-            id={id}
-            unitId={unit._id}
-            unit={unit}
-            key={unit._id}
-            setOpenAddFile={setOpenAddFile}
-            setAddUnitId={setAddUnitId}
-            setOpenDeleteFile={setOpenDeleteFile}
-          />
-        ))}
+          <AlertDialog>
+            <AlertDialogTrigger>
+              <Button variant="destructive">Delete Subject</Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <DeleteSubject
+                id={id}
+                name={subjectDetails && subjectDetails.name}
+              />
+            </AlertDialogContent>
+          </AlertDialog>
+        </div>
+      </div>
+      <div className="py-[2rem] flex flex-col gap-[1.5rem]">
+        {subjectDetails &&
+          subjectDetails.units.map((unit) => (
+            <Unit
+              id={id}
+              unitId={unit._id}
+              unit={unit}
+              key={unit._id}
+              setOpenAddFile={setOpenAddFile}
+              setAddUnitId={setAddUnitId}
+              setOpenDeleteFile={setOpenDeleteFile}
+            />
+          ))}
+      </div>
     </div>
   );
 };
