@@ -112,6 +112,17 @@ const aboutUs = () => {
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt
               fugiat officia qui dolorum suscipit id itaque dolor.
             </p>
+            <p className="flex flex-row gap-4 mt-[3px] lg:mt-[5px]">
+              <a href="#">
+                <Github size={20} />
+              </a>
+              <a href="#">
+                <Twitter size={20} />
+              </a>
+              <a href="#">
+                <Linkedin size={20} />
+              </a>
+            </p>
           </div>
         </div>
       </div>
