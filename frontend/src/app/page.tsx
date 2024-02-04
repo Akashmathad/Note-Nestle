@@ -16,6 +16,7 @@ import {
   Users,
   BookOpenCheck,
   FileBarChart,
+  Laptop,
 } from 'lucide-react';
 
 const page = () => {
@@ -40,88 +41,77 @@ const page = () => {
   const branches = [
     {
       branch: 'CSE',
-      icon: <Laptop2 size={48} />,
+      icon: <Laptop2 size={48} strokeWidth={1} />,
       name: 'Computer Science',
-      description:
-        'Designs software and hardware systems, focusing on algorithms, programming, and artificial intelligence.',
+      description: 'Algorithmic problem-solving, data computation nexus.',
     },
     {
       branch: 'ECE',
-      icon: <Cpu size={48} />,
+      icon: <Cpu size={48} strokeWidth={1} />,
       name: 'Electronics and Communication',
-      description:
-        'Specializes in electronic circuits, communication systems, and signal processing for devices like smartphones.',
+      description: 'Electrical systems, circuits, communication technology.',
     },
     {
       branch: 'EEE',
-      icon: <RadioTower size={48} />,
+      icon: <RadioTower size={48} strokeWidth={1} />,
       name: 'Electrical and Electronics',
-      description:
-        'Deals with electrical systems, electronic devices, and integrated circuits, including power generation and control systems.',
+      description: 'Electricity, electronics, energy, systems, circuits.',
     },
     {
       branch: 'ISE',
-      icon: <Laptop2 size={48} />,
+      icon: <Laptop size={48} strokeWidth={1} />,
       name: 'Information Science',
-      description:
-        'Integrates computer science and information technology, emphasizing software development and database management.',
+      description: 'Software, algorithms, systems, programming, innovation.',
     },
     {
       branch: 'ME',
-      icon: <Wrench size={48} />,
+      icon: <Wrench size={48} strokeWidth={1} />,
       name: 'Mechanical',
-      description:
-        'Applies physical principles to design and manufacture mechanical systems, including machines, robotics, and renewable energy.',
+      description: 'Machines, systems, mechanics, design, manufacturing.',
     },
     {
       branch: 'CV',
-      icon: <Landmark size={48} />,
+      icon: <Landmark size={48} strokeWidth={1} />,
       name: 'Civil',
       description:
-        'Focuses on planning, designing, and constructing infrastructure projects such as bridges, buildings, and transportation systems.',
+        'Infrastructure, construction, structures, design, planning.',
     },
     {
       branch: 'AE',
-      icon: <Plane size={48} />,
+      icon: <Plane size={48} strokeWidth={1} />,
       name: 'Aeronautical',
-      description:
-        'Specializes in the design and development of aircraft and spacecraft, covering aerodynamics, avionics, and propulsion systems.',
+      description: 'Aircraft, aerospace, design, propulsion, aerodynamics.',
     },
     {
       branch: 'PHY',
-      icon: <Rocket size={48} />,
+      icon: <Rocket size={48} strokeWidth={1} />,
       name: 'Phycics',
-      description:
-        'Explores fundamental principles of matter and energy, including classical mechanics, electromagnetism, quantum mechanics.',
+      description: "Nature's fundamental laws, forces, energy, matter.",
     },
     {
       branch: 'CHE',
-      icon: <FlaskConical size={48} />,
+      icon: <FlaskConical size={48} strokeWidth={1} />,
       name: 'Chemistry',
       description:
-        "Studies matter's properties, composition, and behavior, including organic and inorganic chemistry, biochemistry, and materials science.",
+        'Molecules, reactions, elements, compounds, chemical concepts',
     },
     {
       branch: 'MAT',
-      icon: <Infinity size={48} />,
+      icon: <Infinity size={48} strokeWidth={1} />,
       name: 'Mathematics',
-      description:
-        'Investigates abstract structures through logical reasoning, covering algebra, calculus, geometry.',
+      description: 'Numbers, equations, patterns, logic, abstraction.',
     },
   ];
 
   return (
     <main className="bg-bgN">
-      <section
-        id="hero-section "
-        className="  lg:min-h-screen pb-[6rem] lg:pb-[9.6rem] bg-bgN"
-      >
+      <section id="hero-section " className="pb-[6rem] lg:pb-[9.6rem] bg-bgN">
         <div className=" container grid grid-col-1 lg:grid-cols-2 ">
           <div className="text-center justify-center items-center pt-[2.5rem] lg:pt-[10rem]">
             <h1 className="text-title text-[3rem] lg:text-[4.5rem] font-fontPrimary text-center">
               Note Nestle
             </h1>
-            <h2 className=" text-[1.5rem] lg:text-[2.25rem] mb-2 lg:mb-5 font-medium ">
+            <h2 className=" text-[1.5rem] lg:text-[2.25rem] mb-2 lg:mb-5 font-medium">
               Elevate Your Learning Experience
             </h2>
             <h2 className="text-[1rem] lg:text-[1.5rem] lg:mb-5 text-zinc-500">
@@ -135,8 +125,8 @@ const page = () => {
           </div>
         </div>
       </section>
-      <section className="min-h-screen bg-bgA pb-[4rem] lg:pb-[8rem] text-titleA">
-        <div className="container pt-[2.25rem] text-center">
+      <section className="py-[5rem] bg-bgA  text-titleA">
+        <div className="container  text-center">
           <h2 className="text-[2.5rem] lg:text-[3rem] font-fontPrimary pb-[3rem]">
             Statastics
           </h2>
@@ -147,11 +137,8 @@ const page = () => {
           </div>
         </div>
       </section>
-      <section
-        id="Branches"
-        className="min-h-screen pb-[4.5rem] lg:pb-[9.6rem] bg-bgN text-title"
-      >
-        <div className="container pt-[2.25rem] text-center">
+      <section id="Branches" className="bg-bgN text-title py-[5rem]">
+        <div className="container  text-center">
           <h2 className="text-[2.5rem] lg:text-[3rem] font-fontPrimary pb-[1.5rem]">
             Branches
           </h2>
@@ -162,16 +149,12 @@ const page = () => {
           </div>
         </div>
       </section>
-      <section
-        id="feedback"
-        className="lg:min-h-screen pt-[3rem] lg:pt-[6rem]  bg-bgA text-titleA"
-      >
-        <div className="container  text-center">
-          <h2 className="text-5xl text-om font-fontPrimary ">FeedBack</h2>
-
-          <div className="padding">
-            <Feedback />
-          </div>
+      <section id="feedback" className="bg-bgA text-titleA py-[2.5rem]">
+        <div className="container  text-center p-[2.5rem]">
+          <h2 className="text-[3rem] font-fontPrimary mb-[1.5rem]">
+            Feedback System
+          </h2>
+          <Feedback />
         </div>
       </section>
     </main>

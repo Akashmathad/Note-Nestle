@@ -34,28 +34,28 @@ const Feedback = () => {
       className="flex justify-center items-center"
     >
       <div className="grid w-full lg:w-1/2 gap-[1.5rem] text-start">
-        <Label htmlFor="message-2" className="text-[1.2rem]">
-          Title
-        </Label>
-        <Input
-          type="text"
-          placeholder="Enter Title"
-          className="text-[1.2rem]  "
-          required
-        />
-        <Label htmlFor="message-2" className="text-[1.2rem]">
-          Your Message
-        </Label>
-        <Textarea
-          placeholder="Type your message here"
-          className="text-[1.2rem]"
-          required
-        />
-
-        <Button
-          type="submit"
-          className="text-[1.2rem] py-[1.5rem] text-title bg-bgN hover:text-titleA hover:bg-bgA"
-        >
+        <div>
+          <Label htmlFor="message-2" className="text-[1.2rem]">
+            Title
+          </Label>
+          <Input
+            type="text"
+            placeholder="Enter Title"
+            className="text-[1.2rem] text-w bg-title"
+            required
+          />
+        </div>
+        <div>
+          <Label htmlFor="message-2" className="text-[1.2rem]">
+            Your Message
+          </Label>
+          <Textarea
+            placeholder="Type your message here"
+            className="text-[1.2rem] bg-title"
+            required
+          />
+        </div>
+        <Button type="submit" variant="secondary" className=" text-[1.2rem]">
           Submit
         </Button>
       </div>
