@@ -40,6 +40,7 @@
     --bg: #f2f2f2;
     --bgA: black;
     --titleA: white;
+    --paraA: #9f9f9f;
   }
 
   .dark {
@@ -77,6 +78,7 @@
     --bg: black;
     --bgA: #f2f2f2;
     --titleA: black;
+    --paraA: #616161;
   }
 }
 
