@@ -43,23 +43,27 @@ function UploadFile({ id, unitId, unitName }) {
 
   return (
     <SheetHeader>
-      <SheetTitle>Add files ({unitName})</SheetTitle>
-      <form onSubmit={handleSubmit}>
-        <Input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="Title"
-        />
-        <Input type="file" onChange={(e) => setFile(e.target.files[0])} />
-        <SheetFooter>
-          <SheetClose>
-            <Button variant="outline" type="reset">
-              Cancel
-            </Button>
-          </SheetClose>
-          <Button type="submit">Submit</Button>
-        </SheetFooter>
+      <SheetTitle className="text-[1.5rem] font-fontPrimary text-center tracking-[1.5px]">
+        Add files ({unitName})
+      </SheetTitle>
+      <form onSubmit={handleSubmit} className="py-[1.5rem]">
+        <div className="flex flex-col gap-[1rem]">
+          <Input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Title"
+          />
+          <Input type="file" onChange={(e) => setFile(e.target.files[0])} />
+          <SheetFooter className="flex flex-col  gap-[1rem] mt-[1rem]">
+            <SheetClose>
+              <Button variant="outline" type="reset" className="w-full">
+                Cancel
+              </Button>
+            </SheetClose>
+            <Button type="submit">Submit</Button>
+          </SheetFooter>
+        </div>
       </form>
     </SheetHeader>
   );

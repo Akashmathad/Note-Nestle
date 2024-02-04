@@ -29,8 +29,10 @@ const DeleteSubject = ({ id, name }) => {
   return (
     <>
       <AlertDialogHeader>
-        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-        <AlertDialogDescription>
+        <AlertDialogTitle className="text-[1.5rem] font-fontPrimary text-center tracking-[1.5px]">
+          Are you absolutely sure?
+        </AlertDialogTitle>
+        <AlertDialogDescription className="text-[1.1rem] text-center">
           You want to delete {name}
         </AlertDialogDescription>
       </AlertDialogHeader>

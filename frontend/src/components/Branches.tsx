@@ -23,7 +23,9 @@ const Branches = () => {
           className="block w-[18rem] hover:bg-accent border-b-[1px] py-2"
           key={branch.branch}
         >
-          <Link href={`/${branch.branch}`}>{branch.name}</Link>
+          <Link href={`/${branch.branch}`} className="w-full h-full block">
+            {branch.name}
+          </Link>
         </NavigationMenuLink>
       ))}
     </>

@@ -61,14 +61,14 @@ const Branch = ({ params }) => {
 
   console.log(subjects);
   return (
-    <div className="container sm:container py-[4rem]">
+    <div className="container sm:container py-[3rem]">
       <div className="flex items-center justify-between">
         <h2 className="text-[2.5rem] font-fontPrimary leading-[1.2]">
           {getName(params.branch)}
         </h2>
         <Button onClick={() => router.push('/')}>Back</Button>
       </div>
-      <div className="py-[3rem] grid lg:grid-cols-4  gap-[1.5rem] ">
+      <div className="py-[2rem] grid lg:grid-cols-4  gap-[1.5rem]">
         {subjects && subjects.length > 0 ? (
           subjects.map((subject) => (
             <SubjectDisplay
