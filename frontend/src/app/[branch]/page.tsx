@@ -3,6 +3,7 @@ import { AuthContext } from '@/context/AuthContextContainer';
 import React, { useContext, useEffect, useState } from 'react';
 import SubjectDisplay from '../faculty/[subject]/SubjectDisplay';
 import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
 
 const Branch = ({ params }) => {
   const router = useRouter();
@@ -60,20 +61,26 @@ const Branch = ({ params }) => {
 
   console.log(subjects);
   return (
-    <div>
-      <h2>{getName(params.branch)}</h2>
-      {subjects && subjects.length > 0 ? (
-        subjects.map((subject) => (
-          <SubjectDisplay
-            key={subject._id}
-            link={`${params.branch}/${subject._id}`}
-            name={subject.name}
-          />
-        ))
-      ) : (
-        <p>No Subjects available</p>
-      )}
-      <button onClick={() => router.push('/')}>Back</button>
+    <div className="container sm:container py-[3rem]">
+      <div className="flex items-center justify-between">
+        <h2 className="text-[2.5rem] font-fontPrimary leading-[1.2]">
+          {getName(params.branch)}
+        </h2>
+        <Button onClick={() => router.push('/')}>Back</Button>
+      </div>
+      <div className="py-[2rem] grid lg:grid-cols-4  gap-[1.5rem]">
+        {subjects && subjects.length > 0 ? (
+          subjects.map((subject) => (
+            <SubjectDisplay
+              key={subject._id}
+              link={`${params.branch}/${subject._id}`}
+              name={subject.name}
+            />
+          ))
+        ) : (
+          <p>No Subjects available</p>
+        )}
+      </div>
     </div>
   );
 };

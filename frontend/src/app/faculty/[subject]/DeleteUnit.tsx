@@ -7,6 +7,7 @@ import {
   SheetDescription,
 } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
 const DeleteUnit = ({ id, subjectDetails }) => {
   const [unitName, setUnitName] = useState<string>();
@@ -33,22 +34,25 @@ const DeleteUnit = ({ id, subjectDetails }) => {
   }
 
   return (
-    <SheetContent side="bottom">
-      <form onSubmit={handleSubmit}>
-        <SheetTitle>Delete Unit</SheetTitle>
-        <SheetDescription>
+    <SheetContent side="bottom" className="p-[2.5rem]">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-[1.5rem]">
+        <SheetTitle className="text-[2rem] font-fontPrimary text-center tracking-[1.5px]">
+          Delete Unit
+        </SheetTitle>
+        <SheetDescription className="text-[1.2rem] text-title">
           Enter the name of the unit you want to delete from{' '}
           {subjectDetails && subjectDetails.name}. (Case sensitive)
         </SheetDescription>
-        <input
+        <Input
           type="text"
           value={unitName}
           onChange={(e) => setUnitName(e.target.value)}
-          placeholder="Enter the Unit name"
+          placeholder="Example: Unit - 1"
+          className="text-[1.2rem] mt-[-1rem]"
         />
-        <SheetFooter>
+        <SheetFooter className="flex flex-col gap-[1rem]">
           <SheetClose>
-            <Button type="button" variant="outline">
+            <Button type="button" variant="outline" className="w-full">
               Close
             </Button>
           </SheetClose>

@@ -3,6 +3,7 @@ import { AuthContext } from '@/context/AuthContextContainer';
 import React, { useContext, useEffect, useState } from 'react';
 import Unit from './Unit';
 import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
 
 const Subject = ({ params }) => {
   const { jwt } = useContext(AuthContext);
@@ -33,18 +34,24 @@ const Subject = ({ params }) => {
   );
 
   return (
-    <div>
-      <h2>{subjectDetails && subjectDetails.name}</h2>
-      {subjectDetails &&
-        subjectDetails.units.map((unit) => (
-          <Unit
-            id={subjectDetails._id}
-            unitId={unit._id}
-            unit={unit}
-            key={unit._id}
-          />
-        ))}
-      <button onClick={() => router.push(`/${params.branch}`)}>Back</button>
+    <div className="container  py-[2rem]">
+      <div className="flex justify-between items-center">
+        <h2 className="lg:text-[2.5rem] text-[1.8rem] font-fontPrimary leading-[1.2]">
+          {subjectDetails && subjectDetails.name}
+        </h2>
+        <Button onClick={() => router.push(`/${params.branch}`)}>Back</Button>
+      </div>
+      <div className="py-[1rem] flex flex-col gap-[1.5rem]">
+        {subjectDetails &&
+          subjectDetails.units.map((unit) => (
+            <Unit
+              id={subjectDetails._id}
+              unitId={unit._id}
+              unit={unit}
+              key={unit._id}
+            />
+          ))}
+      </div>
     </div>
   );
 };

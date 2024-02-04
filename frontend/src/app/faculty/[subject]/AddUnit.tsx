@@ -37,8 +37,13 @@ const AddUnit = ({ id, subjectName }) => {
 
   return (
     <SheetHeader>
-      <SheetTitle>Add Unit ({subjectName})</SheetTitle>
-      <form onSubmit={handleSubmit}>
+      <SheetTitle className="text-[1.5rem] font-fontPrimary text-center tracking-[1.5px]">
+        <p>Add Unit</p> <p>({subjectName})</p>
+      </SheetTitle>
+      <form
+        onSubmit={handleSubmit}
+        className="py-[1.5rem] flex flex-col gap-[1rem]"
+      >
         <Input
           type="text"
           value={name}
@@ -46,9 +51,9 @@ const AddUnit = ({ id, subjectName }) => {
           placeholder="Enter the name of the Unit"
           required
         />
-        <SheetFooter>
+        <SheetFooter className="flex flex-col  gap-[1rem] mt-[1rem]">
           <SheetClose>
-            <Button variant="outline" type="reset">
+            <Button variant="outline" type="reset" className="w-full">
               Cancel
             </Button>
           </SheetClose>

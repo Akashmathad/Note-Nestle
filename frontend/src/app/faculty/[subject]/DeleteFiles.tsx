@@ -10,6 +10,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import { Checkbox } from '@/components/ui/checkbox';
 
 import React, { useState } from 'react';
 
@@ -46,25 +47,29 @@ function DeleteFiles({ id, unitId, files, unitName }) {
   return (
     <AlertDialogContent>
       <AlertDialogHeader>
-        <AlertDialogTitle>Delete Files ({unitName})</AlertDialogTitle>
-        <AlertDialogDescription>
+        <AlertDialogTitle className="text-[1.5rem] font-fontPrimary text-center tracking-[1.5px]">
+          Delete Files ({unitName})
+        </AlertDialogTitle>
+        <AlertDialogDescription className="text-[1rem]">
           Select the files you want to delete from {unitName}.
         </AlertDialogDescription>
 
         <form onSubmit={handleDelete}>
-          {files.map((file) => (
-            <div key={file._id}>
-              <label>
-                <input
-                  type="checkbox"
+          <div className="flex flex-col gap-[0.4rem]">
+            {files.map((file) => (
+              <label
+                key={file._id}
+                className="text-[1rem] flex gap-[0.5rem] items-center"
+              >
+                <Checkbox
                   checked={selectedFiles.includes(file._id)}
-                  onChange={() => handleCheckboxChange(file._id)}
+                  onCheckedChange={() => handleCheckboxChange(file._id)}
                 />
                 {file.title}
               </label>
-            </div>
-          ))}
-          <AlertDialogFooter>
+            ))}
+          </div>
+          <AlertDialogFooter className="mt-[1.5rem]">
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
               type="submit"
