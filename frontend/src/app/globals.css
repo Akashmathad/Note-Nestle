@@ -38,6 +38,8 @@
     --secondary-text: #616161;
     --border-new: #46464c;
     --bg: #f2f2f2;
+    --bgA: black;
+    --titleA: white;
   }
 
   .dark {
@@ -73,6 +75,8 @@
     --secondary-text: #9f9f9f;
     --border-new: #46464c;
     --bg: black;
+    --bgA: #f2f2f2;
+    --titleA: black;
   }
 }
 
