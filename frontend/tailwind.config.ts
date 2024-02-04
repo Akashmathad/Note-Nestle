@@ -57,6 +57,9 @@ const config = {
         para: 'var(--secondary-text)',
         borderN: 'var(--border-new)',
         bgN: 'var(--bg)',
+        bgA: 'var(--bgA)',
+        titleA: 'var(--titleA)',
+        paraA: 'var(--paraA)',
       },
       borderRadius: {
         lg: 'var(--radius)',
