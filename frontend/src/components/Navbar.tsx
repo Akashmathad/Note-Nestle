@@ -17,7 +17,7 @@ import { X } from 'lucide-react';
 import { useState } from 'react';
 
 const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(true);
   // Function to toggle the menu
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
