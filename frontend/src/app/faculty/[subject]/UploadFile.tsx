@@ -13,7 +13,7 @@ import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
 
 function UploadFile({ id, unitId, unitName }) {
-  const { user } = useContext(AuthContext);
+  const { user } = useContext<any>(AuthContext);
   const [title, setTitle] = useState<string>();
   const [file, setFile] = useState<any | null>();
   const [loading, setLoading] = useState(false);
