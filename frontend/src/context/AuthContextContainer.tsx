@@ -13,8 +13,8 @@ export const AuthContext = createContext({});
 
 const AuthContextContainer = ({ children }) => {
   const router = useRouter();
-  const [user, setUser] = useState<User | null>();
-  const [jwt, setJwt] = useState<string | null>();
+  const [user, setUser] = useState<User>();
+  const [jwt, setJwt] = useState<string>();
 
   useEffect(
     function () {

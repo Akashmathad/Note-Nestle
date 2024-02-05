@@ -8,7 +8,7 @@ import toast, { Toaster } from 'react-hot-toast';
 
 const Branch = ({ params }) => {
   const router = useRouter();
-  const { jwt } = useContext(AuthContext);
+  const { jwt } = useContext<any>(AuthContext);
   const [subjects, setSubjects] = useState<any>();
 
   useEffect(

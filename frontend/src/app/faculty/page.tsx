@@ -16,7 +16,7 @@ import { SelectGroup, SelectLabel } from '@radix-ui/react-select';
 import toast, { Toaster } from 'react-hot-toast';
 
 const FacultyPage = () => {
-  const { user, jwt } = useContext(AuthContext);
+  const { user, jwt } = useContext<any>(AuthContext);
   const [branch, setBranch] = useState<string>();
   const [subjects, setSubjects] = useState<any>();
   useEffect(
