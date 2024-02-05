@@ -13,6 +13,7 @@ import {
 import { Checkbox } from '@/components/ui/checkbox';
 
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 
 function DeleteFiles({ id, unitId, files, unitName }) {
   const [selectedFiles, setSelectedFiles] = useState<Array<string>>([]);
@@ -31,17 +32,28 @@ function DeleteFiles({ id, unitId, files, unitName }) {
   async function handleDelete(e) {
     e.preventDefault();
     const data = { fileIds: selectedFiles };
-    const req = await fetch(
-      `http://localhost:3000/api/v1/note-nestle/subjects/deleteFiles/${id}/${unitId}`,
-      {
-        method: 'DELETE',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify(data),
+
+    try {
+      const req = await fetch(
+        `http://localhost:3000/api/v1/note-nestle/subjects/deleteFiles/${id}/${unitId}`,
+        {
+          method: 'DELETE',
+          headers: {
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      if (req.ok) {
+        toast.success('Files deleted, refresh the page', {
+          className: 'toast toast-success',
+        });
       }
-    );
-    console.log(req.ok);
+    } catch {
+      toast.error('Something went wrong, refresh the page!', {
+        className: 'toast toast-fail',
+      });
+    }
   }
 
   return (

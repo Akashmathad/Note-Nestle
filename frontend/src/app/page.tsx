@@ -18,9 +18,10 @@ import {
   FileBarChart,
   Laptop,
 } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 
-const page = () => {
+const Page = () => {
   const data = [
     {
       category: 'Total Teachers',
@@ -104,24 +105,59 @@ const page = () => {
     },
   ];
 
+  const [color, setColor] = useState<string>();
+
+  useEffect(() => {
+    const handleSvgLoad = () => {
+      const html = document.documentElement;
+      if (html.classList.contains('dark')) {
+        setColor('dark');
+      } else {
+        setColor('light');
+      }
+    };
+
+    // Initial setup
+    handleSvgLoad();
+
+    // Create a MutationObserver
+    const observer = new MutationObserver(() => {
+      handleSvgLoad();
+    });
+
+    // Configure and start observing changes to the documentElement
+    const config = { attributes: true, attributeFilter: ['class'] };
+    observer.observe(document.documentElement, config);
+
+    // Cleanup the observer on component unmount
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   return (
     <main className="bg-bgN">
       <section id="hero-section " className="pb-[6rem] lg:pb-[9.6rem] bg-bgN">
         <div className=" container grid grid-col-1 lg:grid-cols-2 ">
           <div className="text-center justify-center items-center pt-[2.5rem] lg:pt-[10rem]">
-            <h1 className="text-title text-[3rem] lg:text-[4.5rem] font-fontPrimary text-center">
+            <h1 className="text-title text-[3rem] mb-[1.5rem] lg:text-[4.5rem] font-fontPrimary text-center">
               Note Nestle
             </h1>
-            <h2 className=" text-[1.5rem] lg:text-[2.25rem] mb-2 lg:mb-5 font-medium">
-              Elevate Your Learning Experience
-            </h2>
-            <h2 className="text-[1rem] lg:text-[1.5rem] lg:mb-5 text-zinc-500">
-              Dive into Note-Nestle's World of Wisdom.
+            <h2 className="text-[1.3rem] lg:text-[1.5rem] lg:mb-5 text-para">
+              Elevate your learning journey. A centralized hub for engineering
+              resources—lectures, presentations, and more. Empowering educators
+              to share knowledge, enabling students to access, learn, and
+              succeed.
             </h2>
           </div>
           <div className="text-center justify-center items-end text-title flex pt-[2.25rem]  lg:pt-[4rem]">
             <div className=" w-[50%] lg:w-[70%]">
-              <img src="main-page-img.svg" alt="..." />
+              {color === 'dark' && (
+                <img src="main-page-img.svg" alt="Main page photo" />
+              )}
+              {color === 'light' && (
+                <img src="main-page-img1.svg" alt="Main page photo" />
+              )}
             </div>
           </div>
         </div>
@@ -163,4 +199,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

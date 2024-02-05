@@ -4,6 +4,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import SubjectDisplay from '../faculty/[subject]/SubjectDisplay';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Branch = ({ params }) => {
   const router = useRouter();
@@ -16,18 +17,25 @@ const Branch = ({ params }) => {
         if (!jwt) {
           return;
         }
-        const req = await fetch(
-          `http://localhost:3000/api/v1/note-nestle/subjects?branch=${params.branch}&fields=_id,name`,
-          {
-            method: 'GET',
-            headers: {
-              'content-type': 'application/json',
-              authorization: `Bearer ${jwt}`,
-            },
-          }
-        );
-        const data = await req.json();
-        setSubjects(data.data);
+
+        try {
+          const req = await fetch(
+            `http://localhost:3000/api/v1/note-nestle/subjects?branch=${params.branch}&fields=_id,name`,
+            {
+              method: 'GET',
+              headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${jwt}`,
+              },
+            }
+          );
+          const data = await req.json();
+          setSubjects(data.data);
+        } catch {
+          toast.error('Something went wrong, Please refresh the page!', {
+            className: 'toast toast-fail',
+          });
+        }
       }
       fetchData();
     },
@@ -61,7 +69,7 @@ const Branch = ({ params }) => {
 
   console.log(subjects);
   return (
-    <div className="container sm:container py-[3rem]">
+    <div className="container min-h-[78vh] py-[3rem]">
       <div className="flex items-center justify-between">
         <h2 className="text-[2.5rem] font-fontPrimary leading-[1.2]">
           {getName(params.branch)}
@@ -78,9 +86,10 @@ const Branch = ({ params }) => {
             />
           ))
         ) : (
-          <p>No Subjects available</p>
+          <p className="text-[1.2rem]">No Subjects available</p>
         )}
       </div>
+      <Toaster toastOptions={{ duration: 5000 }} />
     </div>
   );
 };

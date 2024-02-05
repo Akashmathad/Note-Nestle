@@ -12,27 +12,43 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { Input } from '@/components/ui/input';
+import toast from 'react-hot-toast';
+import { Loader2 } from 'lucide-react';
 
 const AddUnit = ({ id, subjectName }) => {
   const [name, setName] = useState<string>('');
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
     const data = {
       name,
     };
-    const req = await fetch(
-      `http://localhost:3000/api/v1/note-nestle/subjects/createUnit/${id}`,
-      {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify(data),
+    try {
+      setLoading(true);
+      const req = await fetch(
+        `http://localhost:3000/api/v1/note-nestle/subjects/createUnit/${id}`,
+        {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      if (req.ok) {
+        toast.success('Unit added, Refresh the page', {
+          className: 'toast toast-success',
+        });
       }
-    );
-    console.log(req.ok);
-    setName('');
+      setName('');
+    } catch {
+      toast.error('Something went wrong, Refresh the page', {
+        className: 'toast toast-fail',
+      });
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -57,7 +73,10 @@ const AddUnit = ({ id, subjectName }) => {
               Cancel
             </Button>
           </SheetClose>
-          <Button type="submit">Submit</Button>
+          <Button type="submit">
+            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            {!loading && 'Submit'}
+          </Button>
         </SheetFooter>
       </form>
     </SheetHeader>

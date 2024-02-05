@@ -11,19 +11,29 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import toast from 'react-hot-toast';
 
 const DeleteSubject = ({ id, name }) => {
   const router = useRouter();
 
   async function handleDelete() {
-    const req = await fetch(
-      `http://localhost:3000/api/v1/note-nestle/subjects/deleteSubject/${id}`,
-      {
-        method: 'DELETE',
-      }
-    );
-    console.log(req.ok);
-    router.push('/faculty');
+    try {
+      const req = await fetch(
+        `http://localhost:3000/api/v1/note-nestle/subjects/deleteSubject/${id}`,
+        {
+          method: 'DELETE',
+        }
+      );
+      console.log(req.ok);
+      router.push('/faculty');
+      toast.success('Subject deleted', {
+        className: 'toast toast-success',
+      });
+    } catch {
+      toast.error('Something went wrong, refresh the page', {
+        className: 'toast toast-fail',
+      });
+    }
   }
 
   return (

@@ -16,10 +16,13 @@ import {
 } from '@/components/ui/select';
 import { SelectGroup, SelectLabel } from '@radix-ui/react-select';
 import { Input } from '@/components/ui/input';
+import toast from 'react-hot-toast';
+import { Loader2 } from 'lucide-react';
 
 const AddSubject = () => {
   const [name, setName] = useState<string>();
   const [branch, setBranch] = useState<string>();
+  const [loading, setLoading] = useState<boolean>(false);
 
   async function handleSubmit(e: any) {
     e.preventDefault();
@@ -27,19 +30,37 @@ const AddSubject = () => {
     if (!name || !branch) {
       return;
     }
-    const req = await fetch(
-      'http://localhost:3000/api/v1/note-nestle/subjects/createSubject',
-      {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify(data),
+    try {
+      setLoading(true);
+      const req = await fetch(
+        'http://localhost:3000/api/v1/note-nestle/subjects/createSubject',
+        {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      if (req.status === 500) {
+        toast.error('Subject already exists!', {
+          className: 'toast toast-fail',
+        });
       }
-    );
-    console.log(req.ok);
-    setName('');
-    setBranch('');
+      if (req.ok) {
+        toast.success('Subjet added, Refresh the page', {
+          className: 'toast toast-success',
+        });
+      }
+      setName('');
+      setBranch('');
+    } catch {
+      toast.error('Something went wrong, please refresh the page!', {
+        className: 'toast toast-fail',
+      });
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -80,8 +101,9 @@ const AddSubject = () => {
               Close
             </Button>
           </SheetClose>
-          <Button type="submit" className="mb-[1rem] lg:mt-0">
-            Submit
+          <Button type="submit" disabled={false}>
+            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            {!loading && 'Submit'}
           </Button>
         </SheetFooter>
       </form>

@@ -148,8 +148,8 @@ body {
 }
 
 .toast {
-  max-width: 30rem;
-  font-size: 1.2rem;
+  font-size: 1rem;
+  text-align: center;
   z-index: 10;
   line-height: 1.6;
 }

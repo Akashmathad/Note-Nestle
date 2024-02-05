@@ -16,6 +16,7 @@ import {
   AlertDialogContent,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import { Toaster } from 'react-hot-toast';
 
 const Subject = ({ params }) => {
   const { jwt } = useContext(AuthContext);
@@ -60,7 +61,7 @@ const Subject = ({ params }) => {
   console.log(subjectDetails);
 
   return (
-    <div className="container py-[2rem]">
+    <div className="container min-h-[78vh] py-[2rem]">
       <div className="flex flex-col lg:flex-row items-center justify-between gap-[1rem]">
         <h2 className="lg:text-[2.5rem] text-[1.8rem] font-fontPrimary leading-[1.2]">
           {subjectDetails && subjectDetails.name}
@@ -117,6 +118,7 @@ const Subject = ({ params }) => {
             />
           ))}
       </div>
+      <Toaster toastOptions={{ duration: 5000 }} />
     </div>
   );
 };

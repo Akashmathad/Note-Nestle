@@ -13,6 +13,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { SelectGroup, SelectLabel } from '@radix-ui/react-select';
+import toast, { Toaster } from 'react-hot-toast';
 
 const FacultyPage = () => {
   const { user, jwt } = useContext(AuthContext);
@@ -24,18 +25,24 @@ const FacultyPage = () => {
         if (!jwt || !branch) {
           return;
         }
-        const req = await fetch(
-          `http://localhost:3000/api/v1/note-nestle/subjects?branch=${branch}&fields=_id,name`,
-          {
-            method: 'GET',
-            headers: {
-              'content-type': 'application/json',
-              authorization: `Bearer ${jwt}`,
-            },
-          }
-        );
-        const data = await req.json();
-        setSubjects(data.data);
+        try {
+          const req = await fetch(
+            `http://localhost:3000/api/v1/note-nestle/subjects?branch=${branch}&fields=_id,name`,
+            {
+              method: 'GET',
+              headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${jwt}`,
+              },
+            }
+          );
+          const data = await req.json();
+          setSubjects(data.data);
+        } catch (e) {
+          toast.error('Something went wrong, Please refresh the page!', {
+            className: 'toast toast-fail',
+          });
+        }
       }
       fetchData();
     },
@@ -43,7 +50,7 @@ const FacultyPage = () => {
   );
 
   return (
-    <div className="container py-[3rem]">
+    <div className="container min-h-[78vh] py-[3rem]">
       <div className="flex items-center justify-between flex-col lg:flex-row">
         <h1 className="lg:text-[2rem] text-[1.7rem] mb-[1rem] font-fontPrimary tracking-[1.5px]">
           Welcome, {user ? user.name : ''}{' '}
@@ -91,6 +98,7 @@ const FacultyPage = () => {
           <p className="text-[1.5rem]">Please select one branch</p>
         )}
       </div>
+      <Toaster toastOptions={{ duration: 5000 }} />
     </div>
   );
 };

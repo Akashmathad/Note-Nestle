@@ -8,20 +8,36 @@ import {
 } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import toast from 'react-hot-toast';
+import { Loader2 } from 'lucide-react';
 
 const DeleteUnit = ({ id, subjectDetails }) => {
   const [unitName, setUnitName] = useState<string>();
+  const [loading, setLoading] = useState(false);
 
   async function handleDelete(unitId: string) {
     if (!unitId) return;
-    const req = await fetch(
-      `http://localhost:3000/api/v1/note-nestle/subjects/deleteUnit/${id}/${unitId}`,
-      {
-        method: 'DELETE',
+
+    try {
+      const req = await fetch(
+        `http://localhost:3000/api/v1/note-nestle/subjects/deleteUnit/${id}/${unitId}`,
+        {
+          method: 'DELETE',
+        }
+      );
+      if (req.ok) {
+        toast.success('Unit deleted, refresh the page', {
+          className: 'toast toast-success',
+        });
       }
-    );
-    console.log(req.ok);
-    setUnitName('');
+      setUnitName('');
+    } catch {
+      toast.error('Something went wrong, please refresh the page!', {
+        className: 'toast toast-fail',
+      });
+    } finally {
+      setLoading(false);
+    }
   }
 
   function handleSubmit(e) {
@@ -29,7 +45,13 @@ const DeleteUnit = ({ id, subjectDetails }) => {
     console.log(unitName);
     const unitId = subjectDetails.units.filter(
       (unit) => unit.name === unitName
-    )[0]._id;
+    )[0]?._id;
+    if (!unitId) {
+      toast.error('Unit not found!', {
+        className: 'toast toast-fail',
+      });
+      return;
+    }
     handleDelete(unitId);
   }
 
@@ -56,7 +78,10 @@ const DeleteUnit = ({ id, subjectDetails }) => {
               Close
             </Button>
           </SheetClose>
-          <Button type="submit">Submit</Button>
+          <Button type="submit">
+            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            {!loading && 'Submit'}
+          </Button>
         </SheetFooter>
       </form>
     </SheetContent>

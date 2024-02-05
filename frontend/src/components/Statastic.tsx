@@ -31,10 +31,10 @@ const Statastic = ({ data }) => {
             const remainingCount = data.count - prevCount;
             let increment;
 
-            if (remainingCount > 5) {
-              increment = Math.ceil((remainingCount / 100) * 4); // Faster initially
+            if (remainingCount > 20) {
+              increment = Math.ceil((remainingCount / 100) * 8); // Faster initially
             } else {
-              increment = Math.ceil((remainingCount / 100) * 1); // Slower towards the end
+              increment = Math.ceil((remainingCount / 10) * 2); // Slower towards the end
             }
 
             const nextCount = prevCount + increment;
