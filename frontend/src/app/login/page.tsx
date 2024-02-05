@@ -12,7 +12,7 @@ const LoginPage = () => {
   const router = useRouter();
   const { register, handleSubmit } = useForm();
 
-  const { storeUserAndJwt, setUser, setJwt } = useContext(AuthContext);
+  const { storeUserAndJwt, setUser, setJwt } = useContext<any>(AuthContext);
 
   async function onSubmit(data: any) {
     const req = await fetch(

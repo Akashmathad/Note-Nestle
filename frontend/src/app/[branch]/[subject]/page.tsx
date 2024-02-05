@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import toast, { Toaster } from 'react-hot-toast';
 
 const Subject = ({ params }) => {
-  const { jwt } = useContext(AuthContext);
+  const { jwt } = useContext<any>(AuthContext);
   const router = useRouter();
   const [subjectDetails, setSubjectDetails] = useState<any>();
   useEffect(

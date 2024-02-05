@@ -19,7 +19,7 @@ import {
 import { Toaster } from 'react-hot-toast';
 
 const Subject = ({ params }) => {
-  const { jwt } = useContext(AuthContext);
+  const { jwt } = useContext<any>(AuthContext);
   const [subjectDetails, setSubjectDetails] = useState<any>();
   const [addUnitId, setAddUnitId] = useState<string>();
   const [openAddFile, setOpenAddFile] = useState<boolean>(false);

@@ -10,7 +10,7 @@ import toast from 'react-hot-toast';
 import { Loader2 } from 'lucide-react';
 
 const Feedback = () => {
-  const { user } = useContext(AuthContext);
+  const { user } = useContext<any>(AuthContext);
   const { register, handleSubmit, reset } = useForm();
   const [loading, setLoading] = useState(false);
 
