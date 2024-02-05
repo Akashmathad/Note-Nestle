@@ -18,6 +18,7 @@ import {
   FileBarChart,
   Laptop,
 } from 'lucide-react';
+import { Toaster } from 'react-hot-toast';
 
 const page = () => {
   const data = [
@@ -152,11 +153,12 @@ const page = () => {
       <section id="feedback" className="bg-bgA text-titleA py-[2.5rem]">
         <div className="container  text-center p-[2.5rem]">
           <h2 className="text-[3rem] font-fontPrimary mb-[1.5rem]">
-            Feedback System
+            Your Feedback Matters!
           </h2>
           <Feedback />
         </div>
       </section>
+      <Toaster toastOptions={{ duration: 5000 }} />
     </main>
   );
 };

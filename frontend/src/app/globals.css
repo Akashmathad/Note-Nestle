@@ -147,6 +147,21 @@ body {
   position: relative;
 }
 
+.toast {
+  max-width: 30rem;
+  font-size: 1.2rem;
+  z-index: 10;
+  line-height: 1.6;
+}
+
+.toast-success {
+  border: 2px solid green;
+}
+
+.toast-fail {
+  border: 2px solid red;
+}
+
 @media (max-width: 34em) {
   html {
     font-size: 80%;
