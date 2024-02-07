@@ -59,4 +59,9 @@ router
 
 router.route('/feedbacks/:feedbackId').delete(subjectController.deleteFeedback);
 
+//stats
+router
+  .route('/stats')
+  .get(authController.verifyToken, subjectController.getStats);
+
 module.exports = router;

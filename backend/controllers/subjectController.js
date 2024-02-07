@@ -286,3 +286,28 @@ exports.deleteFeedback = catchAsync(async (req, res, next) => {
     data: null,
   });
 });
+
+// get stats
+
+exports.getStats = catchAsync(async (req, res, next) => {
+  const studentCount = await Student.countDocuments({ teacherAccess: false });
+  const teacherCount = await Student.countDocuments({ teacherAccess: true });
+  const subjectCount = await Subject.countDocuments();
+
+  // Count the number of PDFs across all subjects and units
+  const pdfCount = await Subject.aggregate([
+    { $unwind: '$units' },
+    { $unwind: '$units.files' },
+    { $group: { _id: null, count: { $sum: 1 } } },
+  ]);
+
+  res.status(200).json({
+    status: success,
+    data: {
+      studentCount,
+      teacherCount,
+      subjectCount,
+      pdfCount: pdfCount.length > 0 ? pdfCount[0].count : 0,
+    },
+  });
+});
