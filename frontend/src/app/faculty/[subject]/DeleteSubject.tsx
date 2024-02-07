@@ -15,11 +15,12 @@ import toast from 'react-hot-toast';
 
 const DeleteSubject = ({ id, name }) => {
   const router = useRouter();
+  const url = process.env.NEXT_PUBLIC_URL;
 
   async function handleDelete() {
     try {
       const req = await fetch(
-        `http://localhost:3000/api/v1/note-nestle/subjects/deleteSubject/${id}`,
+        `${url}/api/v1/note-nestle/subjects/deleteSubject/${id}`,
         {
           method: 'DELETE',
         }

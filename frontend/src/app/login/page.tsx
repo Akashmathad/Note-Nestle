@@ -11,20 +11,17 @@ import { useForm } from 'react-hook-form';
 const LoginPage = () => {
   const router = useRouter();
   const { register, handleSubmit } = useForm();
-
   const { storeUserAndJwt, setUser, setJwt } = useContext<any>(AuthContext);
+  const url = process.env.NEXT_PUBLIC_URL;
 
   async function onSubmit(data: any) {
-    const req = await fetch(
-      'http://localhost:3000/api/v1/note-nestle/auth/Login',
-      {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      }
-    );
+    const req = await fetch(`${url}/api/v1/note-nestle/auth/Login`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
     const data1 = await req.json();
     console.log(data1);
     storeUserAndJwt(data1.data, data1.token);

@@ -14,13 +14,14 @@ import { Loader2 } from 'lucide-react';
 const DeleteUnit = ({ id, subjectDetails }) => {
   const [unitName, setUnitName] = useState<string>();
   const [loading, setLoading] = useState(false);
+  const url = process.env.NEXT_PUBLIC_URL;
 
   async function handleDelete(unitId: string) {
     if (!unitId) return;
 
     try {
       const req = await fetch(
-        `http://localhost:3000/api/v1/note-nestle/subjects/deleteUnit/${id}/${unitId}`,
+        `${url}/api/v1/note-nestle/subjects/deleteUnit/${id}/${unitId}`,
         {
           method: 'DELETE',
         }

@@ -2,14 +2,14 @@ import { Download } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 function FileDisplay({ id, unitId, file }) {
-  console.log(id, unitId, file);
+  const url = process.env.NEXT_PUBLIC_URL;
   async function fileDownload() {
     toast.success('Downloading started...', {
       className: 'toast toast-success',
     });
     try {
       const req = await fetch(
-        `http://localhost:3000/api/v1/note-nestle/subjects/file/${id}/${unitId}/${file._id}`
+        `${url}/api/v1/note-nestle/subjects/file/${id}/${unitId}/${file._id}`
       );
 
       // Get the filename from the Content-Disposition header

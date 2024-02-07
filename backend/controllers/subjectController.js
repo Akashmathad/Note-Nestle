@@ -302,7 +302,7 @@ exports.getStats = catchAsync(async (req, res, next) => {
   ]);
 
   res.status(200).json({
-    status: success,
+    status: 'success',
     data: {
       studentCount,
       teacherCount,

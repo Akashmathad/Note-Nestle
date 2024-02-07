@@ -18,6 +18,7 @@ import { Loader2 } from 'lucide-react';
 const AddUnit = ({ id, subjectName }) => {
   const [name, setName] = useState<string>('');
   const [loading, setLoading] = useState(false);
+  const url = process.env.NEXT_PUBLIC_URL;
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -27,7 +28,7 @@ const AddUnit = ({ id, subjectName }) => {
     try {
       setLoading(true);
       const req = await fetch(
-        `http://localhost:3000/api/v1/note-nestle/subjects/createUnit/${id}`,
+        `${url}/api/v1/note-nestle/subjects/createUnit/${id}`,
         {
           method: 'POST',
           headers: {

@@ -10,6 +10,7 @@ const Branch = ({ params }) => {
   const router = useRouter();
   const { jwt } = useContext<any>(AuthContext);
   const [subjects, setSubjects] = useState<any>();
+  const url = process.env.NEXT_PUBLIC_URL;
 
   useEffect(
     function () {
@@ -20,7 +21,7 @@ const Branch = ({ params }) => {
 
         try {
           const req = await fetch(
-            `http://localhost:3000/api/v1/note-nestle/subjects?branch=${params.branch}&fields=_id,name`,
+            `${url}/api/v1/note-nestle/subjects?branch=${params.branch}&fields=_id,name`,
             {
               method: 'GET',
               headers: {

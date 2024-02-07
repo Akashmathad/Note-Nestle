@@ -13,22 +13,20 @@ const Feedback = () => {
   const { user } = useContext<any>(AuthContext);
   const { register, handleSubmit, reset } = useForm();
   const [loading, setLoading] = useState(false);
+  const url = process.env.NEXT_PUBLIC_URL;
 
   async function onSubmit(data: any) {
     data.user = user.name;
 
     try {
       setLoading(true);
-      const req = await fetch(
-        'http://localhost:3000/api/v1/note-nestle/subjects/feedbacks',
-        {
-          method: 'POST',
-          headers: {
-            'content-type': 'application/json',
-          },
-          body: JSON.stringify(data),
-        }
-      );
+      const req = await fetch(`${url}/api/v1/note-nestle/subjects/feedbacks`, {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
 
       if (req.ok) {
         toast.success('Feedback submitted..', {

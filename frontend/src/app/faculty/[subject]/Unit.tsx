@@ -33,12 +33,13 @@ function Unit({
 }) {
   // const [openUpload, setOpenUpload] = useState(false);
   // const [openDelete, setOpenDelete] = useState(false);
+  const url = process.env.NEXT_PUBLIC_URL;
 
   const files = unit.files;
 
   async function handleDeleteFolder() {
     const req = await fetch(
-      `http://localhost:3000/api/v1/note-nestle/subjects/deleteUnit/${id}/${unitId}`,
+      `${url}/api/v1/note-nestle/subjects/deleteUnit/${id}/${unitId}`,
       {
         method: 'DELETE',
       }

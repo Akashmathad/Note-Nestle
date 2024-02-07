@@ -17,6 +17,7 @@ import toast from 'react-hot-toast';
 
 function DeleteFiles({ id, unitId, files, unitName }) {
   const [selectedFiles, setSelectedFiles] = useState<Array<string>>([]);
+  const url = process.env.NEXT_PUBLIC_URL;
 
   const handleCheckboxChange = (fileId) => {
     // Toggle the selection status of the file
@@ -35,7 +36,7 @@ function DeleteFiles({ id, unitId, files, unitName }) {
 
     try {
       const req = await fetch(
-        `http://localhost:3000/api/v1/note-nestle/subjects/deleteFiles/${id}/${unitId}`,
+        `${url}/api/v1/note-nestle/subjects/deleteFiles/${id}/${unitId}`,
         {
           method: 'DELETE',
           headers: {

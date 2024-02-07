@@ -23,6 +23,7 @@ const AddSubject = () => {
   const [name, setName] = useState<string>();
   const [branch, setBranch] = useState<string>();
   const [loading, setLoading] = useState<boolean>(false);
+  const url = process.env.NEXT_PUBLIC_URL;
 
   async function handleSubmit(e: any) {
     e.preventDefault();
@@ -33,7 +34,7 @@ const AddSubject = () => {
     try {
       setLoading(true);
       const req = await fetch(
-        'http://localhost:3000/api/v1/note-nestle/subjects/createSubject',
+        `${url}/api/v1/note-nestle/subjects/createSubject`,
         {
           method: 'POST',
           headers: {

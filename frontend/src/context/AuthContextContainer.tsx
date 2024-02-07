@@ -15,21 +15,19 @@ const AuthContextContainer = ({ children }) => {
   const router = useRouter();
   const [user, setUser] = useState<User>();
   const [jwt, setJwt] = useState<string>();
+  const url = process.env.NEXT_PUBLIC_URL;
 
   useEffect(
     function () {
       async function verify() {
         const jwt = localStorage.getItem('jwt');
-        const req = await fetch(
-          'http://localhost:3000/api/v1/note-nestle/auth',
-          {
-            method: 'GET',
-            headers: {
-              'content-type': 'application/json',
-              authorization: `Bearer ${jwt}`,
-            },
-          }
-        );
+        const req = await fetch(`${url}/api/v1/note-nestle/auth`, {
+          method: 'GET',
+          headers: {
+            'content-type': 'application/json',
+            authorization: `Bearer ${jwt}`,
+          },
+        });
         if (req.status === 401) {
           router.push('/login');
         }

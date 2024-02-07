@@ -23,9 +23,9 @@ const Subject = ({ params }) => {
   const [subjectDetails, setSubjectDetails] = useState<any>();
   const [addUnitId, setAddUnitId] = useState<string>();
   const [openAddFile, setOpenAddFile] = useState<boolean>(false);
-
   const [openDeleteFile, setOpenDeleteFile] = useState<boolean>(false);
   const id: string = params.subject;
+  const url = process.env.NEXT_PUBLIC_URL;
 
   useEffect(
     function () {
@@ -34,7 +34,7 @@ const Subject = ({ params }) => {
           return;
         }
         const req = await fetch(
-          `http://localhost:3000/api/v1/note-nestle/subjects?_id=${id}`,
+          `${url}/api/v1/note-nestle/subjects?_id=${id}`,
           {
             method: 'GET',
             headers: {

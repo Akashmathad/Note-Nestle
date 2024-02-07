@@ -17,6 +17,7 @@ function UploadFile({ id, unitId, unitName }) {
   const [title, setTitle] = useState<string>();
   const [file, setFile] = useState<any | null>();
   const [loading, setLoading] = useState(false);
+  const url = process.env.NEXT_PUBLIC_URL;
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -32,7 +33,7 @@ function UploadFile({ id, unitId, unitName }) {
       formData.append('ownerName', user.name);
 
       const req = await fetch(
-        `http://localhost:3000/api/v1/note-nestle/subjects/upload/${id}/${unitId}`,
+        `${url}/api/v1/note-nestle/subjects/upload/${id}/${unitId}`,
         {
           method: 'POST',
           body: formData,

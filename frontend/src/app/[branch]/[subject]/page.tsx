@@ -10,6 +10,7 @@ const Subject = ({ params }) => {
   const { jwt } = useContext<any>(AuthContext);
   const router = useRouter();
   const [subjectDetails, setSubjectDetails] = useState<any>();
+  const url = process.env.NEXT_PUBLIC_URL;
   useEffect(
     function () {
       async function fetchData() {
@@ -18,7 +19,7 @@ const Subject = ({ params }) => {
         }
         try {
           const req = await fetch(
-            `http://localhost:3000/api/v1/note-nestle/subjects?_id=${params.subject}`,
+            `${url}/api/v1/note-nestle/subjects?_id=${params.subject}`,
             {
               method: 'GET',
               headers: {

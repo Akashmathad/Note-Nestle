@@ -60,8 +60,6 @@ router
 router.route('/feedbacks/:feedbackId').delete(subjectController.deleteFeedback);
 
 //stats
-router
-  .route('/stats')
-  .get(authController.verifyToken, subjectController.getStats);
+router.route('/stats').get(subjectController.getStats);
 
 module.exports = router;

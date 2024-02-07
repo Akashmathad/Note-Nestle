@@ -19,6 +19,7 @@ const FacultyPage = () => {
   const { user, jwt } = useContext<any>(AuthContext);
   const [branch, setBranch] = useState<string>();
   const [subjects, setSubjects] = useState<any>();
+  const url = process.env.NEXT_PUBLIC_URL;
   useEffect(
     function () {
       async function fetchData() {
@@ -27,7 +28,7 @@ const FacultyPage = () => {
         }
         try {
           const req = await fetch(
-            `http://localhost:3000/api/v1/note-nestle/subjects?branch=${branch}&fields=_id,name`,
+            `${url}/api/v1/note-nestle/subjects?branch=${branch}&fields=_id,name`,
             {
               method: 'GET',
               headers: {
