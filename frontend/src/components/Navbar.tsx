@@ -33,7 +33,7 @@ const Navbar = () => {
         </div>
         <div
           className={`md:static absolute bg-bgN md:min-h-fit min-h-[60vh] left-0 ${
-            !isMenuOpen ? 'top-[9%]' : 'top-[-100%]'
+            !isMenuOpen ? 'top-[-100%]' : 'top-[1%]'
           } md:w-auto w-full flex justify-center items-center text-center px-[0.3rem]`}
         >
           <ul className="flex  md:flex-row flex-col  md:items-center md:gap-[3vw] gap-8">
@@ -94,12 +94,12 @@ const Navbar = () => {
             <ModeToggle />
           </div>
           {isMenuOpen ? (
-            <Menu
+            <X
               onClick={toggleMenu}
               className="text-3xl cursor-pointer md:hidden"
             />
           ) : (
-            <X
+            <Menu
               onClick={toggleMenu}
               className="text-3xl cursor-pointer md:hidden"
             />
