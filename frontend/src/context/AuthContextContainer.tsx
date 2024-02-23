@@ -1,4 +1,5 @@
 'use client';
+import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import React, { createContext, useEffect, useState } from 'react';
 
@@ -17,27 +18,26 @@ const AuthContextContainer = ({ children }) => {
   const [jwt, setJwt] = useState<string>();
   const url = process.env.NEXT_PUBLIC_URL;
 
-  useEffect(
-    function () {
-      async function verify() {
-        const jwt = localStorage.getItem('jwt');
-        const req = await fetch(`${url}/api/v1/note-nestle/auth`, {
-          method: 'GET',
-          headers: {
-            'content-type': 'application/json',
-            authorization: `Bearer ${jwt}`,
-          },
-        });
-        if (req.status === 401) {
-          router.push('/login');
-        }
-        setUser(JSON.parse(localStorage.getItem('user')));
-        setJwt(localStorage.getItem('jwt'));
-      }
-      verify();
-    },
-    [router]
-  );
+  async function verify() {
+    const jwt = localStorage.getItem('jwt');
+    const req = await fetch(`${url}/api/v1/note-nestle/auth`, {
+      method: 'GET',
+      headers: {
+        'content-type': 'application/json',
+        authorization: `Bearer ${jwt}`,
+      },
+    });
+    if (req.status === 401) {
+      router.push('/login');
+    }
+    setUser(JSON.parse(localStorage.getItem('user')));
+    setJwt(localStorage.getItem('jwt'));
+  }
+
+  useQuery({
+    queryKey: ['auth'],
+    queryFn: () => verify(),
+  });
 
   function storeUserAndJwt(user: User, token: string) {
     console.log(user, token);

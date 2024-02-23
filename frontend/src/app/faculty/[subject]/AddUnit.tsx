@@ -14,43 +14,23 @@ import {
 import { Input } from '@/components/ui/input';
 import toast from 'react-hot-toast';
 import { Loader2 } from 'lucide-react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { addUnit } from '@/services/apiBranches';
 
 const AddUnit = ({ id, subjectName }) => {
   const [name, setName] = useState<string>('');
-  const [loading, setLoading] = useState(false);
-  const url = process.env.NEXT_PUBLIC_URL;
+  const queryClient = useQueryClient();
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-    const data = {
-      name,
-    };
-    try {
-      setLoading(true);
-      const req = await fetch(
-        `${url}/api/v1/note-nestle/subjects/createUnit/${id}`,
-        {
-          method: 'POST',
-          headers: {
-            'content-type': 'application/json',
-          },
-          body: JSON.stringify(data),
-        }
-      );
-      if (req.ok) {
-        toast.success('Unit added, Refresh the page', {
-          className: 'toast toast-success',
-        });
-      }
-      setName('');
-    } catch {
-      toast.error('Something went wrong, Refresh the page', {
-        className: 'toast toast-fail',
+  const { isPending, mutate } = useMutation({
+    mutationFn: () => addUnit(id, name),
+    onSuccess: () => {
+      toast.success('Unit added');
+      queryClient.invalidateQueries({
+        queryKey: [`${id}`],
       });
-    } finally {
-      setLoading(false);
-    }
-  }
+    },
+    onError: (err) => toast.error(err.message),
+  });
 
   return (
     <SheetHeader>
@@ -58,7 +38,10 @@ const AddUnit = ({ id, subjectName }) => {
         <p>Add Unit</p> <p>({subjectName})</p>
       </SheetTitle>
       <form
-        onSubmit={handleSubmit}
+        onSubmit={(e) => {
+          e.preventDefault();
+          mutate();
+        }}
         className="py-[1.5rem] flex flex-col gap-[1rem]"
       >
         <Input
@@ -75,8 +58,8 @@ const AddUnit = ({ id, subjectName }) => {
             </Button>
           </SheetClose>
           <Button type="submit">
-            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            {!loading && 'Submit'}
+            {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            {!isPending && 'Submit'}
           </Button>
         </SheetFooter>
       </form>

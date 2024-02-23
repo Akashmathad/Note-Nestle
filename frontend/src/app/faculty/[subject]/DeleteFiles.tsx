@@ -11,13 +11,26 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { Checkbox } from '@/components/ui/checkbox';
+import { deleteFiles } from '@/services/apiBranches';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 
 function DeleteFiles({ id, unitId, files, unitName }) {
   const [selectedFiles, setSelectedFiles] = useState<Array<string>>([]);
-  const url = process.env.NEXT_PUBLIC_URL;
+
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation({
+    mutationFn: (data: {}) => deleteFiles(id, unitId, data),
+    onSuccess: () => {
+      toast.success('Unit added');
+      queryClient.invalidateQueries({
+        queryKey: [`${id}`],
+      });
+    },
+    onError: (err) => toast.error(err.message),
+  });
 
   const handleCheckboxChange = (fileId) => {
     // Toggle the selection status of the file
@@ -33,28 +46,7 @@ function DeleteFiles({ id, unitId, files, unitName }) {
   async function handleDelete(e) {
     e.preventDefault();
     const data = { fileIds: selectedFiles };
-
-    try {
-      const req = await fetch(
-        `${url}/api/v1/note-nestle/subjects/deleteFiles/${id}/${unitId}`,
-        {
-          method: 'DELETE',
-          headers: {
-            'content-type': 'application/json',
-          },
-          body: JSON.stringify(data),
-        }
-      );
-      if (req.ok) {
-        toast.success('Files deleted, refresh the page', {
-          className: 'toast toast-success',
-        });
-      }
-    } catch {
-      toast.error('Something went wrong, refresh the page!', {
-        className: 'toast toast-fail',
-      });
-    }
+    mutate(data);
   }
 
   return (

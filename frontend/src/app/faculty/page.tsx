@@ -14,41 +14,49 @@ import {
 } from '@/components/ui/select';
 import { SelectGroup, SelectLabel } from '@radix-ui/react-select';
 import toast, { Toaster } from 'react-hot-toast';
+import { useQuery } from '@tanstack/react-query';
+import { getBranchSubjects } from '@/services/apiBranches';
 
 const FacultyPage = () => {
   const { user, jwt } = useContext<any>(AuthContext);
   const [branch, setBranch] = useState<string>();
-  const [subjects, setSubjects] = useState<any>();
-  const url = process.env.NEXT_PUBLIC_URL;
-  useEffect(
-    function () {
-      async function fetchData() {
-        if (!jwt || !branch) {
-          return;
-        }
-        try {
-          const req = await fetch(
-            `${url}/api/v1/note-nestle/subjects?branch=${branch}&fields=_id,name`,
-            {
-              method: 'GET',
-              headers: {
-                'content-type': 'application/json',
-                authorization: `Bearer ${jwt}`,
-              },
-            }
-          );
-          const data = await req.json();
-          setSubjects(data.data);
-        } catch (e) {
-          toast.error('Something went wrong, Please refresh the page!', {
-            className: 'toast toast-fail',
-          });
-        }
-      }
-      fetchData();
-    },
-    [jwt, branch]
-  );
+  // const [subjects, setSubjects] = useState<any>();
+  // const url = process.env.NEXT_PUBLIC_URL;
+
+  const { data: subjects } = useQuery({
+    queryKey: [`branch-${branch}`],
+    queryFn: () => getBranchSubjects(jwt, branch),
+  });
+
+  // useEffect(
+  //   function () {
+  //     async function fetchData() {
+  //       if (!jwt || !branch) {
+  //         return;
+  //       }
+  //       try {
+  //         const req = await fetch(
+  //           `${url}/api/v1/note-nestle/subjects?branch=${branch}&fields=_id,name`,
+  //           {
+  //             method: 'GET',
+  //             headers: {
+  //               'content-type': 'application/json',
+  //               authorization: `Bearer ${jwt}`,
+  //             },
+  //           }
+  //         );
+  //         const data = await req.json();
+  //         setSubjects(data.data);
+  //       } catch (e) {
+  //         toast.error('Something went wrong, Please refresh the page!', {
+  //           className: 'toast toast-fail',
+  //         });
+  //       }
+  //     }
+  //     fetchData();
+  //   },
+  //   [jwt, branch]
+  // );
 
   return (
     <div className="container min-h-[78vh] py-[3rem]">

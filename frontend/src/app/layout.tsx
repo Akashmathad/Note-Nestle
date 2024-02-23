@@ -6,6 +6,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { ThemeProvider } from '@/components/theme-provider';
 import localfont from 'next/font/local';
+import ReactQueryProvider from '../Provider/ReactQueryProvider';
 
 const fontPrimary = localfont({
   src: [
@@ -30,20 +31,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <AuthContextContainer>
-        <body className={`${jakarta.className} ${fontPrimary.variable} `}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <Navbar />
-            {children}
-            <Footer />
-          </ThemeProvider>
-        </body>
-      </AuthContextContainer>
+      <ReactQueryProvider>
+        <AuthContextContainer>
+          <body className={`${jakarta.className} ${fontPrimary.variable} `}>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <Navbar />
+              {children}
+              <Footer />
+            </ThemeProvider>
+          </body>
+        </AuthContextContainer>
+      </ReactQueryProvider>
     </html>
   );
 }

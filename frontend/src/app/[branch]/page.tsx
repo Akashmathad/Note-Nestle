@@ -5,43 +5,50 @@ import SubjectDisplay from '../faculty/[subject]/SubjectDisplay';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import toast, { Toaster } from 'react-hot-toast';
+import { useQuery } from '@tanstack/react-query';
+import { getBranchSubjects } from '@/services/apiBranches';
 
 const Branch = ({ params }) => {
   const router = useRouter();
   const { jwt } = useContext<any>(AuthContext);
-  const [subjects, setSubjects] = useState<any>();
+  // const [subjects, setSubjects] = useState<any>();
   const url = process.env.NEXT_PUBLIC_URL;
 
-  useEffect(
-    function () {
-      async function fetchData() {
-        if (!jwt) {
-          return;
-        }
+  const { data: subjects } = useQuery({
+    queryKey: [`branch-${params.branch}`],
+    queryFn: () => getBranchSubjects(jwt, params.branch),
+  });
 
-        try {
-          const req = await fetch(
-            `${url}/api/v1/note-nestle/subjects?branch=${params.branch}&fields=_id,name`,
-            {
-              method: 'GET',
-              headers: {
-                'content-type': 'application/json',
-                authorization: `Bearer ${jwt}`,
-              },
-            }
-          );
-          const data = await req.json();
-          setSubjects(data.data);
-        } catch {
-          toast.error('Something went wrong, Please refresh the page!', {
-            className: 'toast toast-fail',
-          });
-        }
-      }
-      fetchData();
-    },
-    [jwt, params]
-  );
+  // useEffect(
+  //   function () {
+  //     async function fetchData() {
+  //       if (!jwt) {
+  //         return;
+  //       }
+
+  //       try {
+  //         const req = await fetch(
+  //           `${url}/api/v1/note-nestle/subjects?branch=${params.branch}&fields=_id,name`,
+  //           {
+  //             method: 'GET',
+  //             headers: {
+  //               'content-type': 'application/json',
+  //               authorization: `Bearer ${jwt}`,
+  //             },
+  //           }
+  //         );
+  //         const data = await req.json();
+  //         setSubjects(data.data);
+  //       } catch {
+  //         toast.error('Something went wrong, Please refresh the page!', {
+  //           className: 'toast toast-fail',
+  //         });
+  //       }
+  //     }
+  //     fetchData();
+  //   },
+  //   [jwt, params]
+  // );
 
   function getName(branch: string) {
     switch (branch) {

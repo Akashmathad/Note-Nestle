@@ -5,41 +5,49 @@ import Unit from './Unit';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import toast, { Toaster } from 'react-hot-toast';
+import { useQuery } from '@tanstack/react-query';
+import { getSubject } from '@/services/apiBranches';
 
 const Subject = ({ params }) => {
   const { jwt } = useContext<any>(AuthContext);
   const router = useRouter();
-  const [subjectDetails, setSubjectDetails] = useState<any>();
-  const url = process.env.NEXT_PUBLIC_URL;
-  useEffect(
-    function () {
-      async function fetchData() {
-        if (!jwt) {
-          return;
-        }
-        try {
-          const req = await fetch(
-            `${url}/api/v1/note-nestle/subjects?_id=${params.subject}`,
-            {
-              method: 'GET',
-              headers: {
-                'content-type': 'application/json',
-                authorization: `Bearer ${jwt}`,
-              },
-            }
-          );
-          const data = await req.json();
-          setSubjectDetails(data.data[0]);
-        } catch {
-          toast.error('Something went wrong, Please refresh the page', {
-            className: 'toast toast-fail',
-          });
-        }
-      }
-      fetchData();
-    },
-    [jwt, params]
-  );
+  // const [subjectDetails, setSubjectDetails] = useState<any>();
+  // const url = process.env.NEXT_PUBLIC_URL;
+
+  const { data: subjectDetails } = useQuery({
+    queryKey: [`${params.subject}`],
+    queryFn: () => getSubject(jwt, params.subject),
+  });
+
+  // useEffect(
+  //   function () {
+  //     async function fetchData() {
+  //       if (!jwt) {
+  //         return;
+  //       }
+  //       try {
+  //         const req = await fetch(
+  //           `${url}/api/v1/note-nestle/subjects?_id=${params.subject}`,
+  //           {
+  //             method: 'GET',
+  //             headers: {
+  //               'content-type': 'application/json',
+  //               authorization: `Bearer ${jwt}`,
+  //             },
+  //           }
+  //         );
+  //         const data = await req.json();
+  //         setSubjectDetails(data.data[0]);
+  //       } catch {
+  //         toast.error('Something went wrong, Please refresh the page', {
+  //           className: 'toast toast-fail',
+  //         });
+  //       }
+  //     }
+  //     fetchData();
+  //   },
+  //   [jwt, params]
+  // );
 
   return (
     <div className="container min-h-[78vh]  py-[2rem]">

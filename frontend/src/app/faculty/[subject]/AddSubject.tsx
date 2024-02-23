@@ -49,7 +49,7 @@ const AddSubject = () => {
         });
       }
       if (req.ok) {
-        toast.success('Subjet added, Refresh the page', {
+        toast.success('Subjet added', {
           className: 'toast toast-success',
         });
       }

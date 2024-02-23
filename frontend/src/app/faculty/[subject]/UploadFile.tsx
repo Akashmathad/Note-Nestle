@@ -8,6 +8,8 @@ import {
   SheetTitle,
 } from '@/components/ui/sheet';
 import { AuthContext } from '@/context/AuthContextContainer';
+import { addFile } from '@/services/apiBranches';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Loader2 } from 'lucide-react';
 import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -16,49 +18,29 @@ function UploadFile({ id, unitId, unitName }) {
   const { user } = useContext<any>(AuthContext);
   const [title, setTitle] = useState<string>();
   const [file, setFile] = useState<any | null>();
-  const [loading, setLoading] = useState(false);
-  const url = process.env.NEXT_PUBLIC_URL;
+
+  const queryClient = useQueryClient();
+
+  const { isPending, mutate } = useMutation({
+    mutationFn: () => addFile(id, unitId, title, file, user.name),
+    onSuccess: () => {
+      toast.success('File added');
+      setTitle('');
+      setFile(null);
+      queryClient.invalidateQueries({
+        queryKey: [`${id}`],
+      });
+    },
+    onError: (err) => toast.error(err.message),
+  });
 
   async function handleSubmit(e) {
     e.preventDefault();
     if (!title || !file) {
       return;
     }
-
-    try {
-      setLoading(true);
-      const formData = new FormData();
-      formData.append('title', title);
-      formData.append('file', file);
-      formData.append('ownerName', user.name);
-
-      const req = await fetch(
-        `${url}/api/v1/note-nestle/subjects/upload/${id}/${unitId}`,
-        {
-          method: 'POST',
-          body: formData,
-        }
-      );
-      const data = await req.json();
-      console.log(data);
-      if (req.ok) {
-        toast.success('File uploaded, refresh the page', {
-          className: 'toast toast-success',
-        });
-      }
-      setTitle('');
-      setFile(null);
-    } catch {
-      toast.error('Something went wrong, refresh the page', {
-        className: 'toast toast-fail',
-      });
-    } finally {
-      setLoading(false);
-    }
+    mutate();
   }
-
-  console.log(file);
-
   return (
     <SheetHeader>
       <SheetTitle className="text-[1.5rem] font-fontPrimary text-center tracking-[1.5px]">
@@ -80,8 +62,8 @@ function UploadFile({ id, unitId, unitName }) {
               </Button>
             </SheetClose>
             <Button type="submit">
-              {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              {!loading && 'Submit'}
+              {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              {!isPending && 'Submit'}
             </Button>
           </SheetFooter>
         </div>

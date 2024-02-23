@@ -17,39 +17,48 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { Toaster } from 'react-hot-toast';
+import { getSubject } from '@/services/apiBranches';
+import { useQuery } from '@tanstack/react-query';
 
 const Subject = ({ params }) => {
   const { jwt } = useContext<any>(AuthContext);
-  const [subjectDetails, setSubjectDetails] = useState<any>();
+  // const [subjectDetails, setSubjectDetails] = useState<any>();
   const [addUnitId, setAddUnitId] = useState<string>();
   const [openAddFile, setOpenAddFile] = useState<boolean>(false);
   const [openDeleteFile, setOpenDeleteFile] = useState<boolean>(false);
   const id: string = params.subject;
-  const url = process.env.NEXT_PUBLIC_URL;
+  // const url = process.env.NEXT_PUBLIC_URL;
 
-  useEffect(
-    function () {
-      async function fetchData() {
-        if (!jwt) {
-          return;
-        }
-        const req = await fetch(
-          `${url}/api/v1/note-nestle/subjects?_id=${id}`,
-          {
-            method: 'GET',
-            headers: {
-              'content-type': 'application/json',
-              authorization: `Bearer ${jwt}`,
-            },
-          }
-        );
-        const data = await req.json();
-        setSubjectDetails(data.data[0]);
-      }
-      fetchData();
-    },
-    [jwt, id]
-  );
+  console.log(jwt);
+
+  const { data: subjectDetails } = useQuery({
+    queryKey: [`${id}`],
+    queryFn: () => getSubject(jwt, id),
+  });
+
+  // useEffect(
+  //   function () {
+  //     async function fetchData() {
+  //       if (!jwt) {
+  //         return;
+  //       }
+  //       const req = await fetch(
+  //         `${url}/api/v1/note-nestle/subjects?_id=${id}`,
+  //         {
+  //           method: 'GET',
+  //           headers: {
+  //             'content-type': 'application/json',
+  //             authorization: `Bearer ${jwt}`,
+  //           },
+  //         }
+  //       );
+  //       const data = await req.json();
+  //       setSubjectDetails(data.data[0]);
+  //     }
+  //     fetchData();
+  //   },
+  //   [jwt, id]
+  // );
 
   function getFiles(id: string) {
     const files = subjectDetails.units.filter((unit) => unit._id === id)[0]
