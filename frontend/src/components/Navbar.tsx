@@ -24,15 +24,15 @@ const Navbar = () => {
     console.log(isMenuOpen);
   };
   return (
-    <header className="bg-bgN py-[1rem] border-b-[1px]">
-      <nav className="flex justify-between items-center w-[92%] mx-auto">
+    <header className="bg-bgN py-[1rem] border-b-[1px] z-50">
+      <nav className="flex justify-between items-center  w-[92%] mx-auto">
         <div>
           <Link className="text-xl font-extrabold text-title" href="/">
             NOTE NESTLE
           </Link>
         </div>
         <div
-          className={`md:static absolute bg-bgN md:min-h-fit min-h-[60vh] left-0 ${
+          className={`md:static absolute bg-bgN md:min-h-fit min-h-[60vh] z-10 left-0 ${
             !isMenuOpen ? 'top-[-100%]' : 'top-[1%]'
           } md:w-auto w-full flex justify-center items-center text-center px-[0.3rem]`}
         >

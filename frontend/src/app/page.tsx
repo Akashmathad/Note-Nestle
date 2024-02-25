@@ -177,21 +177,21 @@ const Page = () => {
 
   return (
     <main className="bg-bgN">
-      <section id="hero-section " className="pb-[6rem] lg:pb-[9.6rem] bg-bgN">
-        <div className=" container grid grid-col-1 lg:grid-cols-2 ">
-          <div className="text-center justify-center items-center pt-[2.5rem] lg:pt-[10rem]">
-            <h1 className="text-title text-[3rem] mb-[1.5rem] lg:text-[4.5rem] font-fontPrimary text-center">
+      <section id="hero-section " className="py-[7rem] bg-bgN">
+        <div className="container grid grid-col-1 lg:grid-cols-2 gap-10 justify-center items-center">
+          <div className="text-center justify-center items-center flex flex-col gap-3 ">
+            <h1 className="text-title text-[3rem] lg:text-[4.5rem] font-fontPrimary text-center">
               Note Nestle
             </h1>
-            <h2 className="text-[1.3rem] lg:text-[1.5rem] lg:mb-5 text-para">
+            <h2 className="text-[1.3rem] lg:text-[1.5rem] text-para">
               Elevate your learning journey. A centralized hub for engineering
               resources—lectures, presentations, and more. Empowering educators
               to share knowledge, enabling students to access, learn, and
               succeed.
             </h2>
           </div>
-          <div className="text-center justify-center items-end text-title flex pt-[2.25rem]  lg:pt-[4rem]">
-            <div className=" w-[50%] lg:w-[70%]">
+          <div className="text-center justify-center items-end text-title flex">
+            <div className=" w-[70%]">
               {color === 'dark' && (
                 <img src="main-page-img.svg" alt="Main page photo" />
               )}

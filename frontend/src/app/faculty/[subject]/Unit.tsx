@@ -37,16 +37,6 @@ function Unit({
 
   const files = unit.files;
 
-  async function handleDeleteFolder() {
-    const req = await fetch(
-      `${url}/api/v1/note-nestle/subjects/deleteUnit/${id}/${unitId}`,
-      {
-        method: 'DELETE',
-      }
-    );
-    console.log(req.ok);
-  }
-
   return (
     <div className="p-[1.5rem] border border-border rounded-[11px]">
       <div className="flex justify-between items-center">
