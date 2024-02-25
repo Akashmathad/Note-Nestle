@@ -293,10 +293,7 @@ exports.viewFile = catchAsync(async (req, res, next) => {
     return next(new AppError('File not found', 404));
   }
 
-  // Construct the Google Drive viewer URL
-
-  // Redirect to the viewer URL
-  res.redirect(file.webViewLink);
+  res.status(200).json({ status: 'success', link: file.webViewLink });
 });
 
 // exports.deleteFiles = catchAsync(async (req, res, next) => {
