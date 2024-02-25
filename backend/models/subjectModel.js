@@ -13,6 +13,9 @@ const pdfSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  webViewLink: {
+    type: String,
+  },
 });
 
 const unitSchema = new mongoose.Schema({

@@ -23,6 +23,11 @@ router
 //download particular file
 router.route('/file/:subjectId/:unitId/:fileId').get(subjectController.getFile);
 
+//view a particular file
+router
+  .route('/viewFile/:subjectId/:unitId/:fileId')
+  .get(subjectController.viewFile);
+
 //delete single or multiple files from particular unit
 router
   .route('/deleteFiles/:subjectId/:unitId')

@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "note-nestle",
+  "private_key_id": "43cc52cdcb88f56e848dd70105f1f55c88de7918",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDR5p7xDIdsnI20\nS/+WMtwczovl4FK3h8oR92Ex77CGU184GNJfE8vTYSQlvdDNoZDwyY63P7ar/gc0\nJnRTL1EEBaS3ay9uB580UMNsEC0Wi7HxUuDFISwvQj8rXBwo+NQKCNFgDNwyGD84\nS9sNFi9NQ5QrM+WgBsFlMZWBMXeYfZXXMQNRe42k89xgeW8RgeFOSCuMmbmBwtFw\nXz2O05Imge2Dud23LQHUf+llKukkVsmoutZUO02l+EJ5WKZAgNHd11NVBF86yue6\nKbhapWETkjqnCChGRHKSNukuJtm+VTDuBoWd+i4mhGP2WmKN1ERbpb5HRiOOoWbr\nvvwqhMPJAgMBAAECggEAA+jokYNi+2QwJIlc3aqdXIEBbJsA12/VVP/XZON61Ym0\nhpo5wvEetRWEY5qVSttFVKLggGvUpoABGNjVhl4lg25qesspk0JblhEiDr9/Y4Hf\nIuhhDPL4/HlerVtWH/JAmt4+riwXJuy6Mr2A+02sPGNznVlmX9R4Yj7p8sHd4S5/\nBUG/hn7AgpD6ZNMSgOxoP7vDcBTrbiFbbSev1r6Q1o/jKj6b+1s2OpsflzMmQ4uO\nxLlOQHaSBDeGArzwkGexQjOz0QNbJAB9IUujJU3w6K2qOkNEzGfOsdKDdgV4nUyw\nkS1YxuUmpr1oOUnrfF/iA0BQVSq8Z8eqOduZlN6unQKBgQD5Izd0qsNOvZQ/9lwG\nTLueKRDq12miwLhyosnx/SZmRBdQr5SRaE5C0AIvAZLM/auIIxr4Znt7rq2izxax\nvd5xmLenI7WJBAB6nslYhtsnOwwKnuPY5fR2BRcPONLaCVkTQCsS0DyVEDx+dDlC\nJZ2saxEuusnewsH9fiOV+p4MpQKBgQDXrrptuogDEg0m6kDH7JXIpZs/RbS55U/g\nWNt+9jLXqQOmta495d79jGmOErOkQzoAMQtmPAHh1+6RI/NbPzZKRd2p1zPbbx9U\ndYwBeKdsGRk2SSbduxfr2jNY4FG3TR2ycRzVk9L6d2pZOcAUVvCgnU9/P4Itg/sX\niGGVzAZ9VQKBgQDMBYfzdagNgni2TKSd0BbQ9aZR+ugaDSK/Vgp0ri/VDaveOns6\n/KUiV7+CCRLT5mSjTsRWaW50Id819csK8YcJldvH9xlBxFI0GHaglYdAwD0jMW07\ngU1JnO9+WrVpMsCMYD8l3/vMwogXskv1nGJcAS4IC5UnZGyCj9rKhnsJtQKBgAGo\nnlZpsNIVOXSrKIRhFWXNoDwEVTd4w/x9snJvgkSWUCjgDM79DZH1mno1Opxwx+lo\ndyX6ICmUd4k2NZDmE4zOrL25ofR2Dk+f98urGd6C8uav+VSLM8vkibCNSROXzDqr\nFAWwdVbnxDGbeBav9HnHu+zGmEGxWiT8L4PvZb1hAoGAJ+F+w+vsFT6ncVrSIYpl\nMenYAzOu8F6afRYueo3X9kJU3rb5ENcDLYe/PE4I7Obbc0Ri7rC/clsP5vW8dY4j\n7Fmx5zT+9+/5dtMkyv34EFbok8aMoWOZDafkdU7+ZC11IJhLu422ZUQKvcWoTVjT\nZCT4PRWnwKMKbNMqypFG4F8=\n-----END PRIVATE KEY-----\n",
+  "client_email": "note-nestle@note-nestle.iam.gserviceaccount.com",
+  "client_id": "104926576631164174541",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/note-nestle%40note-nestle.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

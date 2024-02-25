@@ -40,7 +40,6 @@ exports.studentLogin = catchAsync(async (req, res, next) => {
   const { collegeId, password } = req.body;
 
   const user = await Student.findOne({ collegeId }).select('+password');
-  console.log(user);
 
   if (!user || user.password !== password) {
     return next(new AppError('Incorrect college Id or password', 401));
