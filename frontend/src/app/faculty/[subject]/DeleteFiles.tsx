@@ -24,7 +24,7 @@ function DeleteFiles({ id, unitId, files, unitName }) {
   const { mutate } = useMutation({
     mutationFn: (data: {}) => deleteFiles(id, unitId, data),
     onSuccess: () => {
-      toast.success('Unit added');
+      toast.success('Files deleted');
       queryClient.invalidateQueries({
         queryKey: [`${id}`],
       });

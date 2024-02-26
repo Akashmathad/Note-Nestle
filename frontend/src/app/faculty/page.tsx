@@ -26,6 +26,7 @@ const FacultyPage = () => {
   const { data: subjects } = useQuery({
     queryKey: [`branch-${branch}`],
     queryFn: () => getBranchSubjects(jwt, branch),
+    enabled: Boolean(jwt),
   });
 
   return (

@@ -61,7 +61,7 @@ function UploadFile({ id, unitId, unitName }) {
                 Cancel
               </Button>
             </SheetClose>
-            <Button type="submit">
+            <Button type="submit" disabled={isPending}>
               {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               {!isPending && 'Submit'}
             </Button>

@@ -29,11 +29,10 @@ const Subject = ({ params }) => {
   const id: string = params.subject;
   // const url = process.env.NEXT_PUBLIC_URL;
 
-  console.log(jwt);
-
   const { data: subjectDetails } = useQuery({
     queryKey: [`${id}`],
     queryFn: () => getSubject(jwt, id),
+    enabled: Boolean(jwt),
   });
 
   // useEffect(

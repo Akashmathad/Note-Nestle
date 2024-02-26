@@ -85,7 +85,7 @@ const AddSubject = () => {
               Close
             </Button>
           </SheetClose>
-          <Button type="submit" disabled={false}>
+          <Button type="submit" disabled={isPending}>
             {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             {!isPending && 'Submit'}
           </Button>

@@ -2,22 +2,23 @@
 import { AuthContext } from '@/context/AuthContextContainer';
 import React, { useContext, useEffect, useState } from 'react';
 import SubjectDisplay from '../faculty/[subject]/SubjectDisplay';
-import { useRouter } from 'next/navigation';
+
 import { Button } from '@/components/ui/button';
 import toast, { Toaster } from 'react-hot-toast';
 import { useQuery } from '@tanstack/react-query';
 import { getBranchSubjects } from '@/services/apiBranches';
 import Search from '@/components/Search';
+import { useRouter } from 'next/navigation';
 
 const Branch = ({ params }) => {
   const router = useRouter();
   const { jwt } = useContext<any>(AuthContext);
-  const [finalList, setFinalList] = useState<any>();
-
   const { data: subjects } = useQuery({
     queryKey: [`branch-${params.branch}`],
     queryFn: () => getBranchSubjects(jwt, params.branch),
+    enabled: Boolean(jwt),
   });
+  const [finalList, setFinalList] = useState<any>();
 
   function getName(branch: string) {
     switch (branch) {

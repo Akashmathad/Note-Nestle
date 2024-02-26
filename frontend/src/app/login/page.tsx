@@ -2,33 +2,53 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { AuthContext } from '@/context/AuthContextContainer';
-import { UnlockKeyhole, User } from 'lucide-react';
+import { Loader2, UnlockKeyhole, User } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import toast, { Toaster } from 'react-hot-toast';
 
 const LoginPage = () => {
   const router = useRouter();
   const { register, handleSubmit } = useForm();
+  const [loading, setLoading] = useState(false);
   const { storeUserAndJwt, setUser, setJwt } = useContext<any>(AuthContext);
   const url = process.env.NEXT_PUBLIC_URL;
 
   async function onSubmit(data: any) {
-    const req = await fetch(`${url}/api/v1/note-nestle/auth/Login`, {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
-    const data1 = await req.json();
-    console.log(data1);
-    storeUserAndJwt(data1.data, data1.token);
-    setJwt(data1.token);
-    setUser(data1.data);
+    try {
+      data.collegeId = data.collegeId.toUpperCase();
 
-    router.push('/');
+      setLoading(true);
+      const req = await fetch(`${url}/api/v1/note-nestle/auth/Login`, {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      const data1 = await req.json();
+      console.log(req.ok);
+      console.log(data1);
+
+      if (req.ok) {
+        storeUserAndJwt(data1.data, data1.token);
+        setJwt(data1.token);
+        setUser(data1.data);
+        router.push('/');
+      } else {
+        toast.error(data1.message, {
+          className: 'toast toast-fail',
+        });
+      }
+    } catch {
+      toast.error('Something went wrong', {
+        className: 'toast toast-fail',
+      });
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -59,11 +79,17 @@ const LoginPage = () => {
               className="text-[1.2rem]  pl-[2.5rem]"
             />
           </div>
-          <Button type="submit" className="w-full mt-[-1rem]">
-            Submit
+          <Button
+            type="submit"
+            className="w-full mt-[-1rem]"
+            disabled={loading}
+          >
+            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            {!loading && 'Submit'}
           </Button>
         </form>
       </div>
+      <Toaster toastOptions={{ duration: 5000 }} />
     </div>
   );
 };
