@@ -7,48 +7,17 @@ import { Button } from '@/components/ui/button';
 import toast, { Toaster } from 'react-hot-toast';
 import { useQuery } from '@tanstack/react-query';
 import { getBranchSubjects } from '@/services/apiBranches';
+import Search from '@/components/Search';
 
 const Branch = ({ params }) => {
   const router = useRouter();
   const { jwt } = useContext<any>(AuthContext);
-  // const [subjects, setSubjects] = useState<any>();
-  const url = process.env.NEXT_PUBLIC_URL;
+  const [finalList, setFinalList] = useState<any>();
 
   const { data: subjects } = useQuery({
     queryKey: [`branch-${params.branch}`],
     queryFn: () => getBranchSubjects(jwt, params.branch),
   });
-
-  // useEffect(
-  //   function () {
-  //     async function fetchData() {
-  //       if (!jwt) {
-  //         return;
-  //       }
-
-  //       try {
-  //         const req = await fetch(
-  //           `${url}/api/v1/note-nestle/subjects?branch=${params.branch}&fields=_id,name`,
-  //           {
-  //             method: 'GET',
-  //             headers: {
-  //               'content-type': 'application/json',
-  //               authorization: `Bearer ${jwt}`,
-  //             },
-  //           }
-  //         );
-  //         const data = await req.json();
-  //         setSubjects(data.data);
-  //       } catch {
-  //         toast.error('Something went wrong, Please refresh the page!', {
-  //           className: 'toast toast-fail',
-  //         });
-  //       }
-  //     }
-  //     fetchData();
-  //   },
-  //   [jwt, params]
-  // );
 
   function getName(branch: string) {
     switch (branch) {
@@ -78,21 +47,30 @@ const Branch = ({ params }) => {
   console.log(subjects);
   return (
     <div className="container min-h-[78vh] py-[3rem]">
-      <div className="flex items-center justify-between">
-        <h2 className="text-[2.5rem] font-fontPrimary leading-[1.2]">
+      <div className="flex flex-col lg:flex-row gap-5 items-center justify-between">
+        <h2 className="text-[2.5rem] font-fontPrimary leading-[1.2] text-center">
           {getName(params.branch)}
         </h2>
-        <Button onClick={() => router.push('/')}>Back</Button>
+        <div className="flex gap-5">
+          <div className="w-[265px]">
+            {' '}
+            <Search subjects={subjects} setFinalList={setFinalList} />
+          </div>
+
+          <Button onClick={() => router.push('/')}>Back</Button>
+        </div>
       </div>
       <div className="py-[2rem] grid lg:grid-cols-4  gap-[1.5rem]">
         {subjects && subjects.length > 0 ? (
-          subjects.map((subject) => (
-            <SubjectDisplay
-              key={subject._id}
-              link={`${params.branch}/${subject._id}`}
-              name={subject.name}
-            />
-          ))
+          (finalList && finalList.length > 0 ? finalList : subjects).map(
+            (subject) => (
+              <SubjectDisplay
+                key={subject._id}
+                link={`${params.branch}/${subject._id}`}
+                name={subject.name}
+              />
+            )
+          )
         ) : (
           <p className="text-[1.2rem]">No Subjects available</p>
         )}

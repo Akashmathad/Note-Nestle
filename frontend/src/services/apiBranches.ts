@@ -1,3 +1,5 @@
+import toast from 'react-hot-toast';
+
 const url = process.env.NEXT_PUBLIC_URL;
 export async function getBranchSubjects(jwt, branch) {
   if (!jwt || !branch) {
@@ -6,7 +8,7 @@ export async function getBranchSubjects(jwt, branch) {
 
   try {
     const req = await fetch(
-      `${url}/api/v1/note-nestle/subjects?branch=${branch}&fields=_id,name`,
+      `${url}/api/v1/note-nestle/subjects?branch=${branch}&fields=_id,name&sort=name`,
       {
         method: 'GET',
         headers: {
@@ -110,6 +112,34 @@ export async function deleteFiles(id, unitId, data) {
         body: JSON.stringify(data),
       }
     );
+  } catch (error) {
+    console.log(error);
+    throw new Error('Files cannot be deleted');
+  }
+}
+
+export async function addSubject(data) {
+  try {
+    const req = await fetch(
+      `${url}/api/v1/note-nestle/subjects/createSubject`,
+      {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      }
+    );
+    if (req.status === 500) {
+      toast.error('Subject already exists!', {
+        className: 'toast toast-fail',
+      });
+    }
+    if (req.ok) {
+      toast.success('Subjet added', {
+        className: 'toast toast-success',
+      });
+    }
   } catch (error) {
     console.log(error);
     throw new Error('Files cannot be deleted');
