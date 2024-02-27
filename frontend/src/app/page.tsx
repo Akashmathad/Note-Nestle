@@ -176,11 +176,11 @@ const Page = () => {
   }, []);
 
   return (
-    <main className="bg-bgN">
-      <section id="hero-section " className="py-[7rem] bg-bgN">
+    <main className="bg-bgN top-[-7%]">
+      <section id="hero-section " className="py-[7rem] bg-bgN  ">
         <div className="container grid grid-col-1 lg:grid-cols-2 gap-10 justify-center items-center">
           <div className="text-center justify-center items-center flex flex-col gap-3 ">
-            <h1 className="text-title text-[3rem] lg:text-[4.5rem] font-fontPrimary text-center">
+            <h1 className="text-title text-[3.5rem] lg:text-[4.5rem] font-fontPrimary text-center">
               Note Nestle
             </h1>
             <h2 className="text-[1.3rem] lg:text-[1.5rem] text-para">
