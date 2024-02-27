@@ -2,7 +2,7 @@ import Link from 'next/link';
 import React from 'react';
 import { NavigationMenuLink } from '@/components/ui/navigation-menu';
 
-const Branches = () => {
+const Branches = ({ fontSize }) => {
   const branches = [
     { branch: 'CSE', name: 'Computer Science' },
     { branch: 'ECE', name: 'Electronics and Communication' },
@@ -20,7 +20,7 @@ const Branches = () => {
     <>
       {branches.map((branch) => (
         <NavigationMenuLink
-          className="block w-[18rem] hover:bg-accent border-b-[1px] py-2"
+          className={`block w-[18rem] hover:bg-accent border-b-[1px] py-2 ${fontSize}`}
           key={branch.branch}
         >
           <Link href={`/${branch.branch}`} className="w-full h-full block">
