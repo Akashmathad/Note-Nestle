@@ -37,8 +37,8 @@ const Navbar = () => {
         </div>
         <div
           className={`md:static absolute bg-bgN md:min-h-fit min-h-[100vh] z-10 left-0 ${
-            !isMenuOpen ? 'top-[-100%]' : 'top-[4.6rem] text-2xl'
-          } md:w-auto w-full flex justify-center items-center text-center px-[0.3rem]`}
+            !isMenuOpen ? 'top-[-120%]' : 'top-[4.6rem] text-2xl'
+          } md:w-auto w-full flex justify-center items-center text-center pb-[6rem] px-[0.3rem]`}
         >
           <ul className="flex  md:flex-row flex-col  md:items-center md:gap-[3vw] gap-8">
             <li>
