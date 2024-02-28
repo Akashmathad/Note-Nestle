@@ -21,7 +21,9 @@ router
   .post(subjectController.uploadFiles, subjectController.handleFileUpload);
 
 //download particular file
-router.route('/file/:subjectId/:unitId/:fileId').get(subjectController.getFile);
+router
+  .route('/file/:subjectId/:unitId/:fileId')
+  .get(authController.verifyToken, subjectController.getFile);
 
 //view a particular file
 router
@@ -42,19 +44,6 @@ router
 router
   .route('/deleteSubject/:subjectId')
   .delete(subjectController.deleteSubject);
-
-router
-  .route('/getSubjectArray/:collegeId')
-  .get(subjectController.getSubjectArray);
-
-// add subject to teacher array
-router.route('/addSubjectToArray').post(subjectController.addSubjectToArray);
-
-// delete subject from teacher array
-router
-  .route('/deleteSubjectToArray')
-  .post(subjectController.deleteSubjectToArray);
-
 // feedback routes
 
 router

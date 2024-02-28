@@ -55,52 +55,6 @@ exports.createUnit = catchAsync(async (req, res, next) => {
   });
 });
 
-//upload files to google drive
-
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, 'uploads/');
-//   },
-//   filename: function (req, file, cb) {
-//     cb(null, Date.now() + path.extname(file.originalname));
-//   },
-// });
-
-// const upload = multer({ storage: storage });
-
-// exports.uploadFiles = upload.single('file');
-
-// exports.handleFileUpload = catchAsync(async (req, res, next) => {
-//   const subjectId = req.params.subjectId;
-//   const unitId = req.params.unitId;
-
-//   const subject = await Subject.findById(subjectId);
-//   if (!subject) {
-//     return next(new AppError('Subject not found', 404));
-//   }
-
-//   const unit = subject.units.id(unitId);
-//   if (!unit) {
-//     return next(new AppError('Unit not found', 404));
-//   }
-
-//   // Ensure that req.file is available before accessing its properties
-//   if (!req.file) {
-//     return next(new AppError('File not found', 404));
-//   }
-
-//   const newFile = {
-//     title: req.body.title,
-//     ownerName: req.body.ownerName,
-//     fileUrl: req.file.path,
-//   };
-
-//   unit.files.push(newFile);
-//   await subject.save();
-
-//   res.status(201).json(subject);
-// });
-
 const storage = multer.memoryStorage(); // Use in-memory storage for file upload
 const upload = multer({ storage: storage });
 
@@ -136,7 +90,13 @@ exports.handleFileUpload = catchAsync(async (req, res, next) => {
 
     // Prepare file metadata
     const fileMetadata = {
-      name: Date.now() + path.extname(req.file.originalname),
+      name:
+        req.body.title +
+        '-' +
+        unit.name +
+        '-' +
+        subject.name +
+        path.extname(req.file.originalname),
       parents: ['1uMvB9UwZLYsqITNa_dS2OkolCnfYjWVn'],
     };
 
@@ -150,11 +110,11 @@ exports.handleFileUpload = catchAsync(async (req, res, next) => {
     const uploadedFile = await drive.files.create({
       resource: fileMetadata,
       media: media,
-      fields: 'id, webViewLink',
+      fields: 'id, webViewLink, webContentLink',
     });
 
-    const webViewLink = uploadedFile.data.webViewLink;
-    if (!webViewLink) {
+    const { id, webViewLink, webContentLink } = uploadedFile.data;
+    if (!id || !webViewLink || !webContentLink) {
       return next(
         new AppError(
           'Unable to retrieve webViewLink from Google Drive response',
@@ -169,6 +129,7 @@ exports.handleFileUpload = catchAsync(async (req, res, next) => {
       ownerName: req.body.ownerName,
       fileUrl: uploadedFile.data.id,
       webViewLink,
+      webContentLink,
     };
 
     unit.files.push(newFile);
@@ -181,40 +142,6 @@ exports.handleFileUpload = catchAsync(async (req, res, next) => {
     return next(new AppError('Error uploading file to Google Drive', 500));
   }
 });
-
-// exports.getFile = catchAsync(async (req, res, next) => {
-//   const subjectId = req.params.subjectId;
-//   const unitId = req.params.unitId;
-//   const fileId = req.params.fileId;
-
-//   const subject = await Subject.findById(subjectId);
-//   if (!subject) {
-//     return next(new AppError('Subject not found', 404));
-//   }
-
-//   const unit = subject.units.id(unitId);
-//   if (!unit) {
-//     return next(new AppError('Unit not found', 404));
-//   }
-
-//   const file = unit.files.id(fileId);
-//   if (!file) {
-//     return next(new AppError('file not found', 404));
-//   }
-
-//   const filePath = path.join(__dirname, '..', file.fileUrl);
-
-//   const mimeType = mime.lookup(filePath) || 'application/octet-stream';
-
-//   res.setHeader(
-//     'Content-Disposition',
-//     `attachment; filename="${file.title}.${mime.extension(mimeType)}"`
-//   );
-//   res.setHeader('Content-Type', mimeType);
-
-//   const fileStream = fs.createReadStream(filePath);
-//   fileStream.pipe(res);
-// });
 
 exports.getFile = catchAsync(async (req, res, next) => {
   const subjectId = req.params.subjectId;
@@ -233,44 +160,10 @@ exports.getFile = catchAsync(async (req, res, next) => {
 
   const file = unit.files.id(fileId);
   if (!file) {
-    return next(new AppError('file not found', 404));
+    return next(new AppError('File not found', 404));
   }
 
-  // Use the Google Drive API to get file information
-  const fileMetadata = await drive.files.get({
-    fileId: file.fileUrl,
-    fields: 'id, name, mimeType, parents, webViewLink', // Add any additional fields you need
-  });
-
-  const mimeType = fileMetadata.data.mimeType;
-  const fileName = file.title;
-
-  // Validate if the file has the correct parent folder (optional)
-  // Add additional checks if necessary
-
-  // Set content headers for the response
-  res.setHeader(
-    'Content-Disposition',
-    `attachment; filename="${fileName}.${mime.extension(mimeType)}"`
-  );
-  res.setHeader('Content-Type', mimeType);
-
-  // Use the Google Drive API to download the file content
-  const fileStream = await drive.files.get(
-    { fileId: file.fileUrl, alt: 'media' },
-    { responseType: 'stream' }
-  );
-
-  // Pipe the file stream to the response
-  fileStream.data
-    .on('end', () => {
-      console.log('File download complete.');
-    })
-    .on('error', (err) => {
-      console.error('Error downloading file:', err);
-      return next(new AppError('Error downloading file', 500));
-    })
-    .pipe(res);
+  res.status(200).json({ status: 'success', link: file.webContentLink });
 });
 
 exports.viewFile = catchAsync(async (req, res, next) => {
@@ -295,36 +188,6 @@ exports.viewFile = catchAsync(async (req, res, next) => {
 
   res.status(200).json({ status: 'success', link: file.webViewLink });
 });
-
-// exports.deleteFiles = catchAsync(async (req, res, next) => {
-//   const subjectId = req.params.subjectId;
-//   const unitId = req.params.unitId;
-
-//   const deleteFiles = req.body.fileIds;
-
-//   const subject = await Subject.findById(subjectId);
-//   if (!subject) {
-//     return next(new AppError('Subject not found', 404));
-//   }
-//   const unit = subject.units.id(unitId);
-//   if (!unit) {
-//     return next(new AppError('Unit not found', 404));
-//   }
-//   for (const fileId of deleteFiles) {
-//     const file = unit.files.id(fileId);
-//     if (file) {
-//       const filePath = path.join(__dirname, '..', file.fileUrl);
-//       await fs.promises.unlink(filePath);
-//       unit.files.pull(fileId);
-//     }
-//   }
-//   await subject.save();
-
-//   res.status(204).json({
-//     status: 'success',
-//     data: null,
-//   });
-// });
 
 exports.deleteFiles = catchAsync(async (req, res, next) => {
   const subjectId = req.params.subjectId;
@@ -419,48 +282,6 @@ exports.deleteSubject = catchAsync(async (req, res, next) => {
   res.status(204).json({ status: 'success', data: null });
 });
 
-exports.getSubjectArray = catchAsync(async (req, res, next) => {
-  const collegeId = req.params.collegeId;
-
-  const student = await Student.findOne({ collegeId });
-
-  if (!student) {
-    return next(new AppError('User not found', 404));
-  }
-
-  res.status(200).json({ status: 'success', subjects: student.subjects });
-});
-
-exports.addSubjectToArray = catchAsync(async (req, res, next) => {
-  const collegeId = req.body.collegeId;
-
-  const student = await Student.findOne({ collegeId });
-
-  if (!student) {
-    return next(new AppError('User not found', 404));
-  }
-
-  student.subjects.push(req.body.subject);
-
-  await student.save();
-
-  res.status(201).json({ status: 'success', data: student });
-});
-
-exports.deleteSubjectToArray = catchAsync(async (req, res, next) => {
-  const collegeId = req.body.collegeId;
-
-  const student = await Student.findOne({ collegeId });
-
-  student.subjects = student.subjects.filter(
-    (subject) => subject !== req.body.subject
-  );
-
-  await student.save();
-
-  res.status(201).json({ status: 'success', data: student });
-});
-
 //feedback controllers
 
 exports.getFeedbacks = catchAsync(async (req, res, next) => {
@@ -517,3 +338,170 @@ exports.getStats = catchAsync(async (req, res, next) => {
     },
   });
 });
+
+// exports.getFile = catchAsync(async (req, res, next) => {
+//   const subjectId = req.params.subjectId;
+//   const unitId = req.params.unitId;
+//   const fileId = req.params.fileId;
+
+//   const subject = await Subject.findById(subjectId);
+//   if (!subject) {
+//     return next(new AppError('Subject not found', 404));
+//   }
+
+//   const unit = subject.units.id(unitId);
+//   if (!unit) {
+//     return next(new AppError('Unit not found', 404));
+//   }
+
+//   const file = unit.files.id(fileId);
+//   if (!file) {
+//     return next(new AppError('file not found', 404));
+//   }
+
+//   const filePath = path.join(__dirname, '..', file.fileUrl);
+
+//   const mimeType = mime.lookup(filePath) || 'application/octet-stream';
+
+//   res.setHeader(
+//     'Content-Disposition',
+//     `attachment; filename="${file.title}.${mime.extension(mimeType)}"`
+//   );
+//   res.setHeader('Content-Type', mimeType);
+
+//   const fileStream = fs.createReadStream(filePath);
+//   fileStream.pipe(res);
+// });
+
+// exports.getFile = catchAsync(async (req, res, next) => {
+//   const subjectId = req.params.subjectId;
+//   const unitId = req.params.unitId;
+//   const fileId = req.params.fileId;
+
+//   const subject = await Subject.findById(subjectId);
+//   if (!subject) {
+//     return next(new AppError('Subject not found', 404));
+//   }
+
+//   const unit = subject.units.id(unitId);
+//   if (!unit) {
+//     return next(new AppError('Unit not found', 404));
+//   }
+
+//   const file = unit.files.id(fileId);
+//   if (!file) {
+//     return next(new AppError('file not found', 404));
+//   }
+
+//   // Use the Google Drive API to get file information
+//   const fileMetadata = await drive.files.get({
+//     fileId: file.fileUrl,
+//     fields: 'id, name, mimeType, parents, webViewLink', // Add any additional fields you need
+//   });
+
+//   const mimeType = fileMetadata.data.mimeType;
+//   const fileName = file.title;
+
+//   // Validate if the file has the correct parent folder (optional)
+//   // Add additional checks if necessary
+
+//   // Set content headers for the response
+//   res.setHeader(
+//     'Content-Disposition',
+//     `attachment; filename="${fileName}.${mime.extension(mimeType)}"`
+//   );
+//   res.setHeader('Content-Type', mimeType);
+
+//   // Use the Google Drive API to download the file content
+//   const fileStream = await drive.files.get(
+//     { fileId: file.fileUrl, alt: 'media' },
+//     { responseType: 'stream' }
+//   );
+
+//   // Pipe the file stream to the response
+//   fileStream.data
+//     .on('end', () => {
+//       console.log('File download complete.');
+//     })
+//     .on('error', (err) => {
+//       console.error('Error downloading file:', err);
+//       return next(new AppError('Error downloading file', 500));
+//     })
+//     .pipe(res);
+// });
+
+//upload files to google drive
+
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, 'uploads/');
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, Date.now() + path.extname(file.originalname));
+//   },
+// });
+
+// const upload = multer({ storage: storage });
+
+// exports.uploadFiles = upload.single('file');
+
+// exports.handleFileUpload = catchAsync(async (req, res, next) => {
+//   const subjectId = req.params.subjectId;
+//   const unitId = req.params.unitId;
+
+//   const subject = await Subject.findById(subjectId);
+//   if (!subject) {
+//     return next(new AppError('Subject not found', 404));
+//   }
+
+//   const unit = subject.units.id(unitId);
+//   if (!unit) {
+//     return next(new AppError('Unit not found', 404));
+//   }
+
+//   // Ensure that req.file is available before accessing its properties
+//   if (!req.file) {
+//     return next(new AppError('File not found', 404));
+//   }
+
+//   const newFile = {
+//     title: req.body.title,
+//     ownerName: req.body.ownerName,
+//     fileUrl: req.file.path,
+//   };
+
+//   unit.files.push(newFile);
+//   await subject.save();
+
+//   res.status(201).json(subject);
+// });
+
+// exports.deleteFiles = catchAsync(async (req, res, next) => {
+//   const subjectId = req.params.subjectId;
+//   const unitId = req.params.unitId;
+
+//   const deleteFiles = req.body.fileIds;
+
+//   const subject = await Subject.findById(subjectId);
+//   if (!subject) {
+//     return next(new AppError('Subject not found', 404));
+//   }
+//   const unit = subject.units.id(unitId);
+//   if (!unit) {
+//     return next(new AppError('Unit not found', 404));
+//   }
+//   for (const fileId of deleteFiles) {
+//     const file = unit.files.id(fileId);
+//     if (file) {
+//       const filePath = path.join(__dirname, '..', file.fileUrl);
+//       await fs.promises.unlink(filePath);
+//       unit.files.pull(fileId);
+//     }
+//   }
+//   await subject.save();
+
+//   res.status(204).json({
+//     status: 'success',
+//     data: null,
+//   });
+// });
