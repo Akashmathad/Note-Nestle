@@ -36,8 +36,8 @@ const Navbar = () => {
           </Link>
         </div>
         <div
-          className={`md:static absolute bg-bgN md:min-h-fit min-h-[100vh] z-10 left-0 ${
-            !isMenuOpen ? 'top-[-120%]' : 'top-[4.6rem] text-2xl pb-[8rem]'
+          className={`md:static absolute bg-bgN md:min-h-fit min-h-[100vh] text-2xl z-10 left-0 ${
+            !isMenuOpen ? 'top-[-120%]' : 'top-[4.6rem] '
           } md:w-auto w-full flex justify-center items-center text-center px-[0.3rem]`}
         >
           <ul className="flex  md:flex-row flex-col  md:items-center md:gap-[3vw] gap-8">
@@ -53,7 +53,7 @@ const Navbar = () => {
                       Branches
                     </NavigationMenuTrigger>
                     <NavigationMenuContent onClick={toggleMenu}>
-                      <Branches fontSize={!isMenuOpen ? '' : 'text-base'} />
+                      <Branches />
                     </NavigationMenuContent>
                   </NavigationMenuItem>
                 </NavigationMenuList>
