@@ -1,24 +1,22 @@
 'use client';
 import { AuthContext } from '@/context/AuthContextContainer';
-import React, { useContext, useEffect, useState } from 'react';
-import Unit from './Unit';
-import UploadFile from './UploadFile';
-import DeleteFiles from './DeleteFiles';
-import DeleteUnit from './DeleteUnit';
-import DeleteSubject from './DeleteSubject';
+import { useContext, useState } from 'react';
 import AddUnit from './AddUnit';
+import DeleteSubject from './DeleteSubject';
+import DeleteUnit from './DeleteUnit';
+import Unit from './Unit';
 
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 
 import {
   AlertDialog,
   AlertDialogContent,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-import { Toaster } from 'react-hot-toast';
 import { getSubject } from '@/services/apiBranches';
 import { useQuery } from '@tanstack/react-query';
+import { Toaster } from 'react-hot-toast';
 
 const Subject = ({ params }) => {
   const { jwt } = useContext<any>(AuthContext);

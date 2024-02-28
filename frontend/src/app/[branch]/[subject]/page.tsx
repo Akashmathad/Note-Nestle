@@ -1,12 +1,12 @@
 'use client';
-import { AuthContext } from '@/context/AuthContextContainer';
-import React, { useContext, useEffect, useState } from 'react';
-import Unit from './Unit';
-import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import toast, { Toaster } from 'react-hot-toast';
-import { useQuery } from '@tanstack/react-query';
+import { AuthContext } from '@/context/AuthContextContainer';
 import { getSubject } from '@/services/apiBranches';
+import { useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
+import { useContext } from 'react';
+import { Toaster } from 'react-hot-toast';
+import Unit from './Unit';
 
 const Subject = ({ params }) => {
   const { jwt } = useContext<any>(AuthContext);
@@ -17,6 +17,7 @@ const Subject = ({ params }) => {
   const { data: subjectDetails } = useQuery({
     queryKey: [`${params.subject}`],
     queryFn: () => getSubject(jwt, params.subject),
+    enabled: Boolean(jwt),
   });
 
   // useEffect(

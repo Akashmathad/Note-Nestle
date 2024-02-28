@@ -56,6 +56,9 @@ const FacultyPage = () => {
                     <SelectItem value="ME">ME</SelectItem>
                     <SelectItem value="AE">AE</SelectItem>
                     <SelectItem value="CE">CE</SelectItem>
+                    <SelectItem value="PHY">Physics</SelectItem>
+                    <SelectItem value="CHE">Chemistry</SelectItem>
+                    <SelectItem value="MAT">Maths</SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>

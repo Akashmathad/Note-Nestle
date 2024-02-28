@@ -7,41 +7,41 @@ function FileDisplay({ id, unitId, file }) {
   const url = process.env.NEXT_PUBLIC_URL;
   const { jwt } = useContext<any>(AuthContext);
 
-  async function fileDownload() {
-    toast.success('Downloading started...', {
+  const downloadFile = async (URL) => {
+    toast.success('Downloading will start in 5 sec', {
       className: 'toast toast-success',
     });
     try {
-      const req = await fetch(
-        `${url}/api/v1/note-nestle/subjects/file/${id}/${unitId}/${file._id}`
-      );
-
-      // Get the filename from the Content-Disposition header
-      const contentDisposition = req.headers.get('Content-Disposition');
-      const filename = contentDisposition
-        ? contentDisposition.split('filename=')[1]
-        : file.title;
-
-      // Assuming the response contains a Blob representing the file
-      const blob = await req.blob();
-
-      // Create a Blob URL for the file
-      const blobUrl = URL.createObjectURL(blob);
-
-      // Create a hidden anchor element
+      const fileLink = URL;
       const link = document.createElement('a');
-      link.href = blobUrl;
-      link.download = filename.trim(); // Set the desired file name
-
-      // Append the anchor to the document and trigger a click event
+      link.href = fileLink;
+      link.download = 'downloadedFile'; // You can set a default name or parse it dynamically
       document.body.appendChild(link);
       link.click();
-
-      // Remove the anchor from the document
       document.body.removeChild(link);
+    } catch (error) {
+      toast.error('Something went wrong while downloading', {
+        className: 'toast toast-fail',
+      });
+    }
+  };
 
-      // Revoke the Blob URL to free up resources
-      URL.revokeObjectURL(blobUrl);
+  async function fileDownload() {
+    try {
+      const req = await fetch(
+        `${url}/api/v1/note-nestle/subjects/file/${id}/${unitId}/${file._id}`,
+        {
+          method: 'GET',
+          headers: {
+            'content-type': 'application/json',
+            authorization: `Bearer ${jwt}`,
+          },
+        }
+      );
+
+      const data = await req.json();
+      console.log(data);
+      downloadFile(data.link);
     } catch {
       toast.error('Something went wrong', {
         className: 'toast toast-fail',
@@ -77,7 +77,9 @@ function FileDisplay({ id, unitId, file }) {
 
   return (
     <div className="bg-bgN py-[1.5rem] flex flex-col items-center justify-center gap-[1rem] relative rounded-[9px] border border-borderN">
-      <h3 className="text-[2rem] lg:text-[1.5rem]">{file.title}</h3>
+      <h3 className="text-[2rem] lg:text-[1.5rem] w-[200px] text-center">
+        {file.title}
+      </h3>
       <div>
         <p className="text-para text-[1.5rem] lg:text-[1rem]">
           {file.ownerName}

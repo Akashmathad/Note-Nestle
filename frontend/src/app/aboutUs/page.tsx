@@ -1,17 +1,3 @@
-import React from 'react';
-import {
-  CornerDownRight,
-  CornerLeftDown,
-  CornerRightUp,
-  CornerUpLeft,
-  Github,
-  Heart,
-  Star,
-} from 'lucide-react';
-import { Twitter } from 'lucide-react';
-import { Linkedin } from 'lucide-react';
-import Image from 'next/image';
-
 const aboutUs = () => {
   return (
     <div className="container py-[4rem] min-h-[78vh] text-[1.5rem]">

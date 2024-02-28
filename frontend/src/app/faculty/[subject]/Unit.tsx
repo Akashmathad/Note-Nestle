@@ -1,25 +1,8 @@
+import { AlertDialog, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import FileDisplay from './FileDisplay';
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '@/components/ui/sheet';
 import UploadFile from './UploadFile';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
 
 import DeleteFiles from './DeleteFiles';
 
@@ -33,8 +16,6 @@ function Unit({
 }) {
   // const [openUpload, setOpenUpload] = useState(false);
   // const [openDelete, setOpenDelete] = useState(false);
-  const url = process.env.NEXT_PUBLIC_URL;
-
   const files = unit.files;
 
   return (
