@@ -1,14 +1,14 @@
 'use client';
 import { AuthContext } from '@/context/AuthContextContainer';
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import SubjectDisplay from '../faculty/[subject]/SubjectDisplay';
 
-import { Button } from '@/components/ui/button';
-import toast, { Toaster } from 'react-hot-toast';
-import { useQuery } from '@tanstack/react-query';
-import { getBranchSubjects } from '@/services/apiBranches';
 import Search from '@/components/Search';
+import { Button } from '@/components/ui/button';
+import { getBranchSubjects } from '@/services/apiBranches';
+import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
+import { Toaster } from 'react-hot-toast';
 
 const Branch = ({ params }) => {
   const router = useRouter();
@@ -36,7 +36,7 @@ const Branch = ({ params }) => {
         return 'Civil Engineering';
       case 'PHY':
         return 'Physics';
-      case 'CHEM':
+      case 'CHE':
         return 'Chemistry';
       case 'MAT':
         return 'Mathematics';

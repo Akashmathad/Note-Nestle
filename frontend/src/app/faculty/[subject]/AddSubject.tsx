@@ -1,11 +1,5 @@
 import React, { useState } from 'react';
-import {
-  SheetContent,
-  SheetClose,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-} from '@/components/ui/sheet';
+import { SheetContent, SheetClose, SheetFooter } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import {
   Select,
@@ -75,6 +69,9 @@ const AddSubject = () => {
                 <SelectItem value="ME">ME</SelectItem>
                 <SelectItem value="AE">AE</SelectItem>
                 <SelectItem value="CE">CE</SelectItem>
+                <SelectItem value="PHY">Physics</SelectItem>
+                <SelectItem value="CHE">Chemistry</SelectItem>
+                <SelectItem value="MAT">Maths</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>

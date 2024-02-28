@@ -1,6 +1,5 @@
 'use client';
 import {
-  AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
@@ -8,13 +7,12 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { Checkbox } from '@/components/ui/checkbox';
 import { deleteFiles } from '@/services/apiBranches';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 
 function DeleteFiles({ id, unitId, files, unitName }) {
