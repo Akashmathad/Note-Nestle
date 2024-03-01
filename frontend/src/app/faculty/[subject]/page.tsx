@@ -17,6 +17,7 @@ import {
 import { getSubject } from '@/services/apiBranches';
 import { useQuery } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
+import { Loader2 } from 'lucide-react';
 
 const Subject = ({ params }) => {
   const { jwt } = useContext<any>(AuthContext);
@@ -27,7 +28,7 @@ const Subject = ({ params }) => {
   const id: string = params.subject;
   // const url = process.env.NEXT_PUBLIC_URL;
 
-  const { data: subjectDetails } = useQuery({
+  const { data: subjectDetails, isFetching } = useQuery({
     queryKey: [`${id}`],
     queryFn: () => getSubject(jwt, id),
     enabled: Boolean(jwt),
@@ -67,7 +68,7 @@ const Subject = ({ params }) => {
   console.log(subjectDetails);
 
   return (
-    <div className="container min-h-[78vh] py-[2rem]">
+    <div className="container flex-grow py-[2rem]">
       <div className="flex flex-col lg:flex-row items-center justify-between gap-[1rem]">
         <h2 className="lg:text-[2.5rem] text-[1.8rem] font-fontPrimary leading-[1.2]">
           {subjectDetails && subjectDetails.name}
@@ -111,7 +112,9 @@ const Subject = ({ params }) => {
         </div>
       </div>
       <div className="py-[2rem] flex flex-col gap-[1.5rem]">
-        {subjectDetails &&
+        {isFetching ? (
+          <Loader2 className="mr-2 h-12 w-12 animate-spin" />
+        ) : subjectDetails && subjectDetails.units.length !== 0 ? (
           subjectDetails.units.map((unit) => (
             <Unit
               id={id}
@@ -122,7 +125,10 @@ const Subject = ({ params }) => {
               setAddUnitId={setAddUnitId}
               setOpenDeleteFile={setOpenDeleteFile}
             />
-          ))}
+          ))
+        ) : (
+          <p className="text-[1.2rem]">No units found</p>
+        )}
       </div>
       <Toaster toastOptions={{ duration: 5000 }} />
     </div>

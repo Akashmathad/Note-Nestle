@@ -34,7 +34,9 @@ export default function RootLayout({
     <html lang="en">
       <ReactQueryProvider>
         <AuthContextContainer>
-          <body className={`${jakarta.className} ${fontPrimary.variable} `}>
+          <body
+            className={`${jakarta.className} ${fontPrimary.variable} min-h-[100vh] flex flex-col relative`}
+          >
             <ThemeProvider
               attribute="class"
               defaultTheme="system"

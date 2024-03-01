@@ -4,12 +4,9 @@ import Branches from './Branches';
 import {
   NavigationMenu,
   NavigationMenuContent,
-  NavigationMenuIndicator,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  NavigationMenuViewport,
 } from '@/components/ui/navigation-menu';
 import { ModeToggle } from './ui/mode-toggle';
 import { Menu } from 'lucide-react';
@@ -24,7 +21,7 @@ const Navbar = () => {
     console.log(isMenuOpen);
   };
   return (
-    <header className="bg-bgN py-[1rem] border-b-[1px] z-50">
+    <header className="bg-bgN py-[1rem] border-b-[1px] z-40">
       <nav className="flex justify-between items-center  w-[92%] mx-auto">
         <div>
           <Link

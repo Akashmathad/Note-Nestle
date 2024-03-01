@@ -52,7 +52,7 @@ const LoginPage = () => {
   }
 
   return (
-    <div className="w-full h-[100vh] absolute z-10 light:bg-[rgba(255, 255, 255, 0.7)] dark:bg-[rgba(0,0,0,0.85)] top-0 left-0 backdrop-blur">
+    <div className="w-full h-[100vh] absolute z-50 flex-grow light:bg-[rgba(255, 255, 255, 0.7)] dark:bg-[rgba(0,0,0,0.85)] top-0 left-0 backdrop-blur">
       <div className=" grid p-[3rem]  items-center absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]  border border-borderN gap-[1.5rem] rounded-[11px]">
         <form
           onSubmit={handleSubmit(onSubmit)}

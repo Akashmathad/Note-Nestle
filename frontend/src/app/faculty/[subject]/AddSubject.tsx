@@ -65,6 +65,7 @@ const AddSubject = () => {
                 <SelectLabel>Branches</SelectLabel>
                 <SelectItem value="CSE">CSE</SelectItem>
                 <SelectItem value="ECE">ECE</SelectItem>
+                <SelectItem value="ISE">ISE</SelectItem>
                 <SelectItem value="EEE">EEE</SelectItem>
                 <SelectItem value="ME">ME</SelectItem>
                 <SelectItem value="AE">AE</SelectItem>

@@ -177,8 +177,11 @@ const Page = () => {
 
   return (
     <main className="bg-bgN top-[-7%]">
-      <section id="hero-section " className="py-[7rem] bg-bgN  ">
-        <div className="container grid grid-col-1 lg:grid-cols-2 gap-10 justify-center items-center">
+      <section
+        id="hero-section "
+        className="flex items-center justify-center bg-bgN min-h-[95vh]"
+      >
+        <div className="container grid grid-col-1 lg:grid-cols-2 gap-10 justify-center items-center mt-[-3rem]">
           <div className="text-center justify-center items-center flex flex-col gap-3 ">
             <h1 className="text-title text-[3.5rem] lg:text-[4.5rem] font-fontPrimary text-center">
               Note Nestle

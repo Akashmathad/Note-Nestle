@@ -17,20 +17,21 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useQuery } from '@tanstack/react-query';
 import { getBranchSubjects } from '@/services/apiBranches';
 import Search from '@/components/Search';
+import { Loader2 } from 'lucide-react';
 
 const FacultyPage = () => {
   const { user, jwt } = useContext<any>(AuthContext);
   const [branch, setBranch] = useState<string>();
   const [finalList, setFinalList] = useState<any>();
 
-  const { data: subjects } = useQuery({
+  const { data: subjects, isFetching } = useQuery({
     queryKey: [`branch-${branch}`],
     queryFn: () => getBranchSubjects(jwt, branch),
     enabled: Boolean(jwt),
   });
 
   return (
-    <div className="container min-h-[78vh] py-[3rem]">
+    <div className="container flex-grow py-[3rem]">
       <div className="flex items-center justify-between flex-col lg:flex-row gap-5">
         <h1 className="lg:text-[2rem] text-[1.7rem] font-fontPrimary tracking-[1.5px] ">
           Welcome, {user ? user.name : ''}{' '}
@@ -52,6 +53,7 @@ const FacultyPage = () => {
                     <SelectLabel>Branches</SelectLabel>
                     <SelectItem value="CSE">CSE</SelectItem>
                     <SelectItem value="ECE">ECE</SelectItem>
+                    <SelectItem value="ISE">ISE</SelectItem>
                     <SelectItem value="EEE">EEE</SelectItem>
                     <SelectItem value="ME">ME</SelectItem>
                     <SelectItem value="AE">AE</SelectItem>
@@ -75,7 +77,9 @@ const FacultyPage = () => {
       </div>
 
       <div className="py-[2rem] grid lg:grid-cols-4  gap-[1.5rem]">
-        {subjects ? (
+        {isFetching ? (
+          <Loader2 className="mr-2 h-12 w-12 animate-spin" />
+        ) : subjects ? (
           subjects.length > 0 ? (
             (finalList && finalList.length > 0 ? finalList : subjects).map(
               (subject) => (
