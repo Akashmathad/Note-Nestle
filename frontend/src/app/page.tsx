@@ -94,7 +94,7 @@ const branches1 = [
   {
     branch: 'PHY',
     icon: <Rocket size={48} strokeWidth={1} />,
-    name: 'Phycics',
+    name: 'Physics',
     description: "Nature's fundamental laws, forces, energy, matter.",
   },
   {
@@ -208,7 +208,7 @@ const Page = () => {
       <section className="py-[5rem] bg-bgA  text-titleA">
         <div className="container  text-center">
           <h2 className="text-[2.5rem] lg:text-[3rem] font-fontPrimary pb-[3rem]">
-            Statastics
+            Statistics
           </h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-[2rem] lg:gap-[3rem] ">
             {data.map((stat) => (

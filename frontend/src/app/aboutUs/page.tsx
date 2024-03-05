@@ -1,61 +1,99 @@
-const aboutUs = () => {
+import React from 'react';
+import { Linkedin } from 'lucide-react';
+import Image from 'next/image';
+import SvgGitHub from './svgGitHub';
+import SvgTwitter from './svgTwitter';
+
+const teamMembers = [
+  {
+    id: 1,
+    name: 'Akash Mathad',
+    image: '/AkashM.jpg',
+    description:
+      'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perspiciatis nisi reprehenderit consectetur repudiandae, mollitia alias.',
+    github: 'github 1',
+    twitter: '',
+    linkedIn: '',
+  },
+  {
+    id: 1,
+    name: 'Om Vasudev',
+    image: '/OmV.jpg',
+    description:
+      'As a frontend developer, I developed the homepage of Notes Nestle using Next.js and Tailwind CSS, creating a user-friendly UI.',
+    github: 'https://github.com/OmVasudev',
+    twitter: 'https://twitter.com/OmVasudev3',
+    linkedIn: 'https://www.linkedin.com/in/om-vasudev-a14109244',
+  },
+  {
+    id: 1,
+    name: 'Apurva Upadhye',
+    image: '/ApurvaU.jpg',
+    description:
+      'I crafted a branches page with TypeScript. It offers enhanced functionality and robustness.',
+    github: 'https://github.com/Apurva-Upadhye',
+    twitter: 'https://twitter.com/ApurvaUpad96142',
+    linkedIn: 'https://www.linkedin.com/in/apurva-upadhye-8b8786244',
+  },
+  {
+    id: 1,
+    name: 'Arham Mulla',
+    image: '/ArhamM.jpg',
+    description:
+      'I designed the About Us page using Next.js for functionality and Tailwind CSS for a polished and responsive appearance.',
+    github: 'https://github.com/ArhamMulla',
+    twitter: 'https://twitter.com/Arham_Mulla_',
+    linkedIn: 'https://in.linkedin.com/in/arham-mulla-b9ba2b246',
+  },
+  // Add more team members as needed
+];
+
+const AboutUs = () => {
   return (
-    <div className="container py-[4rem] flex-grow text-[1.5rem]">
-      Under development
-    </div>
-    // <div className="container py-[4rem] min-h-[78vh] text-[1.5rem]">
-    //   <div className="flex justify-between items-center">
-    //     <div className="h-24 w-[400px] grid justify-items-stretch  items-center">
-    //       <CornerLeftDown
-    //         size={80}
-    //         strokeWidth={0.5}
-    //         className="justify-self-end"
-    //       />
-    //     </div>
-    //     <div className="w-[600px] p-2 border border-borderN mb-10 rounded-[11px] grid grid-cols-[30fr_70fr]">
-    //       <div className="w-[100%] ">
-    //       </div>
-    //       <div>
-    //         <h3>Akash Mathad</h3>
-    //         <p className="text-[1rem]">
-    //           Lorem ipsum dolor sit amet consectetur adipisicing elit.
-    //           Voluptatem, molestias non! Vitae quasi aut nostrum hic aliquam
-    //           odio nihil
-    //         </p>
-    //       </div>
-    //     </div>
-    //     <div className="h-24 w-[400px] grid justify-items-stretch  items-center ">
-    //       <CornerUpLeft
-    //         size={80}
-    //         strokeWidth={0.5}
-    //         className="justify-self-start"
-    //       />
-    //     </div>
-    //   </div>
-    //   <div className="flex items-center justify-between">
-    //     <div className="w-[400px] h-32 border border-borderN rounded-[11px]"></div>
-    //     <Star size={80} strokeWidth={0.5} />
-    //     <div className="w-[400px] h-32 border border-borderN rounded-[11px]"></div>
-    //   </div>
-    //   <div className="flex justify-between items-center">
-    //     <div className="h-24 w-[400px] grid justify-items-stretch  items-center ">
-    //       <CornerDownRight
-    //         size={80}
-    //         strokeWidth={0.5}
-    //         className="justify-self-end"
-    //       />
-    //     </div>
-    //     <div className="h-32 w-[400px] border border-borderN mt-10 self-center rounded-[11px]"></div>
-    //     <div className="h-24 w-[400px] grid justify-items-stretch  items-center ">
-    //       <CornerRightUp
-    //         size={80}
-    //         strokeWidth={0.5}
-    //         className="justify-self-start"
-    //       />
-    //     </div>
-    //   </div>
-    // </div>
+    <section
+      id="AboutUs"
+      className="bg-bg text-primary-text font-para py-[2rem] min-h-[80vh]"
+    >
+      <div className="container text-center">
+        <h2 className="text-[2.5rem] lg:text-[3rem] font-fontPrimary pb-[1.5rem]">
+          Meet Our Team
+        </h2>
+        <div className="grid lg:grid-cols-4 grid-cols-1 gap-8 mx-auto">
+          {teamMembers.map((member) => (
+            <div
+              key={member.id}
+              className="inner border border-borderN p-[1rem] border-opacity-50 rounded-lg flex flex-col justify-center items-center"
+            >
+              <Image
+                src={member.image}
+                alt={'Image of ${member.name}'}
+                width={100}
+                height={100}
+                className="w-27 h-27 object-cover rounded-full mt-2"
+              />
+              <h2 className="mt-4 text-2xl font-fontPrimary">{member.name}</h2>
+              <p className="mt-2">{member.description}</p>
+
+              <div className="icons flex justify-center items-center gap-2 mt-[2rem]">
+                <a href={member.github}>
+                  {/* <GithubIcon /> */}
+
+                  <SvgGitHub />
+                </a>
+                <a href={member.twitter}>
+                  <SvgTwitter />
+                  {/* <Twitter /> */}
+                </a>
+                <a href={member.linkedIn}>
+                  <Linkedin />
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 };
 
-export default aboutUs;
+export default AboutUs;
