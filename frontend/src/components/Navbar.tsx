@@ -12,13 +12,13 @@ import { ModeToggle } from './ui/mode-toggle';
 import { Menu } from 'lucide-react';
 import { X } from 'lucide-react';
 import { useState } from 'react';
+import { Button } from './ui/button';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   // Function to toggle the menu
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-    console.log(isMenuOpen);
   };
   return (
     <header className="bg-bgN py-[1rem] border-b-[1px] z-40">
@@ -95,7 +95,15 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="flex items-center gap-6">
-          <div className="bg-bgN">
+          <div className="bg-bgN flex gap-3">
+            <Button
+              variant="secondary"
+              onClick={() => {
+                localStorage.removeItem('jwt');
+              }}
+            >
+              <Link href="/login">Logout</Link>
+            </Button>
             <ModeToggle />
           </div>
           {isMenuOpen ? (

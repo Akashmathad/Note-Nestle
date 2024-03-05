@@ -1,6 +1,6 @@
 'use client';
 import { AuthContext } from '@/context/AuthContextContainer';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import AddUnit from './AddUnit';
 import DeleteSubject from './DeleteSubject';
 import DeleteUnit from './DeleteUnit';
@@ -21,51 +21,12 @@ import { Loader2 } from 'lucide-react';
 
 const Subject = ({ params }) => {
   const { jwt } = useContext<any>(AuthContext);
-  // const [subjectDetails, setSubjectDetails] = useState<any>();
-  const [addUnitId, setAddUnitId] = useState<string>();
-  const [openAddFile, setOpenAddFile] = useState<boolean>(false);
-  const [openDeleteFile, setOpenDeleteFile] = useState<boolean>(false);
   const id: string = params.subject;
-  // const url = process.env.NEXT_PUBLIC_URL;
-
   const { data: subjectDetails, isFetching } = useQuery({
     queryKey: [`${id}`],
     queryFn: () => getSubject(jwt, id),
     enabled: Boolean(jwt),
   });
-
-  // useEffect(
-  //   function () {
-  //     async function fetchData() {
-  //       if (!jwt) {
-  //         return;
-  //       }
-  //       const req = await fetch(
-  //         `${url}/api/v1/note-nestle/subjects?_id=${id}`,
-  //         {
-  //           method: 'GET',
-  //           headers: {
-  //             'content-type': 'application/json',
-  //             authorization: `Bearer ${jwt}`,
-  //           },
-  //         }
-  //       );
-  //       const data = await req.json();
-  //       setSubjectDetails(data.data[0]);
-  //     }
-  //     fetchData();
-  //   },
-  //   [jwt, id]
-  // );
-
-  function getFiles(id: string) {
-    const files = subjectDetails.units.filter((unit) => unit._id === id)[0]
-      .files;
-    return files;
-  }
-  addUnitId && getFiles(addUnitId);
-
-  console.log(subjectDetails);
 
   return (
     <div className="container flex-grow py-[2rem]">
@@ -116,15 +77,7 @@ const Subject = ({ params }) => {
           <Loader2 className="mr-2 h-12 w-12 animate-spin" />
         ) : subjectDetails && subjectDetails.units.length !== 0 ? (
           subjectDetails.units.map((unit) => (
-            <Unit
-              id={id}
-              unitId={unit._id}
-              unit={unit}
-              key={unit._id}
-              setOpenAddFile={setOpenAddFile}
-              setAddUnitId={setAddUnitId}
-              setOpenDeleteFile={setOpenDeleteFile}
-            />
+            <Unit id={id} unitId={unit._id} unit={unit} key={unit._id} />
           ))
         ) : (
           <p className="text-[1.2rem]">No units found</p>

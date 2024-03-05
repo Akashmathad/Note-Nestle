@@ -10,17 +10,17 @@ const teamMembers = [
     name: 'Akash Mathad',
     image: '/AkashM.jpg',
     description:
-      'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perspiciatis nisi reprehenderit consectetur repudiandae, mollitia alias.',
-    github: 'github 1',
-    twitter: '',
-    linkedIn: '',
+      'Team lead, responsible for  Backend Architecture, Implemented backend using node JS and mongoDB. Responsible for overall Design of website, Implemented frontend using Next JS with Typescript.',
+    github: 'https://github.com/Akashmathad',
+    twitter: 'https://twitter.com/Akash_Mathad',
+    linkedIn: 'https://www.linkedin.com/in/akash-mathad-389203238/',
   },
   {
     id: 1,
     name: 'Om Vasudev',
     image: '/OmV.jpg',
     description:
-      'As a frontend developer, I developed the homepage of Notes Nestle using Next.js and Tailwind CSS, creating a user-friendly UI.',
+      'I contributed to crafting the homepage for Notes Nestle by utilizing Shadcn UI and Tailwind CSS to enhance the overall user interface.',
     github: 'https://github.com/OmVasudev',
     twitter: 'https://twitter.com/OmVasudev3',
     linkedIn: 'https://www.linkedin.com/in/om-vasudev-a14109244',
@@ -30,7 +30,7 @@ const teamMembers = [
     name: 'Apurva Upadhye',
     image: '/ApurvaU.jpg',
     description:
-      'I crafted a branches page with TypeScript. It offers enhanced functionality and robustness.',
+      'I contributed to the creation of the Branches for Notes Nestle using shad cn ui and Tailwind CSS.',
     github: 'https://github.com/Apurva-Upadhye',
     twitter: 'https://twitter.com/ApurvaUpad96142',
     linkedIn: 'https://www.linkedin.com/in/apurva-upadhye-8b8786244',
@@ -40,7 +40,7 @@ const teamMembers = [
     name: 'Arham Mulla',
     image: '/ArhamM.jpg',
     description:
-      'I designed the About Us page using Next.js for functionality and Tailwind CSS for a polished and responsive appearance.',
+      "As a frontend developer,designed the 'About Us' page with stylish and responsive design using Tailwind CSS and the ShadCN UI.",
     github: 'https://github.com/ArhamMulla',
     twitter: 'https://twitter.com/Arham_Mulla_',
     linkedIn: 'https://in.linkedin.com/in/arham-mulla-b9ba2b246',
@@ -71,20 +71,22 @@ const AboutUs = () => {
                 height={100}
                 className="w-27 h-27 object-cover rounded-full mt-2"
               />
-              <h2 className="mt-4 text-2xl font-fontPrimary">{member.name}</h2>
-              <p className="mt-2">{member.description}</p>
+              <h2 className="mt-4 text-3xl lg:text-2xl font-fontPrimary tracking-[2.5px]">
+                {member.name}
+              </h2>
+              <p className="mt-2 sd:text-[1.3rem]">{member.description}</p>
 
-              <div className="icons flex justify-center items-center gap-2 mt-[2rem]">
-                <a href={member.github}>
+              <div className="icons flex justify-center items-center gap-6 mt-[2rem] ">
+                <a target="_blank" href={member.github}>
                   {/* <GithubIcon /> */}
 
                   <SvgGitHub />
                 </a>
-                <a href={member.twitter}>
+                <a target="_blank" href={member.twitter}>
                   <SvgTwitter />
                   {/* <Twitter /> */}
                 </a>
-                <a href={member.linkedIn}>
+                <a target="_blank" href={member.linkedIn}>
                   <Linkedin />
                 </a>
               </div>

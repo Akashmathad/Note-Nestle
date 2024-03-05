@@ -40,7 +40,6 @@ function FileDisplay({ id, unitId, file }) {
       );
 
       const data = await req.json();
-      console.log(data);
       downloadFile(data.link);
     } catch {
       toast.error('Something went wrong', {
@@ -62,13 +61,12 @@ function FileDisplay({ id, unitId, file }) {
         }
       );
       const data = await req.json();
-      console.log(data.link);
+
       if (data.link) {
         // Open the URL in a new tab
         window.open(data.link);
       }
     } catch (error) {
-      console.log(error);
       toast.error('Something went wrong', {
         className: 'toast toast-fail',
       });

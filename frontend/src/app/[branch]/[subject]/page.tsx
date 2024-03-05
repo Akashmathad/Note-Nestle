@@ -12,44 +12,12 @@ import { Loader2 } from 'lucide-react';
 const Subject = ({ params }) => {
   const { jwt } = useContext<any>(AuthContext);
   const router = useRouter();
-  // const [subjectDetails, setSubjectDetails] = useState<any>();
-  // const url = process.env.NEXT_PUBLIC_URL;
 
   const { data: subjectDetails, isFetching } = useQuery({
     queryKey: [`${params.subject}`],
     queryFn: () => getSubject(jwt, params.subject),
     enabled: Boolean(jwt),
   });
-
-  // useEffect(
-  //   function () {
-  //     async function fetchData() {
-  //       if (!jwt) {
-  //         return;
-  //       }
-  //       try {
-  //         const req = await fetch(
-  //           `${url}/api/v1/note-nestle/subjects?_id=${params.subject}`,
-  //           {
-  //             method: 'GET',
-  //             headers: {
-  //               'content-type': 'application/json',
-  //               authorization: `Bearer ${jwt}`,
-  //             },
-  //           }
-  //         );
-  //         const data = await req.json();
-  //         setSubjectDetails(data.data[0]);
-  //       } catch {
-  //         toast.error('Something went wrong, Please refresh the page', {
-  //           className: 'toast toast-fail',
-  //         });
-  //       }
-  //     }
-  //     fetchData();
-  //   },
-  //   [jwt, params]
-  // );
 
   return (
     <div className="container flex-grow  py-[2rem]">

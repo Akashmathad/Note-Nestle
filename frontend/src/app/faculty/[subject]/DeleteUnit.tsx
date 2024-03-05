@@ -31,7 +31,6 @@ const DeleteUnit = ({ id, subjectDetails }) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(unitName);
     const newUnitId = subjectDetails.units.filter(
       (unit) => unit.name === unitName
     )[0]?._id;

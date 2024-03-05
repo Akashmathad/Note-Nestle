@@ -1,6 +1,6 @@
 'use client';
 import { AuthContext } from '@/context/AuthContextContainer';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import SubjectDisplay from '@/app/faculty/[subject]/SubjectDisplay';
 import AddSubject from './[subject]/AddSubject';
 import { Sheet, SheetTrigger } from '@/components/ui/sheet';
@@ -13,7 +13,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { SelectGroup, SelectLabel } from '@radix-ui/react-select';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import { useQuery } from '@tanstack/react-query';
 import { getBranchSubjects } from '@/services/apiBranches';
 import Search from '@/components/Search';

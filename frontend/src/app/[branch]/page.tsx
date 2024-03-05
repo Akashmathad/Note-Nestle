@@ -48,14 +48,6 @@ const Branch = ({ params }) => {
     }
   }
 
-  // if (isFetching) {
-  //   return (
-  //     <div className="container flex-grow py-[3rem]">
-  //       <Loader2 className="mr-2 h-8 w-8 animate-spin" />
-  //     </div>
-  //   );
-  // }
-
   return (
     <div className="container flex-grow py-[3rem]">
       <div className="flex flex-col lg:flex-row gap-5 items-center justify-between">

@@ -6,16 +6,7 @@ import UploadFile from './UploadFile';
 
 import DeleteFiles from './DeleteFiles';
 
-function Unit({
-  id,
-  unitId,
-  unit,
-  setOpenAddFile,
-  setAddUnitId,
-  setOpenDeleteFile,
-}) {
-  // const [openUpload, setOpenUpload] = useState(false);
-  // const [openDelete, setOpenDelete] = useState(false);
+function Unit({ id, unitId, unit }) {
   const files = unit.files;
 
   return (

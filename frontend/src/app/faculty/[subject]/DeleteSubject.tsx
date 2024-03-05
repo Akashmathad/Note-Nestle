@@ -22,7 +22,6 @@ const DeleteSubject = ({ id, name }) => {
           method: 'DELETE',
         }
       );
-      console.log(req.ok);
       router.push('/faculty');
       toast.success('Subject deleted', {
         className: 'toast toast-success',

@@ -3,9 +3,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { AuthContext } from '@/context/AuthContextContainer';
 import { Loader2, UnlockKeyhole, User } from 'lucide-react';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -29,8 +28,6 @@ const LoginPage = () => {
         body: JSON.stringify(data),
       });
       const data1 = await req.json();
-      console.log(req.ok);
-      console.log(data1);
 
       if (req.ok) {
         storeUserAndJwt(data1.data, data1.token);
