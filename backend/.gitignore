@@ -12,7 +12,7 @@ dist
 dist-ssr
 *.local
 prettier.config.cjs
-config.env
+.env
 *.ppt
 *.pdf
 *.pptx
